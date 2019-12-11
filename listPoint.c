@@ -171,3 +171,55 @@ float getYListPoint3D(listPoint3D listPoint, int i){
 float getZListPoint3D(listPoint3D listPoint, int i){
     return getZPoint3D(listPoint.point[i]);
 }
+
+int getTailleList2D(listPoint2D listPoint){
+    return listPoint.taille;
+}
+
+int getTailleList3D(listPoint3D listPoint){
+    return listPoint.taille;
+}
+
+void setXListPoint2D(listPoint2D *listPoint, float a, int i){
+    setXPoint2D(&listPoint->point[i],a);
+}
+
+void setYListPoint2D(listPoint2D *listPoint, float a, int i){
+    setYPoint2D(&listPoint->point[i],a);
+}
+
+void setXListPoint3D(listPoint3D *listPoint, float a, int i){
+    setXPoint3D(&listPoint->point[i],a);
+}
+
+void setYListPoint3D(listPoint3D *listPoint, float a, int i){
+    setYPoint3D(&listPoint->point[i],a);
+}
+
+void setZListPoint3D(listPoint3D *listPoint, float a, int i){
+    setZPoint3D(&listPoint->point[i],a);
+}
+
+void setListPoint3D(listPoint3D *listPoint, float x2, float y2, float z2, int i){
+    setPoint3D(&listPoint->point[i], x2, y2, z2);
+}
+
+void setListPoint2D(listPoint2D *listPoint, float x2, float y2, int i){
+    setPoint2D(&listPoint->point[i], x2, y2);
+}
+
+listPoint3D projectionOnParaboloid(listPoint2D listPoint, float a, float b){
+    if(a == 0 || b == 0){
+    }
+    else{
+        listPoint3D newList = constructListPoint3D(getTailleList2D(listPoint));
+        float x2 = 0., y2 = 0., z2 = 0.;
+        for(int i=0; i<getTailleList2D(listPoint); i++){
+            x2 = getXListPoint2D(listPoint, i);
+            y2 = getYListPoint2D(listPoint, i);
+            z2 = (x2/a)*(x2/a) + (y2/b)*(y2/b);
+            setListPoint3D(&newList, x2, y2, z2, i); 
+        }
+        return newList;
+    }
+}

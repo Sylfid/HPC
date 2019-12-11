@@ -29,5 +29,15 @@ float getXListPoint2D(listPoint2D listPoint, int i);
 float getYListPoint2D(listPoint2D listPoint, int i);
 float getXListPoint3D(listPoint3D listPoint, int i);
 float getYListPoint3D(listPoint3D listPoint, int i);
+float getZListPoint3D(listPoint3D listPoint, int i);
+int getTailleList2D(listPoint2D listPoint);
+int getTailleList3D(listPoint3D listPoint);
+void setXListPoint2D(listPoint2D *listPoint, float a, int i);
+void setYListPoint2D(listPoint2D *listPoint, float a, int i);
+void setXListPoint3D(listPoint3D *listPoint, float a, int i);
+void setYListPoint3D(listPoint3D *listPoint, float a, int i);
+void setZListPoint3D(listPoint3D *listPoint, float a, int i);
+void setListPoint3D(listPoint3D *listPoint, float x2, float y2, float z2, int i);
+void setListPoint2D(listPoint2D *listPoint, float x2, float y2, int i);
 
 #endif

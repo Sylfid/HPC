@@ -38,12 +38,23 @@ void setPoint3D(Point3D *point, float x2, float y2, float z2){
 }
 
 void setXPoint2D(Point2D *point, float x2){
-    //printf("%f\n", x2);
     point->x = x2;
 }
 
 void setYPoint2D(Point2D *point, float y2){
     point->y = y2;
+}
+
+void setXPoint3D(Point3D *point, float x2){
+    point->x = x2;
+}
+
+void setYPoint3D(Point3D *point, float y2){
+    point->y = y2;
+}
+
+void setZPoint3D(Point3D *point, float z2){
+    point->z = z2;
 }
 
 float getXPoint2D(Point2D point){
@@ -65,3 +76,4 @@ float getYPoint3D(Point3D point){
 float getZPoint3D(Point3D point){
     return point.z;
 }
+
