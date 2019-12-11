@@ -13,7 +13,7 @@
 // val < 0 --> Counterclockwise
 // return True si c'est antihoraire
 bool orientation(Point2D p, Point2D q, Point2D r) {
-  int val = (q.y - p.y) * (r.x - q.x) - (q.x - p.x) * (r.y - q.y);
+  float val = (q.y - p.y) * (r.x - q.x) - (q.x - p.x) * (r.y - q.y);
   return val<0;
 }
 
@@ -52,14 +52,13 @@ listPoint2D Convex_Hull(listPoint2D pts){
   do{
     // addListPoint2D(hull, getPoint2D(pts, p))
     q = (p + 1) % n;
-    for (int i = 0; i < n; i++){
-      // On cherche le point q tq orientation(p, x, q) est counterclockwise
-      // pour tout les point x.
-      if (orientation(getPoint2D(pts,p), getPoint2D(pts,i), getPoint2D(pts,q))){
-        q = i;
+    for (int x = 0; x < n; x++){
+      // On cherche le point q le plus "counterclockwise"
+      if (orientation(getPoint2D(pts,p), getPoint2D(pts,x), getPoint2D(pts,q))){
+        q = x; // x est plus "counterclockwise" que q
       }
     }
-    p = q;
+    p = q; // à la fin c'est q le plus "counterclockwise"
   } while (p != l);  // On continu jusqu'a revenir au 1er
 
   return hull;
