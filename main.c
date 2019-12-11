@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "point.h"
+#include "listPoint.h"
 
 
 int main()
@@ -8,8 +9,10 @@ int main()
 {
 
     printf("Hello world!\n");
-    Point2D test =  constructPoint2D(1,2);
-
+    Point3D test =  constructPoint3D(1.2,2.66, 4.3);
+    listPoint2D list = constructListPoint2D(5);
+    set
+    displayPoint3D(test);
     return 0;
 
 }

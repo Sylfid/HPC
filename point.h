@@ -13,3 +13,8 @@ struct Point3D{
 };
 
 Point2D constructPoint2D(float x1, float y1);
+Point3D constructPoint3D(float x1, float y1, float z1);
+void displayPoint2D(Point2D point);
+void displayPoint3D(Point3D point);
+void setPoint2D(Point2D point, float x2, float y2);
+void setPoint3D(Point3D point, float x2, float y2, float z2);
