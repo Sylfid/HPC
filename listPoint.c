@@ -226,7 +226,7 @@ listPoint3D projectionOnParaboloid(listPoint2D listPoint, float a, float b){
             x2 = getXListPoint2D(listPoint, i);
             y2 = getYListPoint2D(listPoint, i);
             z2 = (x2/a)*(x2/a) + (y2/b)*(y2/b);
-            setListPoint3D(&newList, x2, y2, z2, i); 
+            setListPoint3D(&newList, x2, y2, z2, i);
         }
         return newList;
     }
@@ -247,4 +247,15 @@ void addPoint2D(listPoint2D *listPoint, float x2, float y2){
     listPoint->taille++;
     listPoint->point = realloc(listPoint->point, listPoint->taille);
     setListPoint2D(listPoint, x2, y2, listPoint->taille-1);
+}
+
+listPoint2D projection(listPoint2D listPoint, int j){
+  Point2D p = getPoint2D(listPoint, j);
+  float py = getXPoint2D(p);
+  int n = getTailleList2D(listPoint);
+  listPoint2D nwList = constructListPoint2D(n);
+  for(int i = 0; i<n ; i++){
+    setListPoint2D(nwList,getYListPoint2D(listPoint,i)-py, sqrt_dif(py, getPoint2D(listPoint, i), i);
+  }
+  return nwList;
 }
