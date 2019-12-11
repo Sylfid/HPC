@@ -44,6 +44,7 @@ listPoint2D constructListPoint2DFromFile(char* fileName){
         }
         newList.point = (Point2D*) malloc(tailleList * sizeof(Point2D));
         newList.taille = tailleList;
+        printf("%d \n", tailleList);
         a = fgetc(file);
         while(a != EOF && flag){
             if(a>47 && a<58){
@@ -55,13 +56,14 @@ listPoint2D constructListPoint2DFromFile(char* fileName){
                     valeur = valeur*10 + (a-48);
                 }
                 else{
-                    valeur = valeur + pow(10,-compteurDec)*(a-48);
+                    valeur = valeur + pow(10.,-(double)compteurDec)*(a-48);
                 }
             }
             else if(a == 32){
                 if(lecNb){
                     if(composante == 0){
-                        setXPoint2D(newList.point[compteurPoint],negativite*valeur);
+                        setXPoint2D(&newList.point[compteurPoint],negativite*valeur);
+                        //printf("%f aa \n", getXPoint2D(newList.point[compteurPoint]));
                     }
                     else{
                         printf("Il y a trop d'argument sur la ligne %d \n", compteurPoint);
@@ -76,7 +78,7 @@ listPoint2D constructListPoint2DFromFile(char* fileName){
                 lecNb = 0;
             }
             else if(a == 10){
-                setYPoint2D(newList.point[compteurPoint], negativite * valeur);
+                setYPoint2D(&newList.point[compteurPoint], negativite * valeur);
                 composante = 0;
                 valeur = 0.;
                 decimal = 0;
@@ -107,7 +109,9 @@ listPoint2D constructListPoint2DFromFile(char* fileName){
         }
         if(compteurPoint != newList.taille){
             printf("Le fichier est mal calibre\n");
+            exit(1);
         }
+        return newList;
 
         fclose(file);
     }
@@ -118,15 +122,15 @@ listPoint2D constructListPoint2DFromFile(char* fileName){
     }
 }
 
-void setListPoint2DToZero(listPoint2D listPoint){
-    for(int i=0; i<listPoint.taille; i++){
-        setPoint2D(listPoint.point[i], 0., 0.);
+void setListPoint2DToZero(listPoint2D *listPoint){
+    for(int i=0; i<listPoint->taille; i++){
+        setPoint2D(&listPoint->point[i], 0., 0.);
     }
 }
 
-void setListPoint3DToZero(listPoint3D listPoint){
-    for(int i=0; i<listPoint.taille; i++){
-        setPoint3D(listPoint.point[i], 0., 0., 0.);
+void setListPoint3DToZero(listPoint3D *listPoint){
+    for(int i=0; i<listPoint->taille; i++){
+        setPoint3D(&listPoint->point[i], 0., 0., 0.);
     }
 }
 

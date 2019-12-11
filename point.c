@@ -26,21 +26,30 @@ void displayPoint3D(Point3D point){
     printf("%f %f %f\n", point.x, point.y, point.z);
 }
 
-void setPoint2D(Point2D point, float x2, float y2){
-    point.x = x2;
-    point.y = y2;
+void setPoint2D(Point2D *point, float x2, float y2){
+    point->x = x2;
+    point->y = y2;
 }
 
-void setPoint3D(Point3D point, float x2, float y2, float z2){
-    point.x = x2;
-    point.y = y2;
-    point.z = z2;
+void setPoint3D(Point3D *point, float x2, float y2, float z2){
+    point->x = x2;
+    point->y = y2;
+    point->z = z2;
 }
 
-void setXPoint2D(Point2D point, float x2){
-    point.x = x2;
+void setXPoint2D(Point2D *point, float x2){
+    //printf("%f\n", x2);
+    point->x = x2;
 }
 
-void setYPoint2D(Point2D point, float y2){
-    point.y = y2;
+void setYPoint2D(Point2D *point, float y2){
+    point->y = y2;
+}
+
+float getXPoint2D(Point2D point){
+    return point.x;
+}
+
+float getYPoint2D(Point2D point){
+    return point.y;
 }
