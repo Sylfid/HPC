@@ -53,3 +53,15 @@ float getXPoint2D(Point2D point){
 float getYPoint2D(Point2D point){
     return point.y;
 }
+
+float getXPoint3D(Point3D point){
+    return point.x;
+}
+
+float getYPoint3D(Point3D point){
+    return point.y;
+}
+
+float getZPoint3D(Point3D point){
+    return point.z;
+}

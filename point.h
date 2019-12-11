@@ -25,5 +25,8 @@ void setXPoint2D(Point2D *point, float x2);
 void setYPoint2D(Point2D *point, float y2);
 float getXPoint2D(Point2D point);
 float getYPoint2D(Point2D point);
+float getXPoint3D(Point3D point);
+float getYPoint3D(Point3D point);
+float getZPoint3D(Point3D point);
 
 #endif

@@ -147,3 +147,27 @@ void displayListPoint3D(listPoint3D listPoint){
         printf("\n");
     }
 }
+
+Point2D getPoint2D(listPoint2D listPoint, int i){
+    return listPoint.point[i];
+}
+
+float getXListPoint2D(listPoint2D listPoint, int i){
+    return getXPoint2D(listPoint.point[i]);
+}
+
+float getYListPoint2D(listPoint2D listPoint, int i){
+    return getYPoint2D(listPoint.point[i]);
+}
+
+float getXListPoint3D(listPoint3D listPoint, int i){
+    return getXPoint3D(listPoint.point[i]);
+}
+
+float getYListPoint3D(listPoint3D listPoint, int i){
+    return getYPoint3D(listPoint.point[i]);
+}
+
+float getZListPoint3D(listPoint3D listPoint, int i){
+    return getZPoint3D(listPoint.point[i]);
+}
