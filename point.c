@@ -36,3 +36,11 @@ void setPoint3D(Point3D point, float x2, float y2, float z2){
     point.y = y2;
     point.z = z2;
 }
+
+void setXPoint2D(Point2D point, float x2){
+    point.x = x2;
+}
+
+void setYPoint2D(Point2D point, float y2){
+    point.y = y2;
+}

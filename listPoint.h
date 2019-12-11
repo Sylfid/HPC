@@ -23,5 +23,6 @@ void setListPoint2DToZero(listPoint2D listPoint);
 void setListPoint3DToZero(listPoint3D listPoint);
 void displayListPoint2D(listPoint2D listPoint);
 void displayListPoint3D(listPoint3D listPoint);
+listPoint2D constructListPoint2DFromFile(char* fileName);
 
 #endif
