@@ -19,11 +19,11 @@ Point3D constructPoint3D(float x1, float y1, float z1){
 
 
 void displayPoint2D(Point2D point){
-    printf("%f %f", point.x, point.y);
+    printf("%f %f\n", point.x, point.y);
 }
 
 void displayPoint3D(Point3D point){
-    printf("%f %f %f", point.x, point.y, point.z);
+    printf("%f %f %f\n", point.x, point.y, point.z);
 }
 
 void setPoint2D(Point2D point, float x2, float y2){

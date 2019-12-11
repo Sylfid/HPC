@@ -1,3 +1,6 @@
+#ifndef POINT
+#define POINT
+
 typedef struct Point2D Point2D;
 typedef struct Point3D Point3D;
 
@@ -18,3 +21,5 @@ void displayPoint2D(Point2D point);
 void displayPoint3D(Point3D point);
 void setPoint2D(Point2D point, float x2, float y2);
 void setPoint3D(Point3D point, float x2, float y2, float z2);
+
+#endif

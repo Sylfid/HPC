@@ -1,3 +1,7 @@
+#ifndef LISTPOINT
+#define LISTPOINT
+
+
 #include "point.h"
 
 typedef struct listPoint2D listPoint2D;
@@ -13,5 +17,11 @@ struct listPoint3D{
     Point3D* point;
 };
 
-void setListToZero(listPoint2D listPoint);
-void displayListPoint(listPoint2D listPoint);
+listPoint2D constructListPoint2D(int taille2);
+listPoint3D constructListPoint3D(int taille2);
+void setListPoint2DToZero(listPoint2D listPoint);
+void setListPoint3DToZero(listPoint3D listPoint);
+void displayListPoint2D(listPoint2D listPoint);
+void displayListPoint3D(listPoint3D listPoint);
+
+#endif
