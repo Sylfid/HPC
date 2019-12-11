@@ -31,5 +31,7 @@ float getYPoint2D(Point2D point);
 float getXPoint3D(Point3D point);
 float getYPoint3D(Point3D point);
 float getZPoint3D(Point3D point);
+float sqrt_dif(Point2D p1, Point2D p2);
+bool orientation(Point2D p1, Point2D p2, Point2D p3);
 
 #endif
