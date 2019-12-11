@@ -231,3 +231,20 @@ listPoint3D projectionOnParaboloid(listPoint2D listPoint, float a, float b){
         return newList;
     }
 }
+
+void setListPoint2DFromPoint(listPoint2D *listPoint, Point2D point, int i){
+    setXListPoint2D(listPoint, getXPoint2D(point), i);
+    setYListPoint2D(listPoint, getYPoint2D(point), i);
+}
+
+void addPoint2DFromPoint(listPoint2D *listPoint, Point2D point){
+    listPoint->taille++;
+    listPoint->point = realloc(listPoint->point, listPoint->taille);
+    setListPoint2DFromPoint(listPoint, point, listPoint->taille-1);
+}
+
+void addPoint2D(listPoint2D *listPoint, float x2, float y2){
+    listPoint->taille++;
+    listPoint->point = realloc(listPoint->point, listPoint->taille);
+    setListPoint2D(listPoint, x2, y2, listPoint->taille-1);
+}
