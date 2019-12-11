@@ -18,6 +18,14 @@ listPoint3D constructListPoint3D(int taille2){
     return newListPoint;
 }
 
+void freeListPoint2D(listPoint2D* listPoint){
+    free(listPoint->point);
+}
+
+void freeListPoint3D(listPoint3D* listPoint){
+    free(listPoint->point);
+}
+
 listPoint2D constructListPoint2DFromFile(char* fileName){
     FILE* file = NULL;
     file = fopen(fileName, "r");
@@ -102,8 +110,8 @@ listPoint2D constructListPoint2DFromFile(char* fileName){
                 negativite = -1;
             }
             else{
-                printf("Un caractere du fichier est illisible ");
-                printf("\n");
+                printf("Un caractere du fichier est illisible : ");
+                printf("%c\n", a);
             }
             a = fgetc(file);
         }
@@ -111,13 +119,13 @@ listPoint2D constructListPoint2DFromFile(char* fileName){
             printf("Le fichier est mal calibre\n");
             exit(1);
         }
+        fclose(file);
         return newList;
 
-        fclose(file);
     }
     else{
         printf("Impossible d'ouvrir le fichier ");
-        printf(fileName);
+        printf("%s\n", fileName);
         exit(1);
     }
 }
