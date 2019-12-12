@@ -369,4 +369,5 @@ listPoint2D findPointsPath(listPoint2D pts, int nbproces){
     int pas = floor(getTailleList2D(pts)/nbproces);
     setListPoint2DFromPoint(&pointsPath, getPoint2D(pts, i*pas), i-1);
   }
+  return pointsPath;
 }
