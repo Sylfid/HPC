@@ -42,7 +42,9 @@ void setYListPoint3D(listPoint3D *listPoint, float a, int i);
 void setZListPoint3D(listPoint3D *listPoint, float a, int i);
 void setListPoint3D(listPoint3D *listPoint, float x2, float y2, float z2, int i);
 void setListPoint2D(listPoint2D *listPoint, float x2, float y2, int i);
+void setListPoint2DFromPoint(listPoint2D *listPoint, Point2D point, int i);
 void addPoint2DFromPoint(listPoint2D *listPoint, Point2D point);
 listPoint2D projection(listPoint2D listPoint, int i);
+listPoint2D Convex_Hull(listPoint2D pts);
 
 #endif

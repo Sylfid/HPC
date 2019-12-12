@@ -38,19 +38,19 @@ listPoint2D ConvexHull(listPoint2D pts){
   // trouver le point le plus gauche
   int l = 0;
   for(int i = 1; i < n; i++) {
-    if(getXListPoint2D(pts,i) < getYListPoint2D(pts,l)){
+    if(getXListPoint2D(pts,i) < getXListPoint2D(pts,l)){
       l=i;
     }
   }
 
   // init res avec le point le plus à gauche
-  listPoint2D hull = constructListPoint2D(0); // le 0 ça marche ??
-  // setListPoint2D(hull, getPoint2D(pts, l), 0);
+  listPoint2D hull = constructListPoint2D(0);
 
   // Construction hull
   int p = l, q;
+  bool flag = false;
   do{
-    // addListPoint2D(hull, getPoint2D(pts, p))
+    addPoint2DFromPoint(&hull, getPoint2D(pts, p));
     q = (p + 1) % n;
     for (int x = 0; x < n; x++){
       // On cherche le point q le plus "counterclockwise"
@@ -58,8 +58,9 @@ listPoint2D ConvexHull(listPoint2D pts){
         q = x; // x est plus "counterclockwise" que q
       }
     }
+    flag = getXListPoint2D(pts, p) > getXListPoint2D(pts, q);
     p = q; // à la fin c'est q le plus "counterclockwise"
-  } while (p != l);  // On continu jusqu'a revenir au 1er
+  } while (p != l && !flag);  // On continu jusqu'a revenir au 1er
 
   return hull;
 }

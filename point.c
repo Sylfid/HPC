@@ -80,13 +80,13 @@ float getZPoint3D(Point3D point){
 }
 
 float sqrt_dif(Point2D p1, Point2D p2){
-  \\ ||p1-p2||^2
+  // ||p1-p2||^2
   return pow(getXPoint2D(p1)-getXPoint2D(p2),2.)+pow(getYPoint2D(p1)-getYPoint2D(p2),2.);
 }
 
 bool orientation(Point2D p1, Point2D p2, Point2D p3){
   // return True si (p1, p2, p3) est un triangle antihoraire
-  float val1 = (getYPoint2D(p2) - getYPoint2D(p1)) * (getXPoint2D(p3) - getXPoint2D(p2))
+  float val1 = (getYPoint2D(p2) - getYPoint2D(p1)) * (getXPoint2D(p3) - getXPoint2D(p2));
   float val2 = (getXPoint2D(p2) - getXPoint2D(p1)) * (getYPoint2D(p3) - getYPoint2D(p2));
   return val1<val2;
 }

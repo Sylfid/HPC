@@ -3,11 +3,17 @@
 #include "listPoint.h"
 #include "point.h"
 #include <math.h>
+#include <stdbool.h>
 
 listPoint2D constructListPoint2D(int taille2){
     listPoint2D newListPoint;
     newListPoint.taille = taille2;
-    newListPoint.point = (Point2D*) malloc(taille2*sizeof(Point2D));
+    if(taille2 == 0){
+        newListPoint.point = NULL;
+    }
+    else{
+        newListPoint.point = (Point2D*) malloc(taille2*sizeof(Point2D));
+    }
     return newListPoint;
 }
 
@@ -157,14 +163,26 @@ void displayListPoint3D(listPoint3D listPoint){
 }
 
 Point2D getPoint2D(listPoint2D listPoint, int i){
+    if(i >= listPoint.taille || i<0){
+        printf("getPoint2D : le numero du point est invalide");
+        exit(1);
+    }
     return listPoint.point[i];
 }
 
 float getXListPoint2D(listPoint2D listPoint, int i){
+    if(i >= listPoint.taille || i<0){
+        printf("getXListPoint2D : le numero du point est invalide");
+        exit(1);
+    }
     return getXPoint2D(listPoint.point[i]);
 }
 
 float getYListPoint2D(listPoint2D listPoint, int i){
+    if(i >= listPoint.taille || i<0){
+        printf("getYListPoint2D : le numero du point est invalide");
+        exit(1);
+    }
     return getYPoint2D(listPoint.point[i]);
 }
 
@@ -189,10 +207,20 @@ int getTailleList3D(listPoint3D listPoint){
 }
 
 void setXListPoint2D(listPoint2D *listPoint, float a, int i){
-    setXPoint2D(&listPoint->point[i],a);
+    if(i >= listPoint->taille || i<0){
+        printf("setXListPoint2D : le numero du point est invalide\n");
+        exit(1);
+    }
+    printf("%d %d\n",listPoint->taille, i); 
+    //setXPoint2D(&listPoint->point[i],a);
+    listPoint->point[i].x = a;
 }
 
 void setYListPoint2D(listPoint2D *listPoint, float a, int i){
+    if(i >= listPoint->taille || i<0){
+        printf("setYListPoint2D : le numero du point est invalide\n");
+        exit(1);
+    }
     setYPoint2D(&listPoint->point[i],a);
 }
 
@@ -213,6 +241,10 @@ void setListPoint3D(listPoint3D *listPoint, float x2, float y2, float z2, int i)
 }
 
 void setListPoint2D(listPoint2D *listPoint, float x2, float y2, int i){
+    if(i >= listPoint->taille || i<0){
+        printf("setListPoint2D : le numero du point est invalide");
+        exit(1);
+    }
     setPoint2D(&listPoint->point[i], x2, y2);
 }
 
@@ -233,19 +265,23 @@ listPoint3D projectionOnParaboloid(listPoint2D listPoint, float a, float b){
 }
 
 void setListPoint2DFromPoint(listPoint2D *listPoint, Point2D point, int i){
+    if(i >= listPoint->taille || i<0){
+        printf("setListPoint2DFromPoint : le numero du point est invalide\n");
+        exit(1);
+    }
     setXListPoint2D(listPoint, getXPoint2D(point), i);
     setYListPoint2D(listPoint, getYPoint2D(point), i);
 }
 
 void addPoint2DFromPoint(listPoint2D *listPoint, Point2D point){
     listPoint->taille++;
-    listPoint->point = realloc(listPoint->point, listPoint->taille);
+    listPoint->point = realloc(listPoint->point, listPoint->taille*sizeof(listPoint2D));
     setListPoint2DFromPoint(listPoint, point, listPoint->taille-1);
 }
 
 void addPoint2D(listPoint2D *listPoint, float x2, float y2){
     listPoint->taille++;
-    listPoint->point = realloc(listPoint->point, listPoint->taille);
+    listPoint->point = realloc(listPoint->point, listPoint->taille*sizeof(listPoint2D));
     setListPoint2D(listPoint, x2, y2, listPoint->taille-1);
 }
 
@@ -255,7 +291,52 @@ listPoint2D projection(listPoint2D listPoint, int j){
   int n = getTailleList2D(listPoint);
   listPoint2D nwList = constructListPoint2D(n);
   for(int i = 0; i<n ; i++){
-    setListPoint2D(nwList,getYListPoint2D(listPoint,i)-py, sqrt_dif(py, getPoint2D(listPoint, i), i);
+    setListPoint2D(&nwList,getYListPoint2D(listPoint,i)-py, sqrt_dif(p, getPoint2D(listPoint, i)), i);
   }
   return nwList;
+}
+
+
+
+// Calcul de l'envelope convexe
+/* source :
+https://www.geeksforgeeks.org/convex-hull-set-1-jarviss-algorithm-or-wrapping/
+*/
+listPoint2D Convex_Hull(listPoint2D pts){
+  int n = getTailleList2D(pts);
+
+  // Il faut plus de 3 points
+  if (n < 3){
+    printf("pas assez de point \n");
+    exit(1);
+  }
+
+  // trouver le point le plus gauche
+  int l = 0;
+  for(int i = 1; i < n; i++) {
+    if(getXListPoint2D(pts,i) < getXListPoint2D(pts,l)){
+      l=i;
+    }
+  }
+
+  // init res avec le point le plus à gauche
+  listPoint2D hull = constructListPoint2D(0);
+
+  // Construction hull
+  int p = l, q;
+  bool flag = false;
+  do{
+    addPoint2DFromPoint(&hull, getPoint2D(pts, p));
+    q = (p + 1) % n;
+    for (int x = 0; x < n; x++){
+      // On cherche le point q le plus "counterclockwise"
+      if (orientation(getPoint2D(pts,p), getPoint2D(pts,x), getPoint2D(pts,q))){
+        q = x; // x est plus "counterclockwise" que q
+      }
+    }
+    flag = (getXListPoint2D(pts, p) > getXListPoint2D(pts, q));
+    p = q; // à la fin c'est q le plus "counterclockwise"
+  } while (p != l && !flag);  // On continu jusqu'a revenir au 1er*/
+
+  return hull;
 }
