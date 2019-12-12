@@ -24,9 +24,9 @@ float getYListPoint2D(listPoint2D listPoint, int i);
 // ------ setteur
 void setListPoint2DToZero(listPoint2D *listPoint);
 void setListPoint2D(listPoint2D *listPoint, float x2, float y2, int i);
-void setListPoint2DFromPoint(listPoint2D *listPoint, Point2D point, int i)
+void setListPoint2DFromPoint(listPoint2D *listPoint, Point2D point, int i);
 void setXListPoint2D(listPoint2D *listPoint, float a, int i);
-void setYListPoint2D(listPoint2D *listPoint, float a, int i);;
+void setYListPoint2D(listPoint2D *listPoint, float a, int i);
 // ------ fonction classe autre
 void addPoint2D(listPoint2D *listPoint, float x2, float y2);
 void addPoint2DFromPoint(listPoint2D *listPoint, Point2D point);

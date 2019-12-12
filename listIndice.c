@@ -84,6 +84,7 @@ listIndice Convex_HullIndice(listPoint2D pts){
 
 listPoint2D getLeftSideList(listPoint2D listPoint, listIndice separator){
     // Retourne les points qui sont à gauche de la ligne separatorlistPoint2D result = constructListPoint2D(0);
+    listPoint2D result = constructListPoint2D(0);
     for(int i=0; i<listPoint.taille; i++){
         for(int j=0; j<separator.taille-1; j++){
             if(getYPoint2D(listPoint.point[separator.indice[j]]) < getYPoint2D(listPoint.point[i])
