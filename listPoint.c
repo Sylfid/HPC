@@ -285,13 +285,12 @@ void addPoint2D(listPoint2D *listPoint, float x2, float y2){
     setListPoint2D(listPoint, x2, y2, listPoint->taille-1);
 }
 
-listPoint2D projection(listPoint2D listPoint, int j){
-  Point2D p = getPoint2D(listPoint, j);
-  float py = getXPoint2D(p);
+listPoint2D projection(listPoint2D listPoint, Point2D point){
+  float py = getYPoint2D(point);
   int n = getTailleList2D(listPoint);
   listPoint2D nwList = constructListPoint2D(n);
   for(int i = 0; i<n ; i++){
-    setListPoint2D(&nwList,getYListPoint2D(listPoint,i)-py, sqrt_dif(p, getPoint2D(listPoint, i)), i);
+    setListPoint2D(&nwList,getYListPoint2D(listPoint,i)-py, sqrt_dif(point, getPoint2D(listPoint, i)), i);
   }
   return nwList;
 }
@@ -370,4 +369,43 @@ listPoint2D findPointsPath(listPoint2D pts, int nbproces){
     setListPoint2DFromPoint(&pointsPath, getPoint2D(pts, i*pas), i-1);
   }
   return pointsPath;
+}
+
+void addPointList2DFromPointList(listPoint2D *listPoint, listPoint2D addListPoint){
+    int taille2 = listPoint->taille;
+    listPoint->taille = listPoint->taille + addListPoint.taille;
+    listPoint->point = realloc(listPoint->point, listPoint->taille*sizeof(listPoint2D));
+    for(int i=0; i<addListPoint.taille; i++){
+        setListPoint2DFromPoint(listPoint, addListPoint.point[i], taille2+i);
+    }
+}
+
+listPoint2D getLeftSideList(listPoint2D listPoint, listPoint2D separator){
+    listPoint2D result = constructListPoint2D(0);
+    for(int i=0; i<listPoint.taille; i++){
+        for(int j=0; j<separator.taille-1; j++){
+            if(getYPoint2D(separator.point[j]) < getYPoint2D(listPoint.point[i]) 
+                    && getYPoint2D(separator.point[j+1]) > getYPoint2D(listPoint.point[i])){
+                if(orientation(separator.point[j],separator.point[j+1],listPoint.point[i])){
+                    addPoint2DFromPoint(&result,listPoint.point[i]);
+                }
+            }
+        }
+    }
+    addPointList2DFromPointList(&result, separator);
+}
+
+listPoint2D getRightSideList(listPoint2D listPoint, listPoint2D separator){
+    listPoint2D result = constructListPoint2D(0);
+    for(int i=0; i<listPoint.taille; i++){
+        for(int j=0; j<separator.taille-1; j++){
+            if(getYPoint2D(separator.point[j]) < getYPoint2D(listPoint.point[i]) 
+                    && getYPoint2D(separator.point[j+1]) > getYPoint2D(listPoint.point[i])){
+                if(!orientation(separator.point[j],separator.point[j+1],listPoint.point[i])){
+                    addPoint2DFromPoint(&result,listPoint.point[i]);
+                }
+            }
+        }
+    }
+    addPointList2DFromPointList(&result, separator);
 }
