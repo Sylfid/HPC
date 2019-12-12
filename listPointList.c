@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "listPoint.h"
-#include "point.h"
-#include "listPointList.h"
-#include "listIndice.h"
 #include <omp.h>
+#include "point.h"
+#include "listPoint.h"
+#include "listIndice.h"
+#include "listPointList.h"
 
 
 listPointList separatePointList(listPoint2D listPoint, int nbProcess){

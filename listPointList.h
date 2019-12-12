@@ -3,8 +3,6 @@
 
 #include "point.h"
 #include "listPoint.h"
-#include "point.h"
-#include "listPointList.h"
 #include "listIndice.h"
 #include <omp.h>
 
