@@ -46,5 +46,7 @@ void setListPoint2DFromPoint(listPoint2D *listPoint, Point2D point, int i);
 void addPoint2DFromPoint(listPoint2D *listPoint, Point2D point);
 listPoint2D projection(listPoint2D listPoint, int i);
 listPoint2D Convex_Hull(listPoint2D pts);
+void triByX(listPoint2D pts);
+listPoint2D findPointsPath(listPoint2D pts, int nbproces);
 
 #endif
