@@ -26,7 +26,7 @@ int dist(Point2D p1, Point2D p2){
 /* source :
 https://www.geeksforgeeks.org/convex-hull-set-1-jarviss-algorithm-or-wrapping/
 */
-listPoint2D Convex_Hull(listPoint2D pts){
+listPoint2D ConvexHull(listPoint2D pts){
   int n = getTailleList2D(pts);
 
   // Il faut plus de 3 points
@@ -62,4 +62,12 @@ listPoint2D Convex_Hull(listPoint2D pts){
   } while (p != l);  // On continu jusqu'a revenir au 1er
 
   return hull;
+}
+
+listPoint2D RegionGauche(listPoint2D pts, listPoint2D path){
+
+}
+
+listPoint2D RegionDroite(listPoint2D pts, listPoint2D path){
+
 }
