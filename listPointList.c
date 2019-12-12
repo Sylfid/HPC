@@ -17,9 +17,10 @@ listPointList separatePointList(listPoint2D listPoint, int nbProcess){
 #pragma omp parallel private(th_id)
     {
         th_id = omp_get_thread_num();
-        if(th_id<nbProcess){
+        if(th_id<nbProcess-1){//PROBLEME TAILLE DE CREATION
             listPoint2D projec = projectionWithIndice(listPoint,th_id);
             listIndice path = Convex_HullIndice(projec);
+            listPoint2D group = getLeftSideList(listPoint, path);
         }
 
     }
