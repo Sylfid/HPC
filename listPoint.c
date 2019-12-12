@@ -4,6 +4,7 @@
 #include "point.h"
 #include <math.h>
 #include <stdbool.h>
+#include "listIndice.h"
 
 listPoint2D constructListPoint2D(int taille2){
     listPoint2D newListPoint;
@@ -273,6 +274,7 @@ void setListPoint2DFromPoint(listPoint2D *listPoint, Point2D point, int i){
     setYListPoint2D(listPoint, getYPoint2D(point), i);
 }
 
+
 void addPoint2DFromPoint(listPoint2D *listPoint, Point2D point){
     listPoint->taille++;
     listPoint->point = realloc(listPoint->point, listPoint->taille*sizeof(listPoint2D));
@@ -301,6 +303,7 @@ listPoint2D projection(listPoint2D listPoint, Point2D point){
 /* source :
 https://www.geeksforgeeks.org/convex-hull-set-1-jarviss-algorithm-or-wrapping/
 */
+//Trouve les points inférieur de l'enveloppe convexe
 listPoint2D Convex_Hull(listPoint2D pts){
   int n = getTailleList2D(pts);
 
@@ -340,29 +343,31 @@ listPoint2D Convex_Hull(listPoint2D pts){
   return hull;
 }
 
-void triByX(listPoint2D pts){
+//Tri la liste selon leur valeur x
+void triByX(listPoint2D *pts){
   // tri par insertion en fonction des coordonées x des points
   int j;
-  int n = getTailleList2D(pts);
+  int n = getTailleList2D(*pts);
   Point2D save;
   for(int i=1 ; i<n ; i++) { // parcour de la liste
-    if (getXListPoint2D(pts,i) < getXListPoint2D(pts,i-1)) {
+    if (getXListPoint2D(*pts,i) < getXListPoint2D(*pts,i-1)) {
       // point mal placé
       j = 0;
-      while (getXListPoint2D(pts,j) < getXListPoint2D(pts,i)) j++;
+      while (getXListPoint2D(*pts,j) < getXListPoint2D(*pts,i)) j++;
       // j : nouvelle position du point
-      save = getPoint2D(pts, i); // on sauvegarde le point
+      save = getPoint2D(*pts, i); // on sauvegarde le point
       for(int k = i-1 ; k >= j ; k--){
         // translation des autres points
-        setListPoint2DFromPoint(&pts, getPoint2D(pts,k), k+1);
+        setListPoint2DFromPoint(pts, getPoint2D(*pts,k), k+1);
       }
-      setListPoint2DFromPoint(&pts, save, j);
+      setListPoint2DFromPoint(pts, save, j);
     }
   }
 }
 
+//Trouve les points optimaux qui sépare le nuage de points
 listPoint2D findPointsPath(listPoint2D pts, int nbproces){
-  triByX(pts); // tri selon coordoné x
+  triByX(&pts); // tri selon coordoné x
   listPoint2D pointsPath = constructListPoint2D(nbproces-1);
   for(int i=1 ; i<nbproces ; i++){
     int pas = floor(getTailleList2D(pts)/nbproces);
@@ -371,6 +376,7 @@ listPoint2D findPointsPath(listPoint2D pts, int nbproces){
   return pointsPath;
 }
 
+//Ajoute la liste addListPoint à la fin de listPoint
 void addPointList2DFromPointList(listPoint2D *listPoint, listPoint2D addListPoint){
     int taille2 = listPoint->taille;
     listPoint->taille = listPoint->taille + addListPoint.taille;
@@ -380,32 +386,39 @@ void addPointList2DFromPointList(listPoint2D *listPoint, listPoint2D addListPoin
     }
 }
 
-listPoint2D getLeftSideList(listPoint2D listPoint, listPoint2D separator){
+
+//Retourne les points qui sont à gauche de la ligne separator
+listPoint2D getLeftSideList(listPoint2D listPoint, listIndice separator){
     listPoint2D result = constructListPoint2D(0);
     for(int i=0; i<listPoint.taille; i++){
         for(int j=0; j<separator.taille-1; j++){
-            if(getYPoint2D(separator.point[j]) < getYPoint2D(listPoint.point[i]) 
-                    && getYPoint2D(separator.point[j+1]) > getYPoint2D(listPoint.point[i])){
-                if(orientation(separator.point[j],separator.point[j+1],listPoint.point[i])){
+            if(getYPoint2D(listPoint.point[separator.indice[j]]) < getYPoint2D(listPoint.point[i]) 
+                    && getYPoint2D(listPoint.point[separator.indice[j+1]]) > getYPoint2D(listPoint.point[i])){
+                if(orientation(listPoint.point[separator.indice[j]],listPoint.point[separator.indice[j+1]],listPoint.point[i])){
                     addPoint2DFromPoint(&result,listPoint.point[i]);
                 }
             }
         }
     }
-    addPointList2DFromPointList(&result, separator);
+    for(int i=0; i<separator.taille; i++){
+        addPoint2DFromPoint(&result, listPoint.point[i]);
+    }
 }
 
-listPoint2D getRightSideList(listPoint2D listPoint, listPoint2D separator){
+//Retourne les points qui sont à droite de la ligne separator
+listPoint2D getRightSideList(listPoint2D listPoint, listIndice separator){
     listPoint2D result = constructListPoint2D(0);
     for(int i=0; i<listPoint.taille; i++){
         for(int j=0; j<separator.taille-1; j++){
-            if(getYPoint2D(separator.point[j]) < getYPoint2D(listPoint.point[i]) 
-                    && getYPoint2D(separator.point[j+1]) > getYPoint2D(listPoint.point[i])){
-                if(!orientation(separator.point[j],separator.point[j+1],listPoint.point[i])){
+            if(getYPoint2D(listPoint.point[separator.indice[j]]) < getYPoint2D(listPoint.point[i]) 
+                    && getYPoint2D(listPoint.point[separator.indice[j+1]]) > getYPoint2D(listPoint.point[i])){
+                if(!orientation(listPoint.point[separator.indice[j]],listPoint.point[separator.indice[j+1]],listPoint.point[i])){
                     addPoint2DFromPoint(&result,listPoint.point[i]);
                 }
             }
         }
     }
-    addPointList2DFromPointList(&result, separator);
+    for(int i=0; i<separator.taille; i++){
+        addPoint2DFromPoint(&result, listPoint.point[i]);
+    }
 }

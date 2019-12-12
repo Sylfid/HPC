@@ -46,10 +46,10 @@ void setListPoint2DFromPoint(listPoint2D *listPoint, Point2D point, int i);
 void addPoint2DFromPoint(listPoint2D *listPoint, Point2D point);
 listPoint2D projection(listPoint2D listPoint, Point2D point);
 listPoint2D Convex_Hull(listPoint2D pts);
-void triByX(listPoint2D pts);
+void triByX(listPoint2D *pts);
 listPoint2D findPointsPath(listPoint2D pts, int nbproces);
 void addPointList2DFromPointList(listPoint2D *listPoint, listPoint2D addListPoint);
 listPoint2D getLeftSideList(listPoint2D listPoint, listPoint2D separator);
-listPoint2D getRightSideList(listPoint2D listPoint, listPoint2D separator);
+listPoint2D getRightSideList(listPoint2D listPoint, listIndice separator);
 
 #endif
