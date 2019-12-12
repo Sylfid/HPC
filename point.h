@@ -1,5 +1,6 @@
 #ifndef POINT
 #define POINT
+#include <stdbool.h>
 
 typedef struct Point2D Point2D;
 typedef struct Point3D Point3D;

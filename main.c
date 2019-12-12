@@ -11,7 +11,8 @@ int main()
     printf("Hello world!\n");
     Point3D test =  constructPoint3D(1.2,2.66, 4.3);
     listPoint2D list = constructListPoint2DFromFile("test");
-    displayListPoint2D(list);
+    listPoint2D list2 = Convex_Hull(list);
+    displayListPoint2D(list2);
     freeListPoint2D(&list);
     
     return 0;
