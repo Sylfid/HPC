@@ -19,7 +19,7 @@ void addIndice(listIndice *listInd, int i);
 listPoint2D projectionWithIndice(listPoint2D listPoint, int indice);
 listIndice findPointsPathIndice(listPoint2D pts, int nbproces);
 listIndice Convex_HullIndice(listPoint2D pts);
-listPoint2D getLeftSideList(listPoint2D listPoint, listIndice separator);
-listPoint2D getRightSideList(listPoint2D listPoint, listIndice separator);
+listIndice getLeftSideList(listPoint2D listPoint, listIndice separator);
+listIndice getRightSideList(listPoint2D listPoint, listIndice separator);
 
 #endif

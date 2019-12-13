@@ -82,38 +82,40 @@ listIndice Convex_HullIndice(listPoint2D pts){
   return hull;
 }
 
-listPoint2D getLeftSideList(listPoint2D listPoint, listIndice separator){
+listIndice getLeftSideList(listPoint2D listPoint, listIndice separator){
     // Retourne les points qui sont à gauche de la ligne separatorlistPoint2D result = constructListPoint2D(0);
-    listPoint2D result = constructListPoint2D(0);
+    listIndice result = constructeurListIndice();
     for(int i=0; i<listPoint.taille; i++){
         for(int j=0; j<separator.taille-1; j++){
             if(getYPoint2D(listPoint.point[separator.indice[j]]) < getYPoint2D(listPoint.point[i])
                     && getYPoint2D(listPoint.point[separator.indice[j+1]]) > getYPoint2D(listPoint.point[i])){
                 if(orientation(listPoint.point[separator.indice[j]],listPoint.point[separator.indice[j+1]],listPoint.point[i])){
-                    addPoint2DFromPoint(&result,listPoint.point[i]);
+                    addIndice(&result, i);
                 }
             }
         }
     }
     for(int i=0; i<separator.taille; i++){
-        addPoint2DFromPoint(&result, listPoint.point[i]);
+        addIndice(&result, i);
     }
+    return result;
 }
 
-listPoint2D getRightSideList(listPoint2D listPoint, listIndice separator){
+listIndice getRightSideList(listPoint2D listPoint, listIndice separator){
     // Retourne les points qui sont à droite de la ligne separator
-    listPoint2D result = constructListPoint2D(0);
+    listIndice result = constructeurListIndice();
     for(int i=0; i<listPoint.taille; i++){
         for(int j=0; j<separator.taille-1; j++){
             if(getYPoint2D(listPoint.point[separator.indice[j]]) < getYPoint2D(listPoint.point[i])
                     && getYPoint2D(listPoint.point[separator.indice[j+1]]) > getYPoint2D(listPoint.point[i])){
                 if(!orientation(listPoint.point[separator.indice[j]],listPoint.point[separator.indice[j+1]],listPoint.point[i])){
-                    addPoint2DFromPoint(&result,listPoint.point[i]);
+                    addIndice(&result, i);
                 }
             }
         }
     }
     for(int i=0; i<separator.taille; i++){
-        addPoint2DFromPoint(&result, listPoint.point[i]);
+        addIndice(&result, i);
     }
+    return result;
 }

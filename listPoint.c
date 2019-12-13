@@ -45,7 +45,6 @@ listPoint2D constructListPoint2DFromFile(char* fileName){
         }
         newList.point = (Point2D*) malloc(tailleList * sizeof(Point2D));
         newList.taille = tailleList;
-        printf("%d \n", tailleList);
         a = fgetc(file);
         while(a != EOF && flag){
             if(a>47 && a<58){
@@ -64,7 +63,6 @@ listPoint2D constructListPoint2DFromFile(char* fileName){
                 if(lecNb){
                     if(composante == 0){
                         setXPoint2D(&newList.point[compteurPoint],negativite*valeur);
-                        //printf("%f aa \n", getXPoint2D(newList.point[compteurPoint]));
                     }
                     else{
                         printf("Il y a trop d'argument sur la ligne %d \n", compteurPoint);
@@ -199,7 +197,6 @@ void setXListPoint2D(listPoint2D *listPoint, float a, int i){
         printf("setXListPoint2D : le numero du point est invalide\n");
         exit(1);
     }
-    printf("%d %d\n",listPoint->taille, i);
     //setXPoint2D(&listPoint->point[i],a);
     listPoint->point[i].x = a;
 }
