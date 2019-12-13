@@ -11,7 +11,7 @@ COMMON_DIR=./
 # Compile all executable
 all: main mainFinal
 
-main: main.c 
+main: main.c listIndiceList.c listIndice.c listPoint.c point.c
 	$(CC) $^ $(CCFLAGS) $(OMP_FLAGS) $(LIBS) -I $(COMMON_DIR) -o $@
 
 mainFinal: mainFinal.c listIndiceList.c listPoint.c listIndice.c point.c 
