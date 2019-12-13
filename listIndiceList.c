@@ -47,6 +47,9 @@ listIndiceList separatePointList(listPoint2D listPoint, int nbProcess){
     newListIndiceList.indiceList = (listIndice*) malloc(nbProcess*sizeof(listIndice));
     triByX(&listPoint);
     listIndice pointForPath = findPointsPathIndice(listPoint, nbProcess);
+    printf("\n");
+    displayListIndice(pointForPath);
+    printf("\n");
 #pragma omp parallel
     {
         int th_id = omp_get_thread_num();
@@ -54,10 +57,11 @@ listIndiceList separatePointList(listPoint2D listPoint, int nbProcess){
         listIndice group;
         if(th_id<nbProcess){
             if(th_id == nbProcess - 1){
-                projec = projectionWithIndice(listPoint,th_id-1);
+                displayListIndice(pointForPath);
+                projec = projectionWithIndice(listPoint,getIndice(pointForPath,th_id-1));
             }
             else{
-                projec = projectionWithIndice(listPoint,th_id);
+                projec = projectionWithIndice(listPoint,getIndice(pointForPath,th_id));
             }
             listIndice path = Convex_HullIndice(projec);
             if(th_id == nbProcess - 1){

@@ -107,16 +107,16 @@ listIndice getLeftSideList(listPoint2D listPoint, listIndice separator){
     listIndice result = constructeurListIndice();
     for(int i=0; i<listPoint.taille; i++){
         for(int j=0; j<separator.taille-1; j++){
-            if(getYPoint2D(listPoint.point[separator.indice[j]]) < getYPoint2D(listPoint.point[i])
+            if(getYPoint2D(listPoint.point[separator.indice[j]]) <= getYPoint2D(listPoint.point[i])
                     && getYPoint2D(listPoint.point[separator.indice[j+1]]) > getYPoint2D(listPoint.point[i])){
-                if(orientation(listPoint.point[separator.indice[j]],listPoint.point[separator.indice[j+1]],listPoint.point[i])){
+                if(orientation2(listPoint.point[separator.indice[j]],listPoint.point[separator.indice[j+1]],listPoint.point[i])){
                     addIndice(&result, i);
                 }
             }
         }
     }
     for(int i=0; i<separator.taille; i++){
-        addIndice(&result, i);
+        addIndice(&result, separator.indice[i]);
     }
     return result;
 }
@@ -130,16 +130,17 @@ listIndice getRightSideList(listPoint2D listPoint, listIndice separator){
     listIndice result = constructeurListIndice();
     for(int i=0; i<listPoint.taille; i++){
         for(int j=0; j<separator.taille-1; j++){
-            if(getYPoint2D(listPoint.point[separator.indice[j]]) < getYPoint2D(listPoint.point[i])
-                    && getYPoint2D(listPoint.point[separator.indice[j+1]]) > getYPoint2D(listPoint.point[i])){
-                if(!orientation(listPoint.point[separator.indice[j]],listPoint.point[separator.indice[j+1]],listPoint.point[i])){
+            if(getYPoint2D(listPoint.point[separator.indice[j]]) <= getYPoint2D(listPoint.point[i])
+                    && getYPoint2D(listPoint.point[separator.indice[j+1]]) > getYPoint2D(listPoint.point[i])){//Oublie potentiellement quelque points
+                if(!orientation2(listPoint.point[separator.indice[j]],listPoint.point[separator.indice[j+1]],listPoint.point[i])){
                     addIndice(&result, i);
                 }
             }
         }
     }
     for(int i=0; i<separator.taille; i++){
-        addIndice(&result, i);
+        printf("\n a %d %d \n", separator.indice[i], i);
+        addIndice(&result, separator.indice[i]);
     }
     return result;
 }
