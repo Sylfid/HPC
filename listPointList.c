@@ -7,7 +7,7 @@
 #include "listPointList.h"
 
 
-listPointList separatePointList(listPoint2D listPoint, int nbProcess){
+/*listPointList separatePointList(listPoint2D listPoint, int nbProcess){
     listPointList newListPointList;
     newListPointList.taille = nbProcess;
     newListPointList.pointList = (listPoint2D*) malloc(nbProcess*sizeof(listPoint2D));
@@ -36,7 +36,7 @@ listPointList separatePointList(listPoint2D listPoint, int nbProcess){
         }
     }
     return newListPointList;
-}
+}*/
 
 
 void addListPointList(listPointList *list, listPoint2D listPoint, int i){

@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include "listIndice.h"
 #include "listPoint.h"
+#include "listIndicelist.h"
 
 // --------- constructeur --------- //
 
@@ -10,6 +11,26 @@ listIndice constructeurListIndice(){
     listIndice newList;
     newList.taille = 0;
     newList.indice = NULL;
+}
+
+listIndice constructeurListIndiceBtw(int deb, int fin){
+  // construit une liste d'indice comptenant les i in [deb, fin[
+    listIndice newList;
+    if(fin<deb){
+      printf("le début doit etre plus petit que la fin \n");
+      exit(1);
+    }
+    newList.taille = fin-deb;
+    newList.indice = (int*) malloc((fin-deb)*sizeof(int));
+    for (int i = deb; i < fin; i++) {
+      newList.indice[i-deb]=i;
+    }
+}
+
+
+// -------- getteur -------- //
+int getIndice(listIndice listInd, int i){
+  return listInd.indice[i];
 }
 
 
@@ -22,19 +43,6 @@ void addIndice(listIndice *listInd, int i){
 }
 
 // ------ fonction triangulation ------ //
-
-//A mettre Dans listPoint.c
-listPoint2D projectionWithIndice(listPoint2D listPoint, int indice){
-  // Double projections sur parabole 3D centré en point puis sur plan orthogonal
-  // au plan d'origine passant par la ligne verticale passant par point
-  float py = getYPoint2D(listPoint.point[indice]);
-  int n = getTailleList2D(listPoint);
-  listPoint2D nwList = constructListPoint2D(n);
-  for(int i = 0; i<n ; i++){
-    setListPoint2D(&nwList,getYListPoint2D(listPoint,i)-py, sqrt_dif(listPoint.point[indice], getPoint2D(listPoint, i)), i);
-  }
-  return nwList;
-}
 
 listIndice findPointsPathIndice(listPoint2D pts, int nbproces){
   // Trouve les points optimaux qui sépare le nuage de points selon x
@@ -101,7 +109,59 @@ listIndice getLeftSideList(listPoint2D listPoint, listIndice separator){
     return result;
 }
 
-listIndice getRightSideList(listPoint2D listPoint, listIndice separator){
+listIndice partition(listPoint2D pts, listIndice ptsPath, listeIndicelist hulls, int num, int nbProces){
+  if (num >= nbProces || num < 0){
+    printf("le numéro n'est pas valide (num in [0 nbProces[])\n");
+    exit(1);
+  }
+  else if num == 0{ // partition la plus à gauche
+    int pi = getIndice(ptsPath, num);
+    listIndice hull = getIndicelist(hulls, num);
+     // on met les indice des point d'avant p_0
+    listIndice part = constructeurListIndiceBtw(0,pi);
+    for(int i = 0 ; i < getTailleIndice(hull) ; i++){
+      int hi = getIndice(hull,i);
+      if (hi>=pi){ // on ajoute les points le l'envelope qui n'y sont pas
+        addIndice(&part,hi);
+      }
+    }
+  }
+  else if num == nbProces-1{ // partition la plus à droite
+    int pi = getIndice(ptsPath, num);
+    listIndice hull = getIndicelist(hulls, num);
+     // on met les indice des point d'apres p_m
+    listIndice part = constructeurListIndiceBtw(pi,getTailleList2D(pts));
+    for(int i = 0 ; i < getTailleIndice(hull) ; i++){
+      int hi = getIndice(hull,i);
+      if (hi<pi){ // on ajoute les points le l'envelope qui n'y sont pas
+        addIndice(&part,hi);
+      }
+    }
+  }
+  else {
+    int pdeb = getIndice(ptsPath, num-1);
+    int pfin = getIndice(ptsPath, num);
+    listIndice hullG = getIndicelist(hulls, num-1);
+    listIndice hullD = getIndicelist(hulls, num);
+     // on met les indice des point entre p_i-1 et p_i
+    listIndice part = constructeurListIndiceBtw(pdeb,pfin;
+    for(int i = 0 ; i < getTailleIndice(hullG) ; i++){
+      int hi = getIndice(hullG,i);
+      if (hi<pdeb){ // on ajoute les points le l'envelope qui n'y sont pas
+        addIndice(&part,hi);
+      }
+    }
+    for(int j = 0 ; j < getTailleIndice(hullD) ; i++){
+      int hi = getIndice(hullG,j);
+      if (hi>=pfin){ // on ajoute les points le l'envelope qui n'y sont pas
+        addIndice(&part,hi);
+      }
+    }
+  }
+  return part;
+}
+
+listPoint2D getRightSideList(listPoint2D listPoint, listIndice separator){
     // Retourne les points qui sont à droite de la ligne separator
     listIndice result = constructeurListIndice();
     for(int i=0; i<listPoint.taille; i++){

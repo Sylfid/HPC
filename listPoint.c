@@ -270,6 +270,18 @@ listPoint2D projection(listPoint2D listPoint, Point2D point){
   return nwList;
 }
 
+listPoint2D projectionWithIndice(listPoint2D listPoint, int indice){
+  // Double projections sur parabole 3D centré en point puis sur plan orthogonal
+  // au plan d'origine passant par la ligne verticale passant par point
+  float py = getYPoint2D(listPoint.point[indice]);
+  int n = getTailleList2D(listPoint);
+  listPoint2D nwList = constructListPoint2D(n);
+  for(int i = 0; i<n ; i++){
+    setListPoint2D(&nwList,getYListPoint2D(listPoint,i)-py, sqrt_dif(listPoint.point[indice], getPoint2D(listPoint, i)), i);
+  }
+  return nwList;
+}
+
 listPoint2D findPointsPath(listPoint2D pts, int nbproces){
   // Trouve les points optimaux qui sépare le nuage de points selon x
   triByX(&pts); // tri selon coordoné x

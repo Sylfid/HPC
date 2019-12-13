@@ -13,6 +13,6 @@ struct listPointList{
     listPoint2D* pointList;
 };
 
-listPointList separatePointList(listPoint2D listPoint, int nbProcess);
+//listPointList separatePointList(listPoint2D listPoint, int nbProcess);
 void addListPointList(listPointList *list, listPoint2D listPoint, int i);
 #endif
