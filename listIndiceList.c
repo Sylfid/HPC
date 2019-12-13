@@ -103,8 +103,8 @@ listIndice partition(listPoint2D pts, listIndice ptsPath, listIndiceList hulls, 
     }
   }
   else if (num == nbProces-1){ // partition la plus à droite
-    int pi = getIndice(ptsPath, num);
-    listIndice hull = getListIndice(hulls, num);
+    int pi = getIndice(ptsPath, num-1);
+    listIndice hull = getListIndice(hulls, num-1);
      // on met les indice des point d'apres p_m
     part = constructeurListIndiceBtw(pi,getTailleList2D(pts));
     for(int i = 0 ; i < getTailleIndice(hull) ; i++){

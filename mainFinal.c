@@ -33,26 +33,30 @@ int main()
     triByX(&P);
     // Trouver les points de la partition
     pPath = findPointsPathIndice(P,nthreads);
+
+    printf("calcul envelopes convexes.\n" );
     for(int i = 0 ; i < getTailleIndice(pPath) ; i++){
       // calcul des frontières pour tout i
        proj = projectionWithIndice(P, getIndice(pPath, i));
-       // displayListPoint2D(proj);
        addListIndiceList(&H, Convex_HullIndice(proj));
     }
 
     // paralélisation de la partition
     listIndice part;
+    printf("partition.\n" );
     #pragma omp parallel private(id,part) shared(nthreads, Q)
    {
-      id = omp_get_thread_num();
-        printf("thread num %d \n",id );
+          id = omp_get_thread_num();
           part = partition(P, pPath, H, id, nthreads);
           setListIndice(&Q, part, id);
    }
+   printf("tailla Q %d \n",Q.taille);
+   exit(1);
+   displayListIndiceList(Q);
+   // Triangulation
+   printf("triangulation des partitions.\n" );
 
    printf("    FIN      \n");
-   displayListPoint2D(P);
-
     return 0;
 
 }
