@@ -14,4 +14,5 @@ struct listPointList{
 };
 
 listPointList separatePointList(listPoint2D listPoint, int nbProcess);
+void addListPointList(listPointList *list, listPoint2D listPoint, int i);
 #endif
