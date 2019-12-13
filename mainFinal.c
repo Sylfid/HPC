@@ -14,6 +14,7 @@ int main()
     // Choix nombre de thread
     int nthreads = 4; // m = nombre de threads
     omp_set_num_threads(nthreads);
+    int id
 
     // Definition des variable
     listPoint2D P; // Ensemble des points
@@ -39,13 +40,16 @@ int main()
     }
 
     // paralélisation de la partition
-    #pragma omp parallel private(id) shared(Q)
+    listIndice part;
+    #pragma omp parallel private(id,partition) shared(nthreads, Q)
    {
-      int id = omp_get_thread_num();
+      omp_get_thread_num();
       if(id<nthreads){
-
+          part = partition(P, pPath, H, id, nthreads);
+          setListIndice(&Q, part, id);
       }
    }
+
 
     return 0;
 
