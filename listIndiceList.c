@@ -12,12 +12,13 @@ listIndiceList constructeurListIndiceList(listPoint2D listPoint2){
     newList.taille = 0;
     newList.indiceList = NULL;
     newList.listPoint = listPoint2;
+    return newList;
 }
 
 void addListIndiceList(listIndiceList *listindicelist, listIndice list){
     listindicelist->taille++;
     listindicelist->indiceList = realloc(listindicelist->indiceList, listindicelist->taille*sizeof(listIndice));
-    listindicelist->indiceList[listindicelist->taille] = list;
+    listindicelist->indiceList[listindicelist->taille-1] = list;
 }
 
 
@@ -26,18 +27,15 @@ listIndiceList separatePointList(listPoint2D listPoint, int nbProcess){
     newListIndiceList.listPoint = listPoint;
     newListIndiceList.taille = nbProcess;
     newListIndiceList.indiceList = (listIndice*) malloc(nbProcess*sizeof(listIndice));
-    int th_id;
     triByX(&listPoint);
-    exit(1);
     listIndice pointForPath = findPointsPathIndice(listPoint, nbProcess);
-    exit(1);
-#pragma omp parallel private(th_id)
+    listPoint2D projec;
+    listIndice group;
+#pragma omp parallel private(projec) private(group)
     {
-        th_id = omp_get_thread_num();
+        int th_id = omp_get_thread_num();
         if(th_id<nbProcess){
-            listPoint2D projec;
-            listIndice group;
-            if(th_id == nbProcess - 1){
+            /*if(th_id == nbProcess - 1){
                 projec = projectionWithIndice(listPoint,th_id-1);
             }
             else{
@@ -49,7 +47,7 @@ listIndiceList separatePointList(listPoint2D listPoint, int nbProcess){
             }
             else{
                 group = getLeftSideList(listPoint, path);
-            }
+            }*/
             addListIndiceList(&newListIndiceList, group);
         }
     }

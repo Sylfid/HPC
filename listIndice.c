@@ -11,6 +11,7 @@ listIndice constructeurListIndice(){
     listIndice newList;
     newList.taille = 0;
     newList.indice = NULL;
+    return newList;
 }
 
 listIndice constructeurListIndiceBtw(int deb, int fin){
@@ -37,8 +38,19 @@ int getIndice(listIndice listInd, int i){
 // ------ fonction classe autre ------ //
 
 void addIndice(listIndice *listInd, int i){
-    listInd->taille++;
+    listInd->taille = listInd->taille+1;
     listInd->indice = realloc(listInd->indice, listInd->taille*sizeof(int));
+    /*int *newInd = (int*)malloc(listInd->taille*sizeof(int));
+    printf("%d\n", listInd->taille);
+    exit(1);
+    for(int j=0; j<listInd->taille-1; j++){
+        newInd[j] = listInd->indice[j];
+    }
+
+    exit(1);
+    newInd[listInd->taille-1]=i;
+    free(listInd->indice);
+    listInd->indice = newInd;*/
     listInd->indice[listInd->taille-1] = i;
 }
 
