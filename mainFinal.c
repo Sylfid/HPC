@@ -36,7 +36,6 @@ int main()
     for(int i = 0 ; i < getTailleIndice(pPath) ; i++){
       // calcul des frontières pour tout i
        proj = projectionWithIndice(P, getIndice(pPath, i));
-       printf("calc proj : %d \n", i);
        // displayListPoint2D(proj);
        addListIndiceList(&H, Convex_HullIndice(proj));
     }
@@ -45,11 +44,10 @@ int main()
     listIndice part;
     #pragma omp parallel private(id,part) shared(nthreads, Q)
    {
-      omp_get_thread_num();
-      if(id<nthreads){
+      id = omp_get_thread_num();
+        printf("thread num %d \n",id );
           part = partition(P, pPath, H, id, nthreads);
           setListIndice(&Q, part, id);
-      }
    }
 
    printf("    FIN      \n");
