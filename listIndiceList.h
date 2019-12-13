@@ -24,4 +24,5 @@ listIndiceList separatePointList(listPoint2D listPoint, int nbProcess);
 listIndice getListIndice(listIndiceList listindicelist, int i);
 listIndice partition(listPoint2D pts, listIndice ptsPath, listIndiceList hulls, int num, int nbProces);
 
+void displayListIndiceList(listIndiceList liste);
 #endif
