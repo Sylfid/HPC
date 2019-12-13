@@ -12,7 +12,26 @@ listIndiceList constructeurListIndiceList(listPoint2D listPoint2){
     newList.taille = 0;
     newList.indiceList = NULL;
     newList.listPoint = listPoint2;
+    return newList;
 }
+
+listIndiceList constructeurListIndiceListTaille(int taille2,listPoint2D list){
+  listIndiceList newList;
+  newList.taille = taille2;
+  if(taille2 == 0){
+      newList.indiceList = NULL;
+  }
+  else{
+    newList.indiceList = (listIndice*) malloc(taille2*sizeof(listIndice));
+  }
+  newList.listPoint = listPoint2;
+  return newList;
+}
+
+void setListIndice(listIndiceList* Liste, indiceList newlist, int i){
+  Liste->indiceList[i] = newlist;
+}
+
 
 void addListIndiceList(listIndiceList *listindicelist, listIndice list){
     listindicelist->taille++;
