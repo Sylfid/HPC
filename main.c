@@ -15,7 +15,7 @@ int main()
     listPoint2D list = constructListPoint2DFromFile("test");
     listPoint2D list2 = Convex_Hull(list);
     listIndiceList essai = separatePointList(list, 4);  
-    displayListPoint2D(list2);
+    displayListIndiceList(essai);
     freeListPoint2D(&list);
     freeListPoint2D(&list2);
 
