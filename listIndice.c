@@ -143,3 +143,10 @@ listIndice getRightSideList(listPoint2D listPoint, listIndice separator){
     }
     return result;
 }
+
+void displayListIndice(listIndice liste){
+    for(int i=0; i<liste.taille; i++){
+        printf("%d ", liste.indice[i]);
+    }
+    printf("\n");
+}

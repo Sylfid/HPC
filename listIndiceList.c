@@ -136,3 +136,10 @@ listIndice partition(listPoint2D pts, listIndice ptsPath, listIndiceList hulls, 
   }
   return part;
 }
+
+void displayListIndiceList(listIndiceList liste){
+    for(int i=0; i<liste.taille; i++){
+        displayListIndice(liste.indiceList[i]);
+    }
+    printf("\n");
+}

@@ -17,6 +17,7 @@ listIndice constructeurListIndiceBtw(int deb, int fin);
 int getIndice(listIndice listInd, int i);
 // ------ fonction classe autre
 void addIndice(listIndice *listInd, int i);
+void displayListIndice(listIndice liste);
 
 // ------ fonction triangulation
 listIndice findPointsPathIndice(listPoint2D pts, int nbproces);
