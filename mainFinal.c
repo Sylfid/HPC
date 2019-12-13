@@ -37,7 +37,7 @@ int main()
       // calcul des frontières pour tout i
        proj = projectionWithIndice(P, getIndice(pPath, i));
        printf("calc proj : %d \n", i);
-       displayListPoint2D(proj);
+       // displayListPoint2D(proj);
        addListIndiceList(&H, Convex_HullIndice(proj));
     }
 
