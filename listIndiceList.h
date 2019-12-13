@@ -16,7 +16,7 @@ struct listIndiceList{
 // ------ constructeur
 listIndiceList constructeurListIndiceList(listPoint2D list);
 listIndiceList constructeurListIndiceListTaille(int taille2,listPoint2D list);
-void setListIndice(listIndiceList* Liste, indiceList newlist, int i);
+void setListIndice(listIndiceList* Liste, listIndice newlist, int i);
 
 void setListIndice(listIndiceList* Liste, listIndice newlist, int i);
 void addListIndiceList(listIndiceList *listindicelist, listIndice list);

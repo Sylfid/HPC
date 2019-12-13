@@ -3,7 +3,7 @@
 #include <omp.h>
 #include "point.h"
 #include "listPoint.h"
-#include "listPointList.h"
+#include "listIndiceList.h"
 #include "listIndice.h"
 
 
@@ -14,11 +14,11 @@ int main()
     // Choix nombre de thread
     int nthreads = 4; // m = nombre de threads
     omp_set_num_threads(nthreads);
-    int id
+    int id;
 
     // Definition des variable
     listPoint2D P; // Ensemble des points
-    listeIndice pPath; // Indices des nthreads m-1 de séparation
+    listIndice pPath; // Indices des nthreads m-1 de séparation
     listPoint2D proj; // projection parabole 3D + plan orthogonal
     listIndiceList H; // list de lonqueure m-1, H[i]=liste des indice des points
                       // de la frontière convexe entre Q[i-1] et Q[i]
@@ -36,12 +36,14 @@ int main()
     for(int i = 0 ; i < getTailleIndice(pPath) ; i++){
       // calcul des frontières pour tout i
        proj = projectionWithIndice(P, getIndice(pPath, i));
-       addListIndiceList(H, Convex_HullIndice(proj));
+       printf("calc proj : %d \n", i);
+       displayListPoint2D(proj);
+       addListIndiceList(&H, Convex_HullIndice(proj));
     }
 
     // paralélisation de la partition
     listIndice part;
-    #pragma omp parallel private(id,partition) shared(nthreads, Q)
+    #pragma omp parallel private(id,part) shared(nthreads, Q)
    {
       omp_get_thread_num();
       if(id<nthreads){
@@ -50,6 +52,8 @@ int main()
       }
    }
 
+   printf("    FIN      \n");
+   displayListPoint2D(P);
 
     return 0;
 
