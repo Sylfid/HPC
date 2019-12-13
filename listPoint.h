@@ -35,6 +35,7 @@ void addPointList2DFromPointList(listPoint2D *listPoint, listPoint2D addListPoin
 // ------ fonction triangulation
 void triByX(listPoint2D *pts);
 listPoint2D projection(listPoint2D listPoint, Point2D point);
+listPoint2D projectionWithIndice(listPoint2D listPoint, int indice);
 listPoint2D findPointsPath(listPoint2D pts, int nbproces);
 listPoint2D Convex_Hull(listPoint2D pts);
 
