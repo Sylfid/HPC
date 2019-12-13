@@ -2,7 +2,6 @@
 #define LISTINDICE
 
 #include "listPoint.h"
-#include "listIndicelist.h"
 
 typedef struct listIndice listIndice;
 
@@ -25,6 +24,6 @@ listIndice Convex_HullIndice(listPoint2D pts);
 
 listIndice getLeftSideList(listPoint2D listPoint, listIndice separator);
 listIndice getRightSideList(listPoint2D listPoint, listIndice separator);
-listIndice partition(listPoint2D pts, listIndice ptsPath, listeIndicelist hulls, int num, int nbProces);
+int getTailleIndice(listIndice listeIndice);
 
 #endif

@@ -2,6 +2,8 @@
 #define LISTINDICELIST
 
 #include "listPoint.h"
+#include "listIndice.h"
+
 
 typedef struct listIndiceList listIndiceList;
 
@@ -16,6 +18,7 @@ listIndiceList constructeurListIndiceList();
 void addListIndiceList(listIndiceList *listindicelist, listIndice list);
 listIndiceList separatePointList(listPoint2D listPoint, int nbProcess);
 listIndice getListIndice(listIndiceList listindicelist, int i);
+listIndice partition(listPoint2D pts, listIndice ptsPath, listIndiceList hulls, int num, int nbProces);
 
 #endif
 
