@@ -22,6 +22,9 @@ void displayListIndice(listIndice liste);
 // ------ fonction triangulation
 listIndice findPointsPathIndice(listPoint2D pts, int nbproces);
 listIndice Convex_HullIndice(listPoint2D pts);
+int isLeftSideList(listPoint2D listPoint, listIndice separator, int pointIndice);
+int isRightSideList(listPoint2D listPoint, listIndice separator, int pointIndice);
+listIndice getMiddleSideList(listPoint2D listPoint, listIndice separatorLeft, listIndice separatorRight);
 
 listIndice getLeftSideList(listPoint2D listPoint, listIndice separator);
 listIndice getRightSideList(listPoint2D listPoint, listIndice separator);

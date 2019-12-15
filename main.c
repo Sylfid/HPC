@@ -18,7 +18,7 @@ int main()
     printf("\n");
     listPoint2D list2 = Convex_Hull(list);
     listIndiceList essai = separatePointList(list, 4);  
-    displayListIndiceList(essai);
+    //displayListIndiceList(essai);
     freeListPoint2D(&list);
     freeListPoint2D(&list2);
 
