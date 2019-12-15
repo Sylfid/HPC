@@ -19,6 +19,22 @@ listPoint2D constructListPoint2D(int taille2){
     return newListPoint;
 }
 
+listPoint2D constructListPoint2DFromListPoint(listPoint2D list){
+    listPoint2D newListPoint;
+    int taille2 = list.taille;
+    newListPoint.taille = taille2;
+    if(taille2 == 0){
+        newListPoint.point = NULL;
+    }
+    else{
+        newListPoint.point = (Point2D*) malloc(taille2*sizeof(Point2D));
+    }
+    for(int i=0; i<list.taille; i++){
+        newListPoint.point[i] = getPoint2D(list,i);
+    }
+    return newListPoint;
+}
+
 listPoint2D constructListPoint2DFromFile(char* fileName){
     FILE* file = NULL;
     file = fopen(fileName, "r");
@@ -274,12 +290,13 @@ listPoint2D projectionWithIndice(listPoint2D listPoint, int indice){
   // Double projections sur parabole 3D centré en point puis sur plan orthogonal
   // au plan d'origine passant par la ligne verticale passant par point
   
-  // printf("proj %d\n",indice );
   float py = getYPoint2D(listPoint.point[indice]);
+  //printf("proj %d %f\n",indice , py);
   int n = getTailleList2D(listPoint);
   listPoint2D nwList = constructListPoint2D(n);
   for(int i = 0; i<n ; i++){
     setListPoint2D(&nwList,getYListPoint2D(listPoint,i)-py, sqrt_dif(listPoint.point[indice], getPoint2D(listPoint, i)), i);
+    //printf("%d %f \n",i, getYListPoint2D(listPoint,i));
   }
   return nwList;
 }

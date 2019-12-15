@@ -12,6 +12,7 @@ struct listPoint2D{
 
 // ------ constructeur
 listPoint2D constructListPoint2D(int taille2);
+listPoint2D constructListPoint2DFromListPoint(listPoint2D list);
 listPoint2D constructListPoint2DFromFile(char* fileName);
 // ------ destructeur
 void freeListPoint2D(listPoint2D* listPoint);

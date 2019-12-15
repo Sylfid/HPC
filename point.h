@@ -25,6 +25,5 @@ void setYPoint2D(Point2D *point, float y2);
 // ------ fonction triangulation
 float sqrt_dif(Point2D p1, Point2D p2);
 bool orientation(Point2D p1, Point2D p2, Point2D p3);
-bool orientation2(Point2D p1, Point2D p2, Point2D p3);
 
 #endif

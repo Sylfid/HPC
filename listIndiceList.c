@@ -29,7 +29,11 @@ listIndiceList constructeurListIndiceListTaille(int taille2,listPoint2D list){
 }
 
 void setListIndice(listIndiceList* Liste, listIndice newlist, int i){
-  Liste->indiceList[i] = newlist;
+    if(i<0 || i>Liste->taille-1){
+        printf("setListIndice : l'indice n'est pas valide");
+        exit(1);
+    }
+    Liste->indiceList[i] = newlist;
 }
 
 
@@ -39,44 +43,41 @@ void addListIndiceList(listIndiceList *listindicelist, listIndice list){
     listindicelist->indiceList[listindicelist->taille-1] = list;
 }
 
-
 listIndiceList separatePointList(listPoint2D listPoint, int nbProcess){
     listIndiceList newListIndiceList;
-    newListIndiceList.listPoint = listPoint;
+    listPoint2D copyList = constructListPoint2DFromListPoint(listPoint);
+    newListIndiceList.listPoint = copyList;
     newListIndiceList.taille = nbProcess;
     newListIndiceList.indiceList = (listIndice*) malloc(nbProcess*sizeof(listIndice));
-    triByX(&listPoint);
-    listIndice pointForPath = findPointsPathIndice(listPoint, nbProcess);
+    triByX(&copyList);
+    listIndice pointForPath = findPointsPathIndice(copyList, nbProcess);
     printf("\n");
     displayListIndice(pointForPath);
     printf("\n");
+    listIndiceList path = constructeurListIndiceListTaille(nbProcess-1, copyList);
 #pragma omp parallel
     {
         int th_id = omp_get_thread_num();
-        listPoint2D projec, projec2;
-        listIndice group, path2;
-        if(th_id<nbProcess){
+        listPoint2D projec;
+        if(th_id < nbProcess-1){
+            projec = projectionWithIndice(copyList,getIndice(pointForPath,th_id));
+            setListIndice(&path, Convex_HullIndice(projec), th_id);
+        }
+    }
+    displayListIndiceList(path);
+#pragma omp parallel
+    {
+        int th_id = omp_get_thread_num();
+        listIndice group;
+        if(th_id < nbProcess){
             if(th_id == nbProcess - 1){
-                displayListIndice(pointForPath);
-                projec = projectionWithIndice(listPoint,getIndice(pointForPath,th_id-1));
+                group = getRightSideList(copyList, path.indiceList[th_id-1]);
             }
             else if(th_id==0){
-                projec = projectionWithIndice(listPoint,getIndice(pointForPath,th_id));
+                group = getLeftSideList(copyList, path.indiceList[0]);
             }
             else{
-                projec = projectionWithIndice(listPoint,getIndice(pointForPath,th_id-1));
-                projec2 = projectionWithIndice(listPoint,getIndice(pointForPath,th_id));
-                path2 = Convex_HullIndice(projec2);
-            }
-            listIndice path = Convex_HullIndice(projec);
-            if(th_id == nbProcess - 1){
-                group = getRightSideList(listPoint, path);
-            }
-            else if(th_id==0){
-                group = getLeftSideList(listPoint, path);
-            }
-            else{
-                group = getMiddleSideList(listPoint, path, path2);
+                group = getMiddleSideList(copyList, path.indiceList[th_id-1], path.indiceList[th_id]);
             }
             setListIndice(&newListIndiceList, group, th_id);
         }
@@ -84,8 +85,10 @@ listIndiceList separatePointList(listPoint2D listPoint, int nbProcess){
     return newListIndiceList;
 }
 
+
+
 listIndice getListIndice(listIndiceList listindicelist, int i){
-    if(i<0 || i>listindicelist.taille){
+    if(i<0 || i>listindicelist.taille-1){
         printf("getListIndice : le numero de la liste d'indice n'existe pas");
         exit(1);
     }
@@ -150,6 +153,10 @@ listIndice partition(listPoint2D pts, listIndice ptsPath, listIndiceList hulls, 
 }
 
 void displayListIndiceList(listIndiceList liste){
+    if(liste.indiceList == NULL){
+        printf("displayListIndiceList : listeIndice.indice == NULL");
+        exit(1);
+    }
     for(int i=0; i<liste.taille; i++){
         displayListIndice(liste.indiceList[i]);
     }

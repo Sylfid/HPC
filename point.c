@@ -61,10 +61,3 @@ bool orientation(Point2D p1, Point2D p2, Point2D p3){
   float val2 = (getXPoint2D(p2) - getXPoint2D(p1)) * (getYPoint2D(p3) - getYPoint2D(p2));
   return val1<val2;
 }
-
-bool orientation2(Point2D p1, Point2D p2, Point2D p3){
-  // return True si (p1, p2, p3) est un triangle antihoraire
-  float val1 = (getYPoint2D(p2) - getYPoint2D(p1)) * (getXPoint2D(p1) - getXPoint2D(p3));
-  float val2 = (getYPoint2D(p3) - getYPoint2D(p1)) * (getXPoint2D(p1) - getXPoint2D(p2));
-  return val1<val2;
-}
