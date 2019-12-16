@@ -227,3 +227,29 @@ listIndice getMiddleSideList(listPoint2D listPoint, listIndice separatorLeft, li
     }
     return newList;
 }
+
+Point2D calcCentre(listIndice ids, listPoint2D pts){
+  if(getTailleIndice(ids)!=3){
+    printf("calcCentre : la liste d'indice doit être de taille 3 (triangle)\n");
+    exit(1);
+  }
+  float a1,b1,c1,a2,b2,c2,x,y;
+  Point2D p1,p2,p3,centre;
+  // recupération points
+  p1 = getPoint2D(pts, getIndice(ids,0));
+  p2 = getPoint2D(pts, getIndice(ids,1));
+  p3 = getPoint2D(pts, getIndice(ids,2));
+  // calc coef
+  a1 = 2*(getXPoint2D(p2)-getXPoint2D(p1));
+  b1 = 2*(getYPoint2D(p2)-getYPoint2D(p1));
+  c1 = pow(getXPoint2D(p1),2.)+pow(getYPoint2D(p1),2.)-pow(getXPoint2D(p2),2.)-pow(getYPoint2D(p2),2.);
+  a2 = 2*(getXPoint2D(p2)-getXPoint2D(p1));
+  b2 = 2*(getYPoint2D(p2)-getYPoint2D(p1));
+  c2 = pow(getXPoint2D(p1),2.)+pow(getYPoint2D(p1),2.)-pow(getXPoint2D(p2),2.)-pow(getYPoint2D(p2),2.);
+  // calc coordoné centre
+  x = (b1*c2-b2*c1)/(a1*b2-b1*a2);
+  y = (a2*c1-a1*c2)/(a1*b2-b1*a2);
+  // creation point
+  centre = constructPoint2D(x,y);
+  return centre;
+}

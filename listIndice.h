@@ -2,6 +2,7 @@
 #define LISTINDICE
 
 #include "listPoint.h"
+#include "point.h"
 
 typedef struct listIndice listIndice;
 
@@ -28,5 +29,6 @@ int isRightSideList(listPoint2D listPoint, listIndice separator, int pointIndice
 listIndice getLeftSideList(listPoint2D listPoint, listIndice separator);
 listIndice getRightSideList(listPoint2D listPoint, listIndice separator);
 listIndice getMiddleSideList(listPoint2D listPoint, listIndice separatorLeft, listIndice separatorRight);
-
+// calcul du cercle
+Point2D calcCentre(listIndice ids, listPoint2D pts);
 #endif
