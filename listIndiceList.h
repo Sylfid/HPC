@@ -16,13 +16,17 @@ struct listIndiceList{
 // ------ constructeur
 listIndiceList constructeurListIndiceList(listPoint2D list);
 listIndiceList constructeurListIndiceListTaille(int taille2,listPoint2D list);
-void setListIndice(listIndiceList* Liste, listIndice newlist, int i);
-
-void setListIndice(listIndiceList* Liste, listIndice newlist, int i);
-void addListIndiceList(listIndiceList *listindicelist, listIndice list);
-listIndiceList separatePointList(listPoint2D listPoint, int nbProcess);
+// ------ getteur
 listIndice getListIndice(listIndiceList listindicelist, int i);
-listIndice partition(listPoint2D pts, listIndice ptsPath, listIndiceList hulls, int num, int nbProces);
-
+// ------ setteur
+void setListIndice(listIndiceList* Liste, listIndice newlist, int i);
+// ------ fonction classe autre
 void displayListIndiceList(listIndiceList liste);
+void addListIndiceList(listIndiceList *listindicelist, listIndice list);
+
+// ------ fonction triangulation
+listIndiceList separatePointList(listPoint2D listPoint, int nbProcess);
+//listIndice partition(listPoint2D pts, listIndice ptsPath, listIndiceList hulls, int num, int nbProces);
+
+
 #endif

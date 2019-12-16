@@ -38,14 +38,30 @@ int getIndice(listIndice listInd, int i){
   return listInd.indice[i];
 }
 
+int getTailleIndice(listIndice listeIndice){
+    return listeIndice.taille;
+}
+
 
 // ------ fonction classe autre ------ //
+
+void displayListIndice(listIndice liste){
+    if(liste.indice == NULL){
+        printf("displayListIndice : liste.indice == NULL");
+        exit(1);
+    }
+    for(int i=0; i<liste.taille; i++){
+        printf("%d ", liste.indice[i]);
+    }
+    printf("\n");
+}
 
 void addIndice(listIndice *listInd, int i){
     listInd->taille = listInd->taille+1;
     listInd->indice = realloc(listInd->indice, listInd->taille*sizeof(int));
     listInd->indice[listInd->taille-1] = i;
 }
+
 
 // ------ fonction triangulation ------ //
 
@@ -138,40 +154,6 @@ listIndice Convex_HullIndice(listPoint2D pts){
     return result;
 }*/
 
-int getTailleIndice(listIndice listeIndice){
-    return listeIndice.taille;
-}
-
-void displayListIndice(listIndice liste){
-    if(liste.indice == NULL){
-        printf("displayListIndice : liste.indice == NULL");
-        exit(1);
-    }
-    for(int i=0; i<liste.taille; i++){
-        printf("%d ", liste.indice[i]);
-    }
-    printf("\n");
-}
-
-listIndice getRightSideList(listPoint2D listPoint, listIndice separator){
-    listIndice newList = constructeurListIndice();
-    for(int i=0; i<listPoint.taille; i++){
-        if(isRightSideList(listPoint, separator, i)){
-            addIndice(&newList, i);
-        }
-    }
-    return newList;
-}
-
-listIndice getLeftSideList(listPoint2D listPoint, listIndice separator){
-    listIndice newList = constructeurListIndice();
-    for(int i=0; i<listPoint.taille; i++){
-        if(isLeftSideList(listPoint, separator, i)){
-            addIndice(&newList, i);
-        }
-    }
-    return newList;
-}
 int isLeftSideList(listPoint2D listPoint, listIndice separator, int pointIndice){
 
     if(getYPoint2D(listPoint.point[separator.indice[0]]) >= getYPoint2D(listPoint.point[pointIndice])){
@@ -215,10 +197,30 @@ int isRightSideList(listPoint2D listPoint, listIndice separator, int pointIndice
     return 0;
 }
 
+listIndice getLeftSideList(listPoint2D listPoint, listIndice separator){
+    listIndice newList = constructeurListIndice();
+    for(int i=0; i<listPoint.taille; i++){
+        if(isLeftSideList(listPoint, separator, i)){
+            addIndice(&newList, i);
+        }
+    }
+    return newList;
+}
+
+listIndice getRightSideList(listPoint2D listPoint, listIndice separator){
+    listIndice newList = constructeurListIndice();
+    for(int i=0; i<listPoint.taille; i++){
+        if(isRightSideList(listPoint, separator, i)){
+            addIndice(&newList, i);
+        }
+    }
+    return newList;
+}
+
 listIndice getMiddleSideList(listPoint2D listPoint, listIndice separatorLeft, listIndice separatorRight){
     listIndice newList = constructeurListIndice();
     for(int i=0; i<listPoint.taille; i++){
-        if(isRightSideList(listPoint, separatorLeft, i) && 
+        if(isRightSideList(listPoint, separatorLeft, i) &&
                 isLeftSideList(listPoint, separatorRight,i)){
             addIndice(&newList, i);
         }
