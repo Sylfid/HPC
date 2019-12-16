@@ -170,3 +170,28 @@ listIndiceList separatePointList(listPoint2D listPoint, int nbProcess){
 //   }
 //   return part;
 // }
+
+
+void removeListIndice(listIndiceList *list, int i){
+    list->taille--;
+    listIndice *tampon = list->indiceList;
+    //list->indiceList = malloc(
+}
+
+listIndiceList getAllTrianglePossible(listPoint2D listPoint){
+    listIndiceList newList = constructeurListIndiceList(listPoint);
+    listIndice newTriangle = constructeurListIndiceTaille(3);
+    for(int i=0; i<listPoint.taille-2; i++){
+        for(int j=0; j<listPoint.taille-1; j++){
+            for(int k=j; j<listPoint.taille; k++){
+                setIndice(&newTriangle, i, 1);
+                setIndice(&newTriangle, j, 2);
+                setIndice(&newTriangle, k, 3);
+            }
+        }
+    }
+}
+
+listIndiceList getTriangulation(listIndiceList list){
+    listIndiceList triangulation = getAllTrianglePossible(list.listPoint);
+}

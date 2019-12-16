@@ -14,6 +14,13 @@ listIndice constructeurListIndice(){
     return newList;
 }
 
+listIndice constructeurListIndiceTaille(int taille){
+    listIndice newList;
+    newList.taille = taille;
+    newList.indice = (int*)malloc(taille*sizeof(int));
+    return newList;
+}
+
 listIndice constructeurListIndiceBtw(int deb, int fin){
   // construit une liste d'indice comptenant les i in [deb, fin[
     listIndice newList;
@@ -42,6 +49,13 @@ int getTailleIndice(listIndice listeIndice){
     return listeIndice.taille;
 }
 
+void setIndice(listIndice *liste, int newIndice, int place){
+    if(place >= liste->taille){
+        printf("setIndice : la place voulue n'est pas valable");
+        exit(1);
+    }
+    liste->indice[place] = newIndice;
+}
 
 // ------ fonction classe autre ------ //
 
@@ -114,45 +128,6 @@ listIndice Convex_HullIndice(listPoint2D pts){
   return hull;
 }
 
-/*listIndice getLeftSideList(listPoint2D listPoint, listIndice separator){
-    // Retourne les points qui sont à gauche de la ligne separatorlistPoint2D result = constructListPoint2D(0);
-    listIndice result = constructeurListIndice();
-    for(int i=0; i<listPoint.taille; i++){
-        for(int j=0; j<separator.taille-1; j++){
-            if(getYPoint2D(listPoint.point[separator.indice[j]]) <= getYPoint2D(listPoint.point[i])
-                    && getYPoint2D(listPoint.point[separator.indice[j+1]]) > getYPoint2D(listPoint.point[i])){
-                if(orientation(listPoint.point[separator.indice[j]],listPoint.point[separator.indice[j+1]],listPoint.point[i])){
-                    addIndice(&result, i);
-                }
-            }
-        }
-    }
-    for(int i=0; i<separator.taille; i++){
-        addIndice(&result, separator.indice[i]);
-    }
-    return result;
-}
-
-
-/*listIndice getRightSideList(listPoint2D listPoint, listIndice separator){
-    // Retourne les points qui sont à droite de la ligne separator
-    listIndice result = constructeurListIndice();
-    for(int i=0; i<listPoint.taille; i++){
-        for(int j=0; j<separator.taille-1; j++){
-            if(getYPoint2D(listPoint.point[separator.indice[j]]) <= getYPoint2D(listPoint.point[i])
-                    && getYPoint2D(listPoint.point[separator.indice[j+1]]) > getYPoint2D(listPoint.point[i])){//Oublie potentiellement quelque points
-                if(!orientation(listPoint.point[separator.indice[j]],listPoint.point[separator.indice[j+1]],listPoint.point[i])){
-                    addIndice(&result, i);
-                }
-            }
-        }
-    }
-    for(int i=0; i<separator.taille; i++){
-        printf("\n a %d %d \n", separator.indice[i], i);
-        addIndice(&result, separator.indice[i]);
-    }
-    return result;
-}*/
 
 int isLeftSideList(listPoint2D listPoint, listIndice separator, int pointIndice){
 

@@ -12,10 +12,13 @@ struct listIndice{
 
 // ------ constructeur
 listIndice constructeurListIndice();
+listIndice constructeurListIndiceTaille(int taille);
 listIndice constructeurListIndiceBtw(int deb, int fin);
 // ------ getteur
 int getIndice(listIndice listInd, int i);
 int getTailleIndice(listIndice listeIndice);
+//------- Setteur
+void setIndice(listIndice *liste, int newIndice, int place);
 // ------ fonction classe autre
 void addIndice(listIndice *listInd, int i);
 void displayListIndice(listIndice liste);

@@ -27,6 +27,9 @@ void addListIndiceList(listIndiceList *listindicelist, listIndice list);
 // ------ fonction triangulation
 listIndiceList separatePointList(listPoint2D listPoint, int nbProcess);
 //listIndice partition(listPoint2D pts, listIndice ptsPath, listIndiceList hulls, int num, int nbProces);
+listIndiceList getAllTrianglePossible(listPoint2D listPoint);
+listIndiceList getTriangulation(listIndiceList list);
+
 
 
 #endif

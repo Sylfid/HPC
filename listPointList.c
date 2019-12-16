@@ -54,4 +54,3 @@ void addListPointList(listPointList *list, listPoint2D listPoint, int i){
         }
     }
 }
-
