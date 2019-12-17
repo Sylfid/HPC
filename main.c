@@ -2,9 +2,10 @@
 #include <stdlib.h>
 #include "point.h"
 #include "listPoint.h"
-#include "listPointList.h"
+#include "hedge.h"
 #include "listIndice.h"
 #include "listIndiceList.h"
+#include "maillage.h"
 
 int main()
 
@@ -16,7 +17,7 @@ int main()
     //displayListPoint2D(list);
     printf("\n");
     listPoint2D list2 = Convex_Hull(list);
-    listIndiceList essai = separatePointList(list, 4);  
+    listIndiceList essai = separatePointList(list, 4);
     displayListIndiceList(essai);
     printf("ouah\n\n\n");
     listPoint2D proj2 = projectionWithIndice(list, 6);

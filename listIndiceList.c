@@ -250,10 +250,3 @@ listIndiceList getOneTriangulation(listIndice inds, listPoint2D pts){
     displayListIndiceList(res);
     return res;
 }
-
-
-listIndiceList getHedge(listIndiceList paths, int nbProcess){
-  // calcul de le arrets du maillage en combinant les triangle et les convexHull
-  // retourner une liste de liste d'indice de taille 2
-
-}

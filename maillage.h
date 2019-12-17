@@ -3,6 +3,7 @@
 
 #include "listPoint.h"
 #include "listIndice.h"
+#include "listIndiceList.h"
 
 
 typedef struct maillage maillage;
@@ -31,4 +32,3 @@ void removeListIndice(listIndiceList *list, int i);*/
 maillage getTriangulation(listIndiceList list, int nbProcess);
 
 #endif
-

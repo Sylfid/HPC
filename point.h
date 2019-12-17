@@ -12,7 +12,7 @@ struct Point2D{
 
 // ------ constructeur
 Point2D constructPoint2D(float x1, float y1);
-// ------ destructeur
+// ------ affichage
 void displayPoint2D(Point2D point);
 // ------ getteur
 float getXPoint2D(Point2D point);

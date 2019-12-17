@@ -32,6 +32,5 @@ listIndiceList separatePointList(listPoint2D listPoint, int nbProcess);
 //listIndice partition(listPoint2D pts, listIndice ptsPath, listIndiceList hulls, int num, int nbProces);
 listIndiceList getAllTrianglePossible(listIndice inds, listPoint2D pts);
 listIndiceList getOneTriangulation(listIndice inds, listPoint2D pts);
-//listIndiceList getTriangulation(listIndiceList list, int nbProcess);
 
 #endif

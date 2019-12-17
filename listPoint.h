@@ -16,7 +16,6 @@ listPoint2D constructListPoint2DFromListPoint(listPoint2D list);
 listPoint2D constructListPoint2DFromFile(char* fileName);
 // ------ destructeur
 void freeListPoint2D(listPoint2D* listPoint);
-void displayListPoint2D(listPoint2D listPoint);
 // ------ getteur
 int getTailleList2D(listPoint2D listPoint);
 Point2D getPoint2D(listPoint2D listPoint, int i);
@@ -29,6 +28,7 @@ void setListPoint2DFromPoint(listPoint2D *listPoint, Point2D point, int i);
 void setXListPoint2D(listPoint2D *listPoint, float a, int i);
 void setYListPoint2D(listPoint2D *listPoint, float a, int i);
 // ------ fonction classe autre
+void displayListPoint2D(listPoint2D listPoint);
 void addPoint2D(listPoint2D *listPoint, float x2, float y2);
 void addPoint2DFromPoint(listPoint2D *listPoint, Point2D point);
 void addPointList2DFromPointList(listPoint2D *listPoint, listPoint2D addListPoint);

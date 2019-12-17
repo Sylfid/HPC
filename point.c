@@ -14,7 +14,7 @@ Point2D constructPoint2D(float x1, float y1){
 }
 
 
-// --------- destructeur --------- //
+// --------- affichage --------- //
 
 void displayPoint2D(Point2D point){
     printf("%f %f\n", point.x, point.y);

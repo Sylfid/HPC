@@ -3,8 +3,10 @@
 #include <omp.h>
 #include "point.h"
 #include "listPoint.h"
-#include "listIndiceList.h"
+#include "hedge.h"
 #include "listIndice.h"
+#include "listIndiceList.h"
+#include "maillage.h"
 
 
 int main()
@@ -17,8 +19,11 @@ int main()
     // Definition des variable
     listPoint2D P; // Ensemble des points
     listIndiceList Q; // list de lonqueure m, Q[i]=liste indice des pts
-                     // de la ième partition de l'espace
-    listIndiceList T;
+                      // de la ième partition de l'espace
+    maillage T; // list des liste des triangles de Delaunay par path
+                // triangle = list de 3 indices
+    hedge H; // list des aretes de maillage de Delaunay
+                      // arete = list de 2 point
     // Chargement des points dans le fichier test
     P = constructListPoint2DFromFile("test");
     printf(" - - - - - - - fichier téléchargé - - - - - - - \n");
