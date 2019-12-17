@@ -37,6 +37,7 @@ listIndice constructeurListIndiceBtw(int deb, int fin){
 
 
 // -------- getteur -------- //
+
 int getIndice(listIndice listInd, int i){
     if(i<0 || i > listInd.taille-1){
         printf("getIndice : indice non valide");
@@ -48,6 +49,9 @@ int getIndice(listIndice listInd, int i){
 int getTailleIndice(listIndice listeIndice){
     return listeIndice.taille;
 }
+
+
+// -------- setteur -------- //
 
 void setIndice(listIndice *liste, int newIndice, int place){
     if(place >= liste->taille){

@@ -41,6 +41,10 @@ listIndice getListIndice(listIndiceList listindicelist, int i){
     }
 }
 
+int getTailleListIndice(listIndiceList listindicelist){
+    return listindicelist.taille;
+}
+
 
 // --------- setteur --------- //
 
@@ -70,6 +74,12 @@ void addListIndiceList(listIndiceList *listindicelist, listIndice list){
     listindicelist->taille++;
     listindicelist->indiceList = realloc(listindicelist->indiceList, listindicelist->taille*sizeof(listIndice));
     listindicelist->indiceList[listindicelist->taille-1] = list;
+}
+
+void removeListIndice(listIndiceList *list, int i){
+    list->taille--;
+    listIndice *tampon = list->indiceList;
+    //list->indiceList = malloc(
 }
 
 
@@ -172,26 +182,83 @@ listIndiceList separatePointList(listPoint2D listPoint, int nbProcess){
 // }
 
 
-void removeListIndice(listIndiceList *list, int i){
-    list->taille--;
-    listIndice *tampon = list->indiceList;
-    //list->indiceList = malloc(
-}
+// listIndiceList getAllTrianglePossible(listPoint2D listPoint){
+//     listIndiceList newList = constructeurListIndiceList(listPoint);
+//     listIndice newTriangle = constructeurListIndiceTaille(3);
+//     for(int i=0; i<listPoint.taille-2; i++){
+//         for(int j=0; j<listPoint.taille-1; j++){
+//             for(int k=j; j<listPoint.taille; k++){
+//                 setIndice(&newTriangle, i, 1);
+//                 setIndice(&newTriangle, j, 2);
+//                 setIndice(&newTriangle, k, 3);
+//             }
+//         }
+//     }
+// }
 
-listIndiceList getAllTrianglePossible(listPoint2D listPoint){
-    listIndiceList newList = constructeurListIndiceList(listPoint);
+listIndiceList getAllTrianglePossible(listIndice inds, listPoint2D pts){
+  // crée tout les triplet possible avec les indices de la liste inds
+    listIndiceList newList = constructeurListIndiceList(pts);
     listIndice newTriangle = constructeurListIndiceTaille(3);
-    for(int i=0; i<listPoint.taille-2; i++){
-        for(int j=0; j<listPoint.taille-1; j++){
-            for(int k=j; j<listPoint.taille; k++){
-                setIndice(&newTriangle, i, 1);
-                setIndice(&newTriangle, j, 2);
-                setIndice(&newTriangle, k, 3);
+    int n = getTailleIndice(inds);
+    for(int i=0; i<n-2; i++){
+        for(int j=i+1; j<n-1; j++){
+            for(int k=j+1; k<n; k++){
+                setIndice(&newTriangle, getIndice(inds,i), 0);
+                setIndice(&newTriangle, getIndice(inds,j), 1);
+                setIndice(&newTriangle, getIndice(inds,k), 2);
+                addListIndiceList(&newList, newTriangle);
             }
         }
     }
+    return newList;
 }
 
-listIndiceList getTriangulation(listIndiceList list){
-    listIndiceList triangulation = getAllTrianglePossible(list.listPoint);
+listIndiceList getOneTriangulation(listIndice inds, listPoint2D pts){
+  // triangulation pour un path
+    // variables
+    bool flag;
+    listIndice triangle;
+    Point2D centre, pt;
+    float rayon, dist;
+    int pt_indice;
+    listIndiceList res = constructeurListIndiceList(pts);
+    // contruction de tout les triplets = triangles
+    listIndiceList listTrig = getAllTrianglePossible(inds,pts);
+    for(int t=0 ; t<getTailleListIndice(listTrig) ; t++){
+      // parcour des triangles
+      flag = true;
+      triangle = getListIndice(listTrig,t);
+      centre = calcCentre(triangle,pts);
+      rayon = distance(centre, getPoint2D(pts,getIndice(triangle,0)));
+      for(int p=0 ; p<getTailleIndice(inds) ; p++){
+        // parcour des points
+        pt_indice = getIndice(inds,p);
+        pt = getPoint2D(pts,pt_indice);
+        if(pt_indice!=getIndice(triangle,0) || pt_indice!=getIndice(triangle,1) || pt_indice!=getIndice(triangle,2)){
+          // point pas dans triangle
+          dist = distance(centre,pt);
+          if(dist <= rayon){
+            flag = false;
+            break;
+          }
+        }
+      }
+      if (flag) {
+        addListIndiceList(&res,triangle);
+      }
+    }
+    return res;
+}
+
+listIndiceList getTriangulation(listIndiceList paths, int nbProcess){
+  // calcul de la triangulation parallélisé
+  // retourner une liste de liste d'indice de taille 3
+
+}
+
+listIndiceList getHedge(listIndiceList paths, int nbProcess){
+  // calcul de le arrets du maillage en combinant les triangle et les convexHull
+  // retourner une liste de liste d'indice de taille 2
+
 }

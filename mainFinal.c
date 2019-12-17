@@ -18,12 +18,15 @@ int main()
     listPoint2D P; // Ensemble des points
     listIndiceList Q; // list de lonqueure m, Q[i]=liste indice des pts
                      // de la ième partition de l'espace
+    listIndiceList T;
     // Chargement des points dans le fichier test
     P = constructListPoint2DFromFile("test");
     printf(" - - - - - - - fichier téléchargé - - - - - - - \n");
     // Partition des points
     Q = separatePointList(P, nthreads);
     printf(" - - - - - enseble des points partitioné - - - - - \n");
+    T = getTriangulation(Q, nthreads);
+    printf(" - - - - - triangulation calculée - - - - - \n");
 
   //   // Definition des variable
   //   listPoint2D P; // Ensemble des points
