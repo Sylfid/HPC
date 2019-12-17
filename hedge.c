@@ -3,9 +3,11 @@
 #include "point.h"
 #include "listPoint.h"
 #include "listIndice.h"
+#include "maillage.h"
 #include "hedge.h"
 
 // --------- constructeur --------- //
+
 hedge constructeurHedge(int taille2){
     if(taille2<0){
       printf("constructeurHedge : la taille doit être positive\n");
@@ -67,13 +69,36 @@ void addHedge(hedge *H, listPoint2D listPoint){
     H->hedgeList[H->taille-1] = listPoint;
 }
 
+void addHedgeByPoints(hedge *H, Point2D p1, Point2D p2){
+  listPoint2D arrete = constructListPoint2DFrom2Points(p1, p2);
+  addHedge(H, arrete);
+}
+
 
 // ------ fonction triangulation ------ //
 
-hedge getHedgeDelaunay(listIndiceList paths, int nbProcess){
-  // calcul de le arrets du maillage en combinant les triangle et les convexHull
-  // retourner une liste de liste d'indice de taille 2
-
+hedge getHedgeDelaunay(listIndiceList list, int nbProcess){
+// calcul de le arrets du maillage en combinant les triangle et les convexHull
+// retourner une liste de liste de 2 points
+  hedge res = constructeurHedge(0);
+  maillage allTriangles = getTriangulation(list,nbProcess);
+  listIndiceList pathTriangles;
+  listIndice triangle;
+  Point2D a, b, c;
+  listPoint2D pts = getPointMaillage(allTriangles);
+  for(int j=0 ; j<getTailleMaillage(allTriangles) ; j++){ // chaque path
+    pathTriangles = getListIndiceList(allTriangles,j);
+    for(int i=0 ; i<getTailleListIndice(pathTriangles) ; i++){ // chaque triangle
+      triangle = getListIndice(pathTriangles,i);
+      a = getPoint2D(pts,getIndice(triangle,0));
+      b = getPoint2D(pts,getIndice(triangle,1));
+      c = getPoint2D(pts,getIndice(triangle,2));
+      addHedgeByPoints(&res, a, b);
+      addHedgeByPoints(&res, a, c);
+      addHedgeByPoints(&res, b, c);
+    }
+  }
+  return res;
 }
 
 /*listPointList separatePointList(listPoint2D listPoint, int nbProcess){

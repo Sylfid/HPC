@@ -30,6 +30,9 @@ maillage constructeurMaillageTaille(int taille2,listPoint2D list){
   return newList;
 }
 
+
+// --------- setteur --------- //
+
 void setMaillage(maillage* Liste, listIndiceList newlist, int i){
     if(i<0 || i>Liste->taille-1){
         printf("setMaillage : l'indice n'est pas valide");
@@ -37,6 +40,9 @@ void setMaillage(maillage* Liste, listIndiceList newlist, int i){
     }
     Liste->listIndiceList[i] = newlist;
 }
+
+
+// --------- getteur --------- //
 
 listIndiceList getListIndiceList(maillage leMaillage, int i){
     if(i<0 || i>leMaillage.taille-1){
@@ -48,12 +54,16 @@ listIndiceList getListIndiceList(maillage leMaillage, int i){
     }
 }
 
+listPoint2D getPointMaillage(maillage leMaillage){
+   return leMaillage.listPoint;
+}
+
 int getTailleMaillage(maillage leMaillage){
     return leMaillage.taille;
 }
 
 
-
+// ------ fonction triangulation ------ //
 
 maillage getTriangulation(listIndiceList paths, int nbProcess){
   // calcul de la triangulation parallélisé

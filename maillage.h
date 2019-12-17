@@ -19,6 +19,7 @@ maillage constructeurMaillage(listPoint2D list);
 maillage constructeurMaillageTaille(int taille2,listPoint2D list);
 // ------ getteur
 listIndiceList getListIndiceList(maillage leMaillage, int i);
+listPoint2D getPointMaillage(maillage leMaillage);
 int getTailleMaillage(maillage leMaillage);
 // ------ setteur
 void setMaillage(maillage* Liste, listIndiceList newlist, int i);

@@ -19,6 +19,16 @@ listPoint2D constructListPoint2D(int taille2){
     return newListPoint;
 }
 
+listPoint2D constructListPoint2DFrom2Points(Point2D p1, Point2D p2){
+    listPoint2D newListPoint;
+    int taille2 = 2;
+    newListPoint.taille = 2;
+    newListPoint.point = (Point2D*) malloc(2*sizeof(Point2D));
+    newListPoint.point[0]=p1;
+    newListPoint.point[1]=p2;
+    return newListPoint;
+}
+
 listPoint2D constructListPoint2DFromListPoint(listPoint2D list){
     listPoint2D newListPoint;
     int taille2 = list.taille;
@@ -289,7 +299,7 @@ listPoint2D projection(listPoint2D listPoint, Point2D point){
 listPoint2D projectionWithIndice(listPoint2D listPoint, int indice){
   // Double projections sur parabole 3D centré en point puis sur plan orthogonal
   // au plan d'origine passant par la ligne verticale passant par point
-  
+
   float py = getYPoint2D(listPoint.point[indice]);
   //printf("proj %d %f\n",indice , py);
   int n = getTailleList2D(listPoint);

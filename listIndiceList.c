@@ -20,7 +20,7 @@ listIndiceList constructeurListIndiceListTaille(int taille2,listPoint2D list){
   newList.taille = taille2;
   if(taille2 == 0){
       newList.indiceList = NULL;
-  }
+  }// ------ fonction triangulation ------ //
   else{
     newList.indiceList = (listIndice*) malloc(taille2*sizeof(listIndice));
   }
