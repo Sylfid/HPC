@@ -19,6 +19,7 @@ listIndiceList constructeurListIndiceListTaille(int taille2,listPoint2D list);
 
 listIndiceList constructeurPossibleMaillage();
 // ------ getteur
+listPoint2D getPoints(listIndiceList listindicelist);
 listIndice getListIndice(listIndiceList listindicelist, int i);
 int getTailleListIndice(listIndiceList listindicelist);
 // ------ setteur

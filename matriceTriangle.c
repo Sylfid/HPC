@@ -6,7 +6,6 @@
 #include "listPoint.h"
 #include "matriceTriangle.h"
 #include "maillage.h"
-#include "hedge.h"
 
 matriceTriangle constructeurMatriceTriangle(int taille2){
     matriceTriangle newMatrice;
@@ -15,10 +14,23 @@ matriceTriangle constructeurMatriceTriangle(int taille2){
     for(int i=0; i<taille2; i++){
         newMatrice.indiceList[i] = constructeurListIndice(i+1);
         for(int j=0; j<i+1; j++){
-            setIndice(&newMatrice.indiceList[i], 0, j); 
+            setIndice(&newMatrice.indiceList[i], 0, j);
         }
     }
     return newMatrice;
+}
+
+int getTailleMatrice(matriceTriangle matTri){
+  return matTri.taille;
+}
+
+
+listIndice getLigne(matriceTriangle matTri, int i){
+  if(i<0 || i>matTri.taille){
+    printf("getLigne : indice invalide");
+    exit(1);
+  }
+  return matTri.indiceList[i];
 }
 
 void addPath(matriceTriangle* matTri, int indice1, int indice2){
@@ -36,32 +48,31 @@ void addPath(matriceTriangle* matTri, int indice1, int indice2){
             minIndice = indice2;
             maxIndice = indice1;
         }
-        setIndice(&matTri->indiceList[maxIndice], 1, minIndice);  
+        setIndice(&matTri->indiceList[maxIndice], 1, minIndice);
     }
 }
 
 
 matriceTriangle calcmatTriDelaunay(listIndiceList list, int nbProcess){
-// calcul de le arrets du maillage en combinant les triangle et les convexHull
-// retourner une liste de liste de 2 points
-  maillage allTriangles = getTriangulation(list,nbProcess);
-  listPoint2D pts = getPointMaillage(allTriangles);
+  // calcul la matrice d'adgacence
+    maillage allTriangles = getTriangulation(list,nbProcess);
+    listPoint2D pts = getPointMaillage(allTriangles);
     matriceTriangle newMatTri = constructeurMatriceTriangle(getTailleList2D(pts));
-  // listIndiceList test = constructeurListIndiceList(pts);
-  listIndiceList pathTriangles;
-  listIndice triangle;
-  Point2D a, b, c;
-  for(int j=0 ; j<getTailleMaillage(allTriangles) ; j++){ // chaque path
-    pathTriangles = getListIndiceList(allTriangles,j);
-    for(int i=0 ; i<getTailleListIndice(pathTriangles) ; i++){ // chaque triangle
-      triangle = getListIndice(pathTriangles,i);
-      a = getPoint2D(pts,getIndice(triangle,0));
-      b = getPoint2D(pts,getIndice(triangle,1));
-      c = getPoint2D(pts,getIndice(triangle,2));
-      
-      addHedgeByPoints(&res, a, c);
-      addHedgeByPoints(&res, b, c);
+    // listIndiceList test = constructeurListIndiceList(pts);
+    listIndiceList pathTriangles;
+    listIndice triangle;
+    int a, b, c;
+    for(int j=0 ; j<getTailleMaillage(allTriangles) ; j++){ // chaque path
+      pathTriangles = getListIndiceList(allTriangles,j);
+      for(int i=0 ; i<getTailleListIndice(pathTriangles) ; i++){ // chaque triangle
+        triangle = getListIndice(pathTriangles,i);
+        a = getIndice(triangle,0);
+        b = getIndice(triangle,1);
+        c = getIndice(triangle,2);
+        addPath(&newMatTri, a, b);
+        addPath(&newMatTri, a, c);
+        addPath(&newMatTri, c, b);
+      }
     }
-  }
-  return res;
+    return newMatTri;
 }

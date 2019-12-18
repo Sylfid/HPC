@@ -5,6 +5,7 @@
 #include "listIndice.h"
 #include "maillage.h"
 #include "hedge.h"
+#include "matriceTriangle.h"
 
 // --------- constructeur --------- //
 
@@ -80,40 +81,34 @@ void addHedgeByPoints(hedge *H, Point2D p1, Point2D p2){
 hedge calcHedgeDelaunay(listIndiceList list, int nbProcess){
 // calcul de le arrets du maillage en combinant les triangle et les convexHull
 // retourner une liste de liste de 2 points
-  hedge res = constructeurHedge(0);
-  maillage allTriangles = getTriangulation(list,nbProcess);
-  listPoint2D pts = getPointMaillage(allTriangles);
-  // listIndiceList test = constructeurListIndiceList(pts);
-  listIndiceList pathTriangles;
-  listIndice triangle;
-  Point2D a, b, c;
-  for(int j=0 ; j<getTailleMaillage(allTriangles) ; j++){ // chaque path
-    pathTriangles = getListIndiceList(allTriangles,j);
-    for(int i=0 ; i<getTailleListIndice(pathTriangles) ; i++){ // chaque triangle
-      triangle = getListIndice(pathTriangles,i);
-      a = getPoint2D(pts,getIndice(triangle,0));
-      b = getPoint2D(pts,getIndice(triangle,1));
-      c = getPoint2D(pts,getIndice(triangle,2));
-      addHedgeByPoints(&res, a, b);
-      addHedgeByPoints(&res, a, c);
-      addHedgeByPoints(&res, b, c);
+  hedge newHedge = constructeurHedge(0);
+  matriceTriangle matAdj = calcmatTriDelaunay(list, nbProcess);
+  listPoint2D pts = getPoints(list);
+
+  listIndice ligne;
+  for(int i=0 ; i<getTailleMatrice(matAdj) ; i++){ //chaque ligne
+    ligne = getLigne(matAdj,i);
+    for(int j=0 ; j<getTailleIndice(ligne) ; j++){ // chaque colonne
+      if(getIndice(ligne,j)==1){
+        addHedgeByPoints(&newHedge, getPoint2D(pts,i),  getPoint2D(pts,j));
+      }
     }
   }
-  return res;
+  return newHedge;
 }
 
-int isSameHedge(hedge edge){
-    for(int i=0; i<edge.taille; i++){
-        for(int j=0; j<edge.taille; j++){
-            if(getXListPoint2D(*edge.hedgeList, i) == getXListPoint2D(*edge.hedgeList, j) &&
-                    getYListPoint2D(*edge.hedgeList, i) == getYListPoint2D(*edge.hedgeList, j)){
-                printf("%d %d", i, j);
-                return 1;
-            }
-        }
-    }
-    return 1;
-}
+// int isSameHedge(hedge edge){
+//     for(int i=0; i<edge.taille; i++){
+//         for(int j=0; j<edge.taille; j++){
+//             if(getXListPoint2D(*edge.hedgeList, i) == getXListPoint2D(*edge.hedgeList, j) &&
+//                     getYListPoint2D(*edge.hedgeList, i) == getYListPoint2D(*edge.hedgeList, j)){
+//                 printf("%d %d", i, j);
+//                 return 1;
+//             }
+//         }
+//     }
+//     return 1;
+// }
 
 /*listPointList separatePointList(listPoint2D listPoint, int nbProcess){
     listPointList newListPointList;
