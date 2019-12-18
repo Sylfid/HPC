@@ -6,7 +6,6 @@
 #include "listIndice.h"
 #include "listIndiceList.h"
 #include "maillage.h"
-#include <omp.h>
 
 typedef struct hedge hedge;
 
@@ -26,6 +25,6 @@ void addHedge(hedge *H, listPoint2D listPoint);
 void addHedgeByPoints(hedge *H, Point2D p1, Point2D p2);
 
 // ------ fonction triangulation
-hedge getHedgeDelaunay(listIndiceList list, int nbProcess);
+hedge calcHedgeDelaunay(listIndiceList list, int nbProcess);
 //listPointList separatePointList(listPoint2D listPoint, int nbProcess);
 #endif

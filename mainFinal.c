@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <omp.h>
 #include "point.h"
 #include "listPoint.h"
 #include "hedge.h"
@@ -30,9 +29,12 @@ int main()
     // Partition des points
     Q = separatePointList(P, nthreads);
     printf(" - - - - - enseble des points partitioné - - - - - \n");
-    T = getTriangulation(Q, nthreads);
-    printf(" - - - - - triangulation calculée - - - - - \n");
-
+    // T = getTriangulation(Q, nthreads);
+    // printf(" - - - - - triangulation calculée - - - - - \n");
+    H = calcHedgeDelaunay(Q, nthreads);
+    printf(" - - - - - maillage calculée - - - - - \n");
+    printf("%d arretes\n",getTailleHedge(H));
+    displayHedge(H);
   //   // Definition des variable
   //   listPoint2D P; // Ensemble des points
   //   listIndice pPath; // Indices des nthreads m-1 de séparation
