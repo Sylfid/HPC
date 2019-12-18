@@ -24,7 +24,7 @@ int main()
     hedge H; // list des aretes de maillage de Delaunay
                       // arete = list de 2 point
     // Chargement des points dans le fichier test
-    P = constructListPoint2DFromFile("test");
+    P = constructListPoint2DFromFile("test3");
     printf(" - - - - - - - fichier téléchargé - - - - - - - \n");
     // Partition des points
     Q = separatePointList(P, nthreads);

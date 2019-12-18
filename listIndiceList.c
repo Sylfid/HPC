@@ -121,7 +121,7 @@ listIndiceList separatePointList(listPoint2D listPoint, int nbProcess){
             setListIndice(&path, Convex_HullIndice(projec), th_id);
         }
     }
-    //displayListIndiceList(path);
+    // displayListIndiceList(path);
 #pragma omp parallel
     {
         int th_id = omp_get_thread_num();
@@ -197,12 +197,13 @@ listIndiceList separatePointList(listPoint2D listPoint, int nbProcess){
 
 listIndiceList getAllTrianglePossible(listIndice inds, listPoint2D pts){
   // crée tout les triplet possible avec les indices de la liste inds
+    listIndice newTriangle;
     listIndiceList newList = constructeurListIndiceList(pts);
-    listIndice newTriangle = constructeurListIndiceTaille(3);
     int n = getTailleIndice(inds);
     for(int i=0; i<n-2; i++){
         for(int j=i+1; j<n-1; j++){
             for(int k=j+1; k<n; k++){
+                newTriangle = constructeurListIndiceTaille(3);
                 setIndice(&newTriangle, getIndice(inds,i), 0);
                 setIndice(&newTriangle, getIndice(inds,j), 1);
                 setIndice(&newTriangle, getIndice(inds,k), 2);
@@ -247,6 +248,6 @@ listIndiceList getOneTriangulation(listIndice inds, listPoint2D pts){
         addListIndiceList(&res,triangle);
       }
     }
-    //displayListIndiceList(res);
+    // displayListIndiceList(res);
     return res;
 }
