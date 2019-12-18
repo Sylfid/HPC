@@ -82,10 +82,11 @@ hedge calcHedgeDelaunay(listIndiceList list, int nbProcess){
 // retourner une liste de liste de 2 points
   hedge res = constructeurHedge(0);
   maillage allTriangles = getTriangulation(list,nbProcess);
+  listPoint2D pts = getPointMaillage(allTriangles);
+  // listIndiceList test = constructeurListIndiceList(pts);
   listIndiceList pathTriangles;
   listIndice triangle;
   Point2D a, b, c;
-  listPoint2D pts = getPointMaillage(allTriangles);
   for(int j=0 ; j<getTailleMaillage(allTriangles) ; j++){ // chaque path
     pathTriangles = getListIndiceList(allTriangles,j);
     for(int i=0 ; i<getTailleListIndice(pathTriangles) ; i++){ // chaque triangle
