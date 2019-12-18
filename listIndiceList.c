@@ -28,6 +28,14 @@ listIndiceList constructeurListIndiceListTaille(int taille2,listPoint2D list){
   return newList;
 }
 
+listIndiceList constructeurPossibleMaillage(listPoint2D listPoint){
+    listIndiceList newPossibleMaillage;
+    newPossibleMaillage.taille = listPoint.taille;
+    newPossibleMaillage.indiceList = (listIndice*) malloc(listPoint.taille*sizeof(listIndice));
+    newPossibleMaillage.listPoint = NULL;
+}
+
+
 
 // --------- getteur --------- //
 
