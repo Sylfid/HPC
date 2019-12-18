@@ -26,7 +26,7 @@ int getTailleMatrice(matriceTriangle matTri){
 
 
 listIndice getLigne(matriceTriangle matTri, int i){
-  if(i<0 || i>matTri.taille){
+  if(i<0 || i>=matTri.taille){
     printf("getLigne : indice invalide");
     exit(1);
   }
@@ -62,6 +62,7 @@ matriceTriangle calcmatTriDelaunay(listIndiceList list, int nbProcess){
     listIndiceList pathTriangles;
     listIndice triangle;
     int a, b, c;
+    printf("%d \n",getTailleMatrice(newMatTri));
     for(int j=0 ; j<getTailleMaillage(allTriangles) ; j++){ // chaque path
       pathTriangles = getListIndiceList(allTriangles,j);
       for(int i=0 ; i<getTailleListIndice(pathTriangles) ; i++){ // chaque triangle
@@ -69,6 +70,7 @@ matriceTriangle calcmatTriDelaunay(listIndiceList list, int nbProcess){
         a = getIndice(triangle,0);
         b = getIndice(triangle,1);
         c = getIndice(triangle,2);
+        printf("%d, %d, %d\n",a,b,c );
         addPath(&newMatTri, a, b);
         addPath(&newMatTri, a, c);
         addPath(&newMatTri, c, b);

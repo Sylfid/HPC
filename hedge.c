@@ -88,7 +88,7 @@ hedge calcHedgeDelaunay(listIndiceList list, int nbProcess){
   listIndice ligne;
   for(int i=0 ; i<getTailleMatrice(matAdj) ; i++){ //chaque ligne
     ligne = getLigne(matAdj,i);
-    for(int j=0 ; j<getTailleIndice(ligne) ; j++){ // chaque colonne
+    for(int j=0 ; j<i+1 ; j++){ // chaque colonne
       if(getIndice(ligne,j)==1){
         addHedgeByPoints(&newHedge, getPoint2D(pts,i),  getPoint2D(pts,j));
       }
