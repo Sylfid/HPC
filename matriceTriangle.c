@@ -52,6 +52,11 @@ void addPath(matriceTriangle* matTri, int indice1, int indice2){
     }
 }
 
+void displayMatriceTriangle(matriceTriangle matTri){
+    for(int i=0; i<matTri.taille; i++){
+        displayListIndice(matTri.indiceList[i]);
+    }
+}
 
 matriceTriangle calcmatTriDelaunay(listIndiceList list, int nbProcess){
   // calcul la matrice d'adgacence

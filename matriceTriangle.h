@@ -18,6 +18,7 @@ struct matriceTriangle{
 matriceTriangle constructeurMatriceTriangle(int taille2);
 
 int getTailleMatrice(matriceTriangle matTri);
+void displayMatriceTriangle(matriceTriangle matTri);
 listIndice getLigne(matriceTriangle matTri, int i);
 void addPath(matriceTriangle* matTri, int indice1, int indice2);
 matriceTriangle calcmatTriDelaunay(listIndiceList list, int nbProcess);
