@@ -102,6 +102,19 @@ hedge calcHedgeDelaunay(listIndiceList list, int nbProcess){
   return res;
 }
 
+int isSameHedge(hedge edge){
+    for(int i=0; i<edge.taille; i++){
+        for(int j=0; j<edge.taille; j++){
+            if(getXListPoint2D(*edge.hedgeList, i) == getXListPoint2D(*edge.hedgeList, j) &&
+                    getYListPoint2D(*edge.hedgeList, i) == getYListPoint2D(*edge.hedgeList, j)){
+                printf("%d %d", i, j);
+                return 1;
+            }
+        }
+    }
+    return 1;
+}
+
 /*listPointList separatePointList(listPoint2D listPoint, int nbProcess){
     listPointList newListPointList;
     newListPointList.taille = nbProcess;

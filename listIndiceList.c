@@ -108,9 +108,9 @@ listIndiceList separatePointList(listPoint2D listPoint, int nbProcess){
     newListIndiceList.indiceList = (listIndice*) malloc(nbProcess*sizeof(listIndice));
     triByX(&copyList);
     listIndice pointForPath = findPointsPathIndice(copyList, nbProcess);
-    printf("\n");
-    displayListIndice(pointForPath);
-    printf("\n");
+    // printf("\n");
+    // displayListIndice(pointForPath);
+    // printf("\n");
     listIndiceList path = constructeurListIndiceListTaille(nbProcess-1, copyList);
 #pragma omp parallel
     {
@@ -121,7 +121,7 @@ listIndiceList separatePointList(listPoint2D listPoint, int nbProcess){
             setListIndice(&path, Convex_HullIndice(projec), th_id);
         }
     }
-    displayListIndiceList(path);
+    //displayListIndiceList(path);
 #pragma omp parallel
     {
         int th_id = omp_get_thread_num();
@@ -247,6 +247,6 @@ listIndiceList getOneTriangulation(listIndice inds, listPoint2D pts){
         addListIndiceList(&res,triangle);
       }
     }
-    displayListIndiceList(res);
+    //displayListIndiceList(res);
     return res;
 }
