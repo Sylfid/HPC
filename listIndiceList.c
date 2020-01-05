@@ -258,6 +258,10 @@ listIndiceList getOneTriangulation(listIndice inds, listPoint2D pts){
         }
       }
       if (flag) {
+          if(getTailleIndice(triangle)!=3){
+              printf("quoi ?");
+              exit(1);
+          }
         addListIndiceList(&res,triangle);
       }
     }

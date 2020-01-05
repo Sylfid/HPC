@@ -14,10 +14,10 @@ listIndice constructeurListIndice(){
     return newList;
 }
 
-listIndice constructeurListIndiceTaille(int taille){
+listIndice constructeurListIndiceTaille(int taille2){
     listIndice newList;
-    newList.taille = taille;
-    newList.indice = (int*)malloc(taille*sizeof(int));
+    newList.taille = taille2;
+    newList.indice = (int*)malloc(taille2*sizeof(int));
     return newList;
 }
 
@@ -55,7 +55,7 @@ int getTailleIndice(listIndice listeIndice){
 
 void setIndice(listIndice *liste, int newIndice, int place){
     if(place >= liste->taille){
-        printf("setIndice : la place voulue n'est pas valable");
+        printf("setIndice : la place voulue n'est pas valable\n");
         exit(1);
     }
     liste->indice[place] = newIndice;
