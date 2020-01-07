@@ -6,6 +6,7 @@
 #include "listIndice.h"
 #include "listIndiceList.h"
 #include "maillage.h"
+#include "matriceTriangle.h"
 
 int main()
 

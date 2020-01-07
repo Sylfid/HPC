@@ -3,7 +3,7 @@
 CC=gcc
 
 # Compilation options
-OMP_FLAGS= -fopenmp -lm -lSDL2-2.0
+OMP_FLAGS= -fopenmp -lm -lSDL2
 
 # Directory with common headers
 COMMON_DIR=./
