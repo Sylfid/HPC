@@ -67,7 +67,7 @@ matriceTriangle calcmatTriDelaunay(listIndiceList list, int nbProcess){
     listIndiceList pathTriangles;
     listIndice triangle;
     int a, b, c;
-    printf("%d \n",getTailleMatrice(newMatTri));
+    //printf("%d \n",getTailleMatrice(newMatTri));
     for(int j=0 ; j<getTailleMaillage(allTriangles) ; j++){ // chaque path
       pathTriangles = getListIndiceList(allTriangles,j);
       for(int i=0 ; i<getTailleListIndice(pathTriangles) ; i++){ // chaque triangle

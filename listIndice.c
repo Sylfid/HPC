@@ -14,10 +14,10 @@ listIndice constructeurListIndice(){
     return newList;
 }
 
-listIndice constructeurListIndiceTaille(int taille){
+listIndice constructeurListIndiceTaille(int taille2){
     listIndice newList;
-    newList.taille = taille;
-    newList.indice = (int*)malloc(taille*sizeof(int));
+    newList.taille = taille2;
+    newList.indice = (int*)malloc(taille2*sizeof(int));
     return newList;
 }
 

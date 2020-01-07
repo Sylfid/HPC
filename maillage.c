@@ -54,6 +54,13 @@ listIndiceList getListIndiceList(maillage leMaillage, int i){
     }
 }
 
+void displayMaillage(maillage leMaillage){
+    for(int i=0; i<getTailleMaillage(leMaillage); i++){
+        displayListIndiceList(leMaillage.listIndiceList[i]);
+    }
+}
+
+
 listPoint2D getPointMaillage(maillage leMaillage){
    return leMaillage.listPoint;
 }

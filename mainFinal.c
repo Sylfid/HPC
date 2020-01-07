@@ -29,7 +29,7 @@ int main()
     printf(" - - - - - - - fichier téléchargé - - - - - - - \n");
     // Partition des points
     Q = separatePointList(P, nthreads);
-    printf(" - - - - - enseble des points partitioné - - - - - \n");
+    printf(" - - - - - ensemble des points partitioné - - - - - \n");
     // T = getTriangulation(Q, nthreads);
     // printf(" - - - - - triangulation calculée - - - - - \n");
     H = calcHedgeDelaunay(Q, nthreads);

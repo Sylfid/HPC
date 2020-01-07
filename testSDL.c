@@ -1,6 +1,7 @@
 #include <SDL2/SDL.h>
 #include <stdio.h>
 #include "listPoint.h"
+#include "hedge.h"
 #include <math.h>
 
 float min2(float x, float y){
@@ -43,7 +44,7 @@ SDL_Point* getSDLPoint(listPoint2D listPoint){
     return list;
 }
 
-void afficherListPoint(SDL_Renderer* ren, listPoint2D listPoint){
+void displayListPointInterface(SDL_Renderer* ren, listPoint2D listPoint){
     SDL_SetRenderDrawColor(ren, 255, 0, 0, 255);
     if (SDL_RenderDrawPoints(ren, getSDLPoint(listPoint), getTailleList2D(listPoint)) != 0){
         fprintf(stderr,"SDL_RenderDrawPoints Error: %s",SDL_GetError());
@@ -53,6 +54,21 @@ void afficherListPoint(SDL_Renderer* ren, listPoint2D listPoint){
     SDL_RenderPresent(ren);
 
 }
+
+void displayHedgeInterface(SDL_Renderer* ren, hedge edge){
+    SDL_SetRenderDrawColor(ren, 255, 0, 0, 255);
+    listPoint2D actualEdge;
+    for(int i=0; i<getTailleHedge(edge); i++){
+        actualEdge = getOneHedge(edge, i);
+        if ( SDL_RenderDrawLines(ren, getSDLPoint(getOneHedge(edge,i)),2) != 0){
+            fprintf(stderr,"SDL_RenderDrawLine Error: %s",SDL_GetError());
+            SDL_Quit();
+        }
+    }
+    //SDL_SetRenderDrawColor(ren, 255, 0, 0, 255);
+    SDL_RenderPresent(ren);
+}
+
 
 int main(int argc, char** argv)
 {
@@ -90,7 +106,11 @@ int main(int argc, char** argv)
                 return 1;
             }*/
             listPoint2D list = constructListPoint2DFromFile("test3");
-            afficherListPoint(ren, list);
+            displayListPointInterface(ren, list);
+            listIndiceList Q = separatePointList(list, 4);
+            hedge newedge = calcHedgeDelaunay(Q, 4);
+            displayHedge(newedge);
+            displayHedgeInterface(ren, newedge);
             SDL_SetRenderDrawColor(ren, 255, 0, 0, 255);
             SDL_Rect rectangle;
             rectangle.x = 590;
