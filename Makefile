@@ -9,15 +9,15 @@ OMP_FLAGS= -fopenmp -lm -lSDL2
 COMMON_DIR=./
 
 # Compile all executable
-all: main mainFinal mainInterface
+all: main.o mainFinal.o mainInterface.o
 
-main: main.c maillage.c listIndiceList.c listIndice.c listPoint.c point.c hedge.c matriceTriangle.c
+main.o: main.c maillage.c listIndiceList.c listIndice.c listPoint.c point.c hedge.c matriceTriangle.c
 	$(CC) $^ $(CCFLAGS) $(OMP_FLAGS) $(LIBS) -I $(COMMON_DIR) -o $@
 
-mainFinal: mainFinal.c maillage.c listIndiceList.c listPoint.c listIndice.c point.c hedge.c matriceTriangle.c
+mainFinal.o: mainFinal.c maillage.c listIndiceList.c listPoint.c listIndice.c point.c hedge.c matriceTriangle.c
 	$(CC) $^ $(CCFLAGS) $(OMP_FLAGS) $(LIBS) -I $(COMMON_DIR) -o $@
 
-mainInterface: testSDL.c maillage.c listIndiceList.c listPoint.c listIndice.c point.c hedge.c matriceTriangle.c
+mainInterface.o: testSDL.c maillage.c listIndiceList.c listPoint.c listIndice.c point.c hedge.c matriceTriangle.c
 	$(CC) $^ $(CCFLAGS) $(OMP_FLAGS) $(LIBS) -I $(COMMON_DIR) -o $@
 #pi: pi.c
 #	$(CC) $^ $(CCFLAGS)  $(OMP_FLAGS) $(LIBS) -I $(COMMON_DIR) -o $@
