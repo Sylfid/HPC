@@ -12,7 +12,7 @@ matriceTriangle constructeurMatriceTriangle(int taille2){
     newMatrice.taille = taille2;
     newMatrice.indiceList = (listIndice*) malloc(taille2*sizeof(listIndice));
     for(int i=0; i<taille2; i++){
-        newMatrice.indiceList[i] = constructeurListIndice(i+1);
+        newMatrice.indiceList[i] = constructeurListIndiceTaille(i+1);
         for(int j=0; j<i+1; j++){
             setIndice(&newMatrice.indiceList[i], 0, j);
         }

@@ -54,7 +54,7 @@ int getTailleIndice(listIndice listeIndice){
 // -------- setteur -------- //
 
 void setIndice(listIndice *liste, int newIndice, int place){
-    if(place >= liste->taille){
+    if(place<0 || place >= liste->taille){
         printf("setIndice : la place voulue n'est pas valable");
         exit(1);
     }
