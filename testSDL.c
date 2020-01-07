@@ -31,7 +31,7 @@ void displayHedgeInterface(SDL_Renderer* ren, hedge edge, float xmin, float ymin
     listPoint2D actualEdge;
     for(int i=0; i<getTailleHedge(edge); i++){
         actualEdge = getOneHedge(edge, i);
-        if (i<20 && SDL_RenderDrawLines(ren, getSDLPoint(getOneHedge(edge,i),xmin,ymin,xmax,ymax),2) != 0){
+        if (i<15 && SDL_RenderDrawLines(ren, getSDLPoint(getOneHedge(edge,i),xmin,ymin,xmax,ymax),2) != 0){
             fprintf(stderr,"SDL_RenderDrawLine Error: %s",SDL_GetError());
             SDL_Quit();
         }
