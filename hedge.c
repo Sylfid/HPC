@@ -83,6 +83,7 @@ hedge calcHedgeDelaunay(listIndiceList list, int nbProcess){
 // retourner une liste de listes de 2 points
   hedge newHedge = constructeurHedge(0);
   matriceTriangle matAdj = calcmatTriDelaunay(list, nbProcess);
+  //displayMatriceTriangle(matAdj);
   listPoint2D pts = getPoints(list);
 
   listIndice ligne;

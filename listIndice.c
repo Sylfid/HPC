@@ -218,19 +218,82 @@ Point2D calcCentre(listIndice ids, listPoint2D pts){
   p1 = getPoint2D(pts, getIndice(ids,0));
   p2 = getPoint2D(pts, getIndice(ids,1));
   p3 = getPoint2D(pts, getIndice(ids,2));
-  // calc coef
-  a1 = 2*(getXPoint2D(p2)-getXPoint2D(p1));
-  b1 = 2*(getYPoint2D(p2)-getYPoint2D(p1));
-  c1 = getXPoint2D(p1)*getXPoint2D(p1) + getYPoint2D(p1)*getYPoint2D(p1) - getXPoint2D(p2)*getXPoint2D(p2) - getYPoint2D(p2)*getYPoint2D(p2);
+  
+  if(isColineaire(p1,p3,p1,p2)){
+      centre = constructPoint2D((getXPoint2D(p1)+getXPoint2D(p2)+getXPoint2D(p3))/3,(getYPoint2D(p1),getYPoint2D(p2),getYPoint2D(p3))/3);
+      return centre;
+  }
+  else{
+      // calc coef
+      a1 = 2*(getXPoint2D(p2)-getXPoint2D(p1));
+      b1 = 2*(getYPoint2D(p2)-getYPoint2D(p1));
+      c1 = getXPoint2D(p1)*getXPoint2D(p1) + getYPoint2D(p1)*getYPoint2D(p1) - getXPoint2D(p2)*getXPoint2D(p2) - getYPoint2D(p2)*getYPoint2D(p2);
 
-  a2 = 2*(getXPoint2D(p2)-getXPoint2D(p1));
-  b2 = 2*(getYPoint2D(p2)-getYPoint2D(p1));
-  c2 = getXPoint2D(p1)*getXPoint2D(p1) + getYPoint2D(p1)*getYPoint2D(p1) - getXPoint2D(p2)*getXPoint2D(p2) - getYPoint2D(p2)*getYPoint2D(p2);
-  // calc coordoné centre
-  printf("\n %f %f \n", (b1*c2-b2*c1),(a1*b2-b1*a2));
-  x = (b1*c2-b2*c1)/(a1*b2-b1*a2);
-  y = (a2*c1-a1*c2)/(a1*b2-b1*a2);
-  // creation point
-  centre = constructPoint2D(x,y);
-  return centre;
+      a2 = 2*(getXPoint2D(p3)-getXPoint2D(p1));
+      b2 = 2*(getYPoint2D(p3)-getYPoint2D(p1));
+      c2 = getXPoint2D(p1)*getXPoint2D(p1) + getYPoint2D(p1)*getYPoint2D(p1) - getXPoint2D(p3)*getXPoint2D(p3) - getYPoint2D(p3)*getYPoint2D(p3);
+      // calc coordoné centre
+      x = (b1*c2-b2*c1)/(a1*b2-b1*a2);
+      y = (a2*c1-a1*c2)/(a1*b2-b1*a2);
+      // creation point
+      centre = constructPoint2D(x,y);
+      //printf("%f %f \n", (b1*c2-b2*c1),(a1*b2-b1*a2));
+      //printf("%f %f %f\n", distance(p1, centre), distance(p2, centre), distance(p3, centre)); 
+      return centre;
+  }
 }
+
+
+/*Point2D calcCentre(listIndice ids, listPoint2D pts){
+  if(getTailleIndice(ids)!=3){
+    printf("calcCentre : la liste d'indice doit être de taille 3 (triangle)\n");
+    exit(1);
+  }
+  float a1,b1,c1,a2,b2,c2,x,y;
+  float lambda, mu;
+  Point2D p1,p2,p3,centre;
+  float p1x,p1y,p2x,p2y,p3x,p3y;
+  // recupération points
+  p1 = getPoint2D(pts, getIndice(ids,0));
+  p1x = getXPoint2D(p1);
+  p1y = getYPoint2D(p1);
+
+  p2 = getPoint2D(pts, getIndice(ids,1));
+  p2x = getXPoint2D(p2);
+  p2y = getYPoint2D(p2);
+
+  p3 = getPoint2D(pts, getIndice(ids,2));
+  p3x = getXPoint2D(p3);
+  p3y = getYPoint2D(p3);
+
+  // calc coef
+  if(getXPoint2D(p1) == getXPoint2D(p2)){
+      mu = (p3y - p2y)/(2*(p3x - p1x));
+      centre = constructPoint2D((p1x + p3x)/2 + mu * (p3y - p1y),
+              (p1y + p3y)/2 + mu * (p1x - p3x));
+      return centre;
+  }
+  else if(getYPoint2D(p1) == getYPoint2D(p2)){
+      mu = (p3x - p2x)/(2*(p1y - p3y));
+      centre = constructPoint2D((p1x + p3x)/2 + mu * (p3y - p1y),
+              (p1y + p3y)/2 + mu * (p1x - p3x));
+      return centre;
+  }
+  else if(p1x - p3x - (p3y - p1y)/(p2y - p1y) != 0){
+        mu = ((p3y-p2y)/2 - ((p3x - p2x)*(p1x - p2x))/(2*(p2y - p1y)))/(p1x - p3x - (p3y - p1y)/(p2y - p1y));
+        lambda = ((p3x - p2x)/2 + mu*(p3y - p1y));
+        centre = constructPoint2D((p1x + p3x)/2 + mu * (p3y - p1y) - lambda*(p2y - p1y),
+              (p1y + p3y)/2 + mu * (p1x - p3x) - lambda*(p1x - p2x));
+  }
+  else if(p3y - p1y - (p1x - p3x)/(p1x - p2x) != 0){
+        mu = ((p3y-p2y)/2 - ((p3x - p2x)*(p1x - p2x))/(2*(p2y - p1y)))/(p3y - p1y - (p1x - p3x)/(p1x - p2x)); 
+        lambda = ((p3y - p2y)/2 + mu*(p1x - p2x));
+        centre = constructPoint2D((p1x + p3x)/2 + mu * (p3y - p1y) - lambda*(p2y - p1y),
+              (p1y + p3y)/2 + mu * (p1x - p3x) - lambda*(p1x - p2x));
+  }
+  else{
+      printf("Problème get Centre triangle");
+      exit(1);
+  }
+  // calc coordoné centre
+}*/
