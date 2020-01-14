@@ -253,8 +253,7 @@ listIndiceList getOneTriangulation(listIndice inds, listPoint2D pts){
           dist = distance(centre,pt);
           //displayPoint2D(centre);
           //printf("%f %f\n", dist, distance(centre, pt));
-          if(dist < rayon-0.001){ // !!!! Probleme d'approximation : changer le "0.001"
-            printf("%f %f\n", dist, rayon);
+          if(dist < rayon-0.0001){ // !!!! Probleme d'approximation : changer le "0.001"
             flag = false;
             break;
           }

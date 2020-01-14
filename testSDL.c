@@ -77,14 +77,22 @@ int main(int argc, char** argv)
                 return 1;
             }*/
 
-            listPoint2D list = constructListPoint2DFromFile("test3");
+            listPoint2D list = constructListPoint2DFromFile("test");
             float xmin = getXmin(list);
             float xmax = getXmax(list);
             float ymin = getYmin(list);
             float ymax = getYmax(list);
             displayListPointInterface(ren, list, xmin, ymin, xmax, ymax);
             listIndiceList Q = separatePointList(list, 4);
-            hedge newedge = calcHedgeDelaunay(Q, 4);
+
+            /*listIndice listIndiceTest = constructeurListIndiceTaille(getTailleList2D(list)); 
+            for(int i=0; i<getTailleIndice(listIndiceTest); i++){
+                setIndice(&listIndiceTest, i, i);
+            }
+            listIndiceList finTest = constructeurListIndiceListTaille(1,list);
+            setListIndice(&finTest, listIndiceTest, 0);*/
+
+            hedge newedge = calcHedgeDelaunay(Q,4);
 
             //displayHedge(newedge);
             displayHedgeInterface(ren, newedge, xmin, ymin, xmax, ymax);
