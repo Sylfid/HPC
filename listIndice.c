@@ -221,11 +221,13 @@ Point2D calcCentre(listIndice ids, listPoint2D pts){
   // calc coef
   a1 = 2*(getXPoint2D(p2)-getXPoint2D(p1));
   b1 = 2*(getYPoint2D(p2)-getYPoint2D(p1));
-  c1 = pow(getXPoint2D(p1),2.)+pow(getYPoint2D(p1),2.)-pow(getXPoint2D(p2),2.)-pow(getYPoint2D(p2),2.);
+  c1 = getXPoint2D(p1)*getXPoint2D(p1) + getYPoint2D(p1)*getYPoint2D(p1) - getXPoint2D(p2)*getXPoint2D(p2) - getYPoint2D(p2)*getYPoint2D(p2);
+
   a2 = 2*(getXPoint2D(p2)-getXPoint2D(p1));
   b2 = 2*(getYPoint2D(p2)-getYPoint2D(p1));
-  c2 = pow(getXPoint2D(p1),2.)+pow(getYPoint2D(p1),2.)-pow(getXPoint2D(p2),2.)-pow(getYPoint2D(p2),2.);
+  c2 = getXPoint2D(p1)*getXPoint2D(p1) + getYPoint2D(p1)*getYPoint2D(p1) - getXPoint2D(p2)*getXPoint2D(p2) - getYPoint2D(p2)*getYPoint2D(p2);
   // calc coordoné centre
+  printf("\n %f %f \n", (b1*c2-b2*c1),(a1*b2-b1*a2));
   x = (b1*c2-b2*c1)/(a1*b2-b1*a2);
   y = (a2*c1-a1*c2)/(a1*b2-b1*a2);
   // creation point

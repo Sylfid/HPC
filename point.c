@@ -64,7 +64,7 @@ bool orientation(Point2D p1, Point2D p2, Point2D p3){
 
 float distance(Point2D p1, Point2D p2){
   // retourne la distance euclidienne entre p1 et p2
-  float dcarre = pow(getXPoint2D(p1)-getXPoint2D(p2),2.)
-   + pow(getYPoint2D(p1)-getYPoint2D(p2),2.);
-  return sqrt(dcarre);
+  float dcarre = (getXPoint2D(p1)-getXPoint2D(p2))*(getXPoint2D(p1)-getXPoint2D(p2))
+   + (getYPoint2D(p1)-getYPoint2D(p2))*(getYPoint2D(p1)-getYPoint2D(p2));
+  return dcarre;
 }

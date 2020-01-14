@@ -79,8 +79,8 @@ void addHedgeByPoints(hedge *H, Point2D p1, Point2D p2){
 // ------ fonction triangulation ------ //
 
 hedge calcHedgeDelaunay(listIndiceList list, int nbProcess){
-// calcul de le arrets du maillage en combinant les triangle et les convexHull
-// retourner une liste de liste de 2 points
+// calcul de le arrets du maillage en combinant les triangles et les convexHull
+// retourner une liste de listes de 2 points
   hedge newHedge = constructeurHedge(0);
   matriceTriangle matAdj = calcmatTriDelaunay(list, nbProcess);
   listPoint2D pts = getPoints(list);

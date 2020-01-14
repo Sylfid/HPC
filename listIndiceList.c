@@ -251,7 +251,10 @@ listIndiceList getOneTriangulation(listIndice inds, listPoint2D pts){
         if(pt_indice!=getIndice(triangle,0) || pt_indice!=getIndice(triangle,1) || pt_indice!=getIndice(triangle,2)){
           // point pas dans triangle
           dist = distance(centre,pt);
+          //displayPoint2D(centre);
+          //printf("%f %f\n", dist, distance(centre, pt));
           if(dist <= rayon){
+            printf("\n\n\n Wahouuuuu !!! \n\n\n");
             flag = false;
             break;
           }
@@ -259,6 +262,9 @@ listIndiceList getOneTriangulation(listIndice inds, listPoint2D pts){
       }
       if (flag) {
         addListIndiceList(&res,triangle);
+        /*printf("Triangle :");
+        displayListIndice(triangle);
+        printf("\n");*/
       }
     }
     // displayListIndiceList(res);

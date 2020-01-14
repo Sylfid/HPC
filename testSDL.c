@@ -31,7 +31,7 @@ void displayHedgeInterface(SDL_Renderer* ren, hedge edge, float xmin, float ymin
     listPoint2D actualEdge;
     for(int i=0; i<getTailleHedge(edge); i++){
         actualEdge = getOneHedge(edge, i);
-        if (i<15 && SDL_RenderDrawLines(ren, getSDLPoint(getOneHedge(edge,i),xmin,ymin,xmax,ymax),2) != 0){
+        if (SDL_RenderDrawLines(ren, getSDLPoint(getOneHedge(edge,i),xmin,ymin,xmax,ymax),2) != 0){
             fprintf(stderr,"SDL_RenderDrawLine Error: %s",SDL_GetError());
             SDL_Quit();
         }
@@ -76,6 +76,7 @@ int main(int argc, char** argv)
                 SDL_Quit();
                 return 1;
             }*/
+
             listPoint2D list = constructListPoint2DFromFile("test3");
             float xmin = getXmin(list);
             float xmax = getXmax(list);
@@ -83,8 +84,15 @@ int main(int argc, char** argv)
             float ymax = getYmax(list);
             displayListPointInterface(ren, list, xmin, ymin, xmax, ymax);
             listIndiceList Q = separatePointList(list, 4);
-            hedge newedge = calcHedgeDelaunay(Q, 4);
-            displayHedge(newedge);
+            listIndice listIndiceTest = constructeurListIndiceTaille(getTailleList2D(list)); 
+            for(int i=0; i<getTailleIndice(listIndiceTest); i++){
+                setIndice(&listIndiceTest, i, i);
+            }
+            listIndiceList finTest = constructeurListIndiceListTaille(1,list);
+            setListIndice(&finTest, listIndiceTest, 0);
+            hedge newedge = calcHedgeDelaunay(finTest, 1);
+
+            //displayHedge(newedge);
             displayHedgeInterface(ren, newedge, xmin, ymin, xmax, ymax);
             SDL_SetRenderDrawColor(ren, 255, 0, 0, 255);
     

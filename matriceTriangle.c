@@ -75,7 +75,7 @@ matriceTriangle calcmatTriDelaunay(listIndiceList list, int nbProcess){
         a = getIndice(triangle,0);
         b = getIndice(triangle,1);
         c = getIndice(triangle,2);
-        printf("%d, %d, %d\n",a,b,c );
+        //printf("%d, %d, %d\n",a,b,c );
         addPath(&newMatTri, a, b);
         addPath(&newMatTri, a, c);
         addPath(&newMatTri, c, b);
