@@ -84,22 +84,38 @@ int main(int argc, char** argv)
             float ymax = getYmax(list);
             displayListPointInterface(ren, list, xmin, ymin, xmax, ymax);
             listIndiceList Q = separatePointList(list, 4);
+            hedge edgeTest = getPath(list, 2);
+            //displayHedge(edgeTest);
 
-            /*listIndice listIndiceTest = constructeurListIndiceTaille(getTailleList2D(list)); 
+            listIndice listIndiceTest = constructeurListIndiceTaille(getTailleList2D(list)); 
             for(int i=0; i<getTailleIndice(listIndiceTest); i++){
                 setIndice(&listIndiceTest, i, i);
             }
             listIndiceList finTest = constructeurListIndiceListTaille(1,list);
-            setListIndice(&finTest, listIndiceTest, 0);*/
+            setListIndice(&finTest, listIndiceTest, 0);
 
-            hedge newedge = calcHedgeDelaunay(Q,4);
+            hedge newedge = calcHedgeDelaunay(finTest,1);
 
-            //displayHedge(newedge);
+            displayListIndiceList(Q);
             displayHedgeInterface(ren, newedge, xmin, ymin, xmax, ymax);
             SDL_SetRenderDrawColor(ren, 255, 0, 0, 255);
-    
+   
+            char cont = 1; /* Détermine si on continue la boucle principale */
+            SDL_Event event;
+            while ( cont != 0 )
+            {
+                while ( SDL_PollEvent(&event) )
+                {
+                    switch (event.type) 
+                    {
+                        case SDL_QUIT:
+                            cont=0;
+                            break;
+                    }
+                }
 
-            SDL_Delay(5000); /* Attendre trois secondes, que l'utilisateur voie la fenêtre */
+                /* On a traité les événements, on peut continuer le jeu */
+            }
 
             SDL_DestroyWindow(pWindow);
         }

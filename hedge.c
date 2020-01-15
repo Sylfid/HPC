@@ -158,3 +158,52 @@ hedge calcHedgeDelaunay(listIndiceList list, int nbProcess){
 //         }
 //     }
 // }
+
+void addPathEdge(hedge *edge, listIndice list, listPoint2D listPoint){
+    int* indice_tri = (int*)malloc(getTailleIndice(list)*sizeof(int));
+    int tampon;
+    for(int i=0; i<getTailleIndice(list); i++){
+        indice_tri[i] = getIndice(list,i); 
+    }
+    for(int i=0; i<getTailleIndice(list)-1; i++){
+        for(int j=0; j<getTailleIndice(list)-i-1; j++){
+            if(getYListPoint2D(listPoint, indice_tri[j])>getYListPoint2D(listPoint, indice_tri[j+1])){
+                tampon = indice_tri[j];
+                indice_tri[j] = indice_tri[j+1];
+                indice_tri[j+1] = tampon;
+            }
+        }
+    }
+    for(int i=0; i<getTailleIndice(list)-1; i++){
+        addHedge(edge,constructListPoint2DFrom2Points(getPoint2D(listPoint, indice_tri[i]),getPoint2D(listPoint, indice_tri[i+1])));  
+    }
+}
+
+hedge getPath(listPoint2D listPoint, int nbProcess){
+    listIndiceList newListIndiceList;
+    listPoint2D copyList = constructListPoint2DFromListPoint(listPoint);
+    newListIndiceList.listPoint = copyList;
+    newListIndiceList.taille = nbProcess;
+    newListIndiceList.indiceList = (listIndice*) malloc(nbProcess*sizeof(listIndice));
+    triByX(&copyList);
+    listIndice pointForPath = findPointsPathIndice(copyList, nbProcess);
+    // printf("\n");
+    // displayListIndice(pointForPath);
+    // printf("\n");
+    listIndiceList path = constructeurListIndiceListTaille(nbProcess-1, copyList);
+#pragma omp parallel
+    {
+        int th_id = omp_get_thread_num();
+        listPoint2D projec;
+        if(th_id < nbProcess-1){
+            projec = projectionWithIndice(copyList,getIndice(pointForPath,th_id));
+            setListIndice(&path, Convex_HullIndice(projec), th_id);
+        }
+    }
+    hedge paths = constructeurHedge(0);
+    for(int i=0; i<getTailleListIndice(path); i++){
+        addPathEdge(&paths, getListIndice(path, i), listPoint);
+    }
+    return paths;
+
+}
