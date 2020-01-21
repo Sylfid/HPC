@@ -156,6 +156,7 @@ void freeListPoint2D(listPoint2D* listPoint){
 
 void displayListPoint2D(listPoint2D listPoint){
     for(int i=0; i<listPoint.taille; i++){
+        printf("%d :", i);
         displayPoint2D(listPoint.point[i]);
         printf("\n");
     }

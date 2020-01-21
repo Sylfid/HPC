@@ -180,6 +180,9 @@ void addPathEdge(hedge *edge, listIndice list, listPoint2D listPoint){
 }
 
 hedge getPath(listPoint2D listPoint, int nbProcess){
+
+    displayListPoint2D(listPoint);
+
     listIndiceList newListIndiceList;
     listPoint2D copyList = constructListPoint2DFromListPoint(listPoint);
     newListIndiceList.listPoint = copyList;
@@ -187,9 +190,9 @@ hedge getPath(listPoint2D listPoint, int nbProcess){
     newListIndiceList.indiceList = (listIndice*) malloc(nbProcess*sizeof(listIndice));
     triByX(&copyList);
     listIndice pointForPath = findPointsPathIndice(copyList, nbProcess);
-    // printf("\n");
-    // displayListIndice(pointForPath);
-    // printf("\n");
+    /*printf("\n");
+    displayListIndice(pointForPath);
+    printf("\n");*/
     listIndiceList path = constructeurListIndiceListTaille(nbProcess-1, copyList);
 #pragma omp parallel
     {
@@ -202,8 +205,9 @@ hedge getPath(listPoint2D listPoint, int nbProcess){
     }
     hedge paths = constructeurHedge(0);
     for(int i=0; i<getTailleListIndice(path); i++){
-        addPathEdge(&paths, getListIndice(path, i), listPoint);
+        addPathEdge(&paths, getListIndice(path, i), copyList);
     }
+    displayHedge(paths);
     return paths;
 
 }

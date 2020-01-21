@@ -82,10 +82,11 @@ int main(int argc, char** argv)
             float xmax = getXmax(list);
             float ymin = getYmin(list);
             float ymax = getYmax(list);
+            //displayListPointInterface(ren, Convex_Hull(list), xmin, ymin, xmax, ymax);
             displayListPointInterface(ren, list, xmin, ymin, xmax, ymax);
             listIndiceList Q = separatePointList(list, 4);
             hedge edgeTest = getPath(list, 2);
-            //displayHedge(edgeTest);
+            //displayHedgeInterface(ren, edgeTest, xmin, ymin, xmax, ymax);
 
             listIndice listIndiceTest = constructeurListIndiceTaille(getTailleList2D(list)); 
             for(int i=0; i<getTailleIndice(listIndiceTest); i++){
@@ -94,9 +95,10 @@ int main(int argc, char** argv)
             listIndiceList finTest = constructeurListIndiceListTaille(1,list);
             setListIndice(&finTest, listIndiceTest, 0);
 
-            hedge newedge = calcHedgeDelaunay(finTest,1);
+            hedge newedge = calcHedgeDelaunay(Q,4);
+            //hedge newedge = calcHedgeDelaunay(finTest,1);
 
-            displayListIndiceList(Q);
+            //displayListIndiceList(Q);
             displayHedgeInterface(ren, newedge, xmin, ymin, xmax, ymax);
             SDL_SetRenderDrawColor(ren, 255, 0, 0, 255);
    
