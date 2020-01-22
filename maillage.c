@@ -84,12 +84,14 @@ maillage getTriangulation(listIndiceList paths, int nbProcess){
         exit(1);
     }*/
 
+    //displayListIndiceListPath(paths);
 #pragma omp parallel
     {
         int th_id = omp_get_thread_num();
         listPoint2D projec;
         if(th_id < nbProcess){
             if(th_id == 0){
+                displayListIndice(paths.separatePath[0]);
                 setMaillage(&newMaillage, getOneTriangulation(paths.indiceList[th_id],paths.listPoint,NULL,&(paths.separatePath[0])),th_id);
             }
             else if(th_id == nbProcess -1){

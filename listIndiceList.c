@@ -86,6 +86,16 @@ void displayListIndiceList(listIndiceList liste){
     }
     printf("\n");
 }
+void displayListIndiceListPath(listIndiceList liste){
+    if(liste.indiceList == NULL){
+        printf("displayListIndiceList : listeIndice.indice == NULL");
+        exit(1);
+    }
+    for(int i=0; i<liste.taille; i++){
+        displayListIndice(liste.separatePath[i]);
+    }
+    printf("\n");
+}
 
 void addListIndiceList(listIndiceList *listindicelist, listIndice list){
     listindicelist->taille++;
@@ -160,6 +170,7 @@ listIndiceList separatePointList(listPoint2D listPoint, int nbProcess){
         }
     }
     newListIndiceList.separatePath = (listIndice*)malloc(getTailleListIndice(path)*sizeof(listIndice));
+    newListIndiceList.tailleSeparatePath = getTailleListIndice(path);
     for(int i=0; i<getTailleListIndice(path); i++){
         newListIndiceList.separatePath[i] = constructeurListIndiceTaille(getTailleIndice(getListIndice(path,i)));
         for(int j=0; j<getTailleIndice(getListIndice(path,i)); j++){
@@ -253,6 +264,7 @@ listIndiceList getOneTriangulation(listIndice inds, listPoint2D pts, listIndice*
     // contruction de tout les triplets = triangles
     listIndiceList listTrig = getAllTrianglePossible(inds,pts);
     listIndice tampon;
+    int temoinPath=0;
     for(int t=0 ; t<getTailleListIndice(listTrig) ; t++){
       // parcour des triangles
       flag = true;
@@ -279,40 +291,73 @@ listIndiceList getOneTriangulation(listIndice inds, listPoint2D pts, listIndice*
             addListIndiceList(&res,triangle);
           }
           else if(leftPath == NULL){
-              if(isTriangleOnPath(triangle, *rightPath)){
+              temoinPath = isTriangleOnPath(triangle, *rightPath);
+              if(!temoinPath){
+                  addListIndiceList(&res,triangle);
+              }
+          }
+          else if(rightPath == NULL){
+              temoinPath = isTriangleOnPath(triangle, *leftPath);
+              if(!temoinPath){
+                  addListIndiceList(&res,triangle);
+              }
+          }
+          else{
+              temoinPath = isTriangleOnPath(triangle, *rightPath);
+              if(!temoinPath){
+                  addListIndiceList(&res,triangle);
+              }
+              temoinPath = isTriangleOnPath(triangle, *leftPath);
+              if(!temoinPath){
+                  addListIndiceList(&res,triangle);
+              }
+          }
+          /*if(leftPath==NULL && rightPath==NULL){
+            addListIndiceList(&res,triangle);
+          }
+          else if(leftPath == NULL){
+              temoinPath = isTriangleOnPath(triangle, *rightPath);
+              if(temoinPath == 2){
                   tampon = constructeurListIndiceTaille(3);
                   getTriangleRightEdge(&tampon, triangle, pts);
-                  //addListIndiceList(&res, tampon);
+                  addListIndiceList(&res, tampon);
               }
-              else{
+              if(temoinPath == 0){
                 addListIndiceList(&res,triangle);
               }
           }
           else if(rightPath == NULL){
-              if(isTriangleOnPath(triangle, *leftPath)){
+              temoinPath = isTriangleOnPath(triangle, *leftPath);
+              if(temoinPath == 2){
                   tampon = constructeurListIndiceTaille(3);
-                  getTriangleRightEdge(&tampon, triangle, pts);
-                  //addListIndiceList(&res, tampon);
+                  getTriangleLeftEdge(&tampon, triangle, pts);
+                  addListIndiceList(&res, tampon);
               }
-              else{
+              if(temoinPath == 0){
                 addListIndiceList(&res,triangle);
               }
           }
           else{
-              if(isTriangleOnPath(triangle, *rightPath)){
+              temoinPath = isTriangleOnPath(triangle, *rightPath);
+              if(temoinPath == 2){
                   tampon = constructeurListIndiceTaille(3);
                   getTriangleRightEdge(&tampon, triangle, pts);
-                  //addListIndiceList(&res, tampon);
+                  addListIndiceList(&res, tampon);
               }
-              else if(isTriangleOnPath(triangle, *leftPath)){
-                  tampon = constructeurListIndiceTaille(3);
-                  getTriangleLeftEdge(&tampon, triangle, pts);
-                  //addListIndiceList(&res, tampon);
-              }
-              else{
+              if(temoinPath == 0){
                 addListIndiceList(&res,triangle);
               }
-          }
+              temoinPath = isTriangleOnPath(triangle, *leftPath);
+              if(temoinPath == 2){
+                  tampon = constructeurListIndiceTaille(3);
+                  getTriangleLeftEdge(&tampon, triangle, pts);
+                  addListIndiceList(&res, tampon);
+              }
+              if(temoinPath == 0){
+                addListIndiceList(&res,triangle);
+              }
+          }*/
+
       }
     }
     // displayListIndiceList(res);

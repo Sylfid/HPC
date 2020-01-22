@@ -297,8 +297,7 @@ Point2D calcCentre(listIndice ids, listPoint2D pts){
   }
   // calc coordoné centre
 }*/
-
-bool isTriangleOnPath(listIndice triangle, listIndice path){
+int isTriangleOnPath(listIndice triangle, listIndice path){
     if(getTailleIndice(triangle)!=3){
         printf("isTriangleOnPath : le triangle n'as pas 3 cote");
         exit(1);
@@ -311,9 +310,40 @@ bool isTriangleOnPath(listIndice triangle, listIndice path){
             }
         }
     }
-    printf("%d\n", compteur);
-    return compteur > 2;
+    return (compteur > 1);
 }
+/*int isTriangleOnPath(listIndice triangle, listIndice path){
+    if(getTailleIndice(triangle)!=3){
+        printf("isTriangleOnPath : le triangle n'as pas 3 cote");
+        exit(1);
+    }
+    int compteur = 0;
+    int compteur2 = 0;
+    int* flag = malloc(getTailleIndice(path)*sizeof(int));
+    for(int i=0; i<getTailleIndice(path);i++){
+        flag[i]=0;
+    }
+    for(int i=0; i<3; i++){
+        for(int j=0; j< getTailleIndice(path); j++){
+            if(getIndice(triangle, i) == getIndice(path, j)){
+                flag[j]=1;
+            }
+        }
+    }
+    for(int i=0; i<getTailleIndice(path);i++){
+        if(flag[i]==1){
+            compteur++;
+            compteur2++;
+        }
+        else{
+            compteur=0;
+        }
+        if(compteur==3){
+            return 1;
+        }
+    }
+    return (compteur2 > 2);
+}*/
 
 void getTriangleLeftEdge(listIndice* newTriangle, listIndice triangle, listPoint2D listPoint){
     int ptmoy=getIndice(triangle,0);

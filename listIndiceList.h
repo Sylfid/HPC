@@ -12,6 +12,7 @@ struct listIndiceList{
     listIndice* indiceList;
     listPoint2D listPoint;
     listIndice* separatePath;
+    int tailleSeparatePath;
 };
 
 // ------ constructeur
@@ -27,6 +28,7 @@ int getTailleListIndice(listIndiceList listindicelist);
 void setListIndice(listIndiceList* Liste, listIndice newlist, int i);
 // ------ fonction classe autre
 void displayListIndiceList(listIndiceList liste);
+void displayListIndiceListPath(listIndiceList liste);
 void addListIndiceList(listIndiceList *listindicelist, listIndice list);
 void addListIndiceListWithListIndice(listIndiceList *listindicelist, listIndiceList list);
 void removeListIndice(listIndiceList *list, int i);

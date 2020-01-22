@@ -34,7 +34,7 @@ listIndice getRightSideList(listPoint2D listPoint, listIndice separator);
 listIndice getMiddleSideList(listPoint2D listPoint, listIndice separatorLeft, listIndice separatorRight);
 // calcul du cercle
 Point2D calcCentre(listIndice ids, listPoint2D pts);
-bool isTriangleOnPath(listIndice triangle, listIndice path);
+int isTriangleOnPath(listIndice triangle, listIndice path);
 void getTriangleLeftEdge(listIndice* newTriangle, listIndice triangle, listPoint2D listPoint);
 void getTriangleRightEdge(listIndice* newTriangle, listIndice triangle, listPoint2D listPoint);
 #endif
