@@ -310,8 +310,100 @@ int isTriangleOnPath(listIndice triangle, listIndice path){
             }
         }
     }
-    return (compteur > 1);
+    return (compteur > 2);
 }
+
+int isAlignedOnPath(listIndice triangle, listIndice path){
+    int compteur = 0;
+    int compteur2 = 0;
+    int* flag = malloc(getTailleIndice(path)*sizeof(int));
+    for(int i=0; i<getTailleIndice(path);i++){
+        flag[i]=0;
+    }
+    for(int i=0; i<3; i++){
+        for(int j=0; j< getTailleIndice(path); j++){
+            if(getIndice(triangle, i) == getIndice(path, j)){
+                flag[j]=1;
+            }
+        }
+    }
+    for(int i=0; i<getTailleIndice(path);i++){
+        if(flag[i]==1){
+            compteur++;
+            compteur2++;
+        }
+        else{
+            compteur=0;
+        }
+        if(compteur==3){
+            return 1;
+        }
+    }
+    return 0;
+}
+
+int isTriangleOnPathValidRight(listIndice triangle, listIndice path, listPoint2D listPoint){
+    if(!isAlignedOnPath(triangle, path)){
+        return 0;
+    }
+    int ptmoy=getIndice(triangle,0);
+    int ptmin=ptmoy; int ptmax=ptmoy;
+    int indiceTriangle = 0;
+    for(int i=0; i<3; i++){
+        indiceTriangle = getIndice(triangle, i);
+        if(getYListPoint2D(listPoint,indiceTriangle) < getYListPoint2D(listPoint, ptmin)){
+            ptmin = indiceTriangle;
+        }
+        if(getYListPoint2D(listPoint,indiceTriangle) > getYListPoint2D(listPoint, ptmax)){
+            ptmax = indiceTriangle;
+        }
+    }
+    if(ptmin == ptmoy || ptmax == ptmoy){
+        ptmoy = getIndice(triangle, 1);
+    }
+    if(ptmin == ptmoy || ptmax == ptmoy){
+        ptmoy = getIndice(triangle, 2);
+    }
+    if(!orientation(getPoint2D(listPoint,ptmin),getPoint2D(listPoint, ptmoy), getPoint2D(listPoint, ptmax))){
+        return 1;
+    }
+    else{
+        return 0;
+    }
+
+}
+
+int isTriangleOnPathValidLeft(listIndice triangle, listIndice path,listPoint2D listPoint){
+    if(!isAlignedOnPath(triangle, path)){
+        return 0;
+    }
+    int ptmoy=getIndice(triangle,0);
+    int ptmin=ptmoy; int ptmax=ptmoy;
+    int indiceTriangle = 0;
+    for(int i=0; i<3; i++){
+        indiceTriangle = getIndice(triangle, i);
+        if(getYListPoint2D(listPoint,indiceTriangle) < getYListPoint2D(listPoint, ptmin)){
+            ptmin = indiceTriangle;
+        }
+        if(getYListPoint2D(listPoint,indiceTriangle) > getYListPoint2D(listPoint, ptmax)){
+            ptmax = indiceTriangle;
+        }
+    }
+    if(ptmin == ptmoy || ptmax == ptmoy){
+        ptmoy = getIndice(triangle, 1);
+    }
+    if(ptmin == ptmoy || ptmax == ptmoy){
+        ptmoy = getIndice(triangle, 2);
+    }
+    if(orientation(getPoint2D(listPoint,ptmin),getPoint2D(listPoint, ptmoy), getPoint2D(listPoint, ptmax))){
+        return 1;
+    }
+    else{
+        return 0;
+    }
+
+}
+
 /*int isTriangleOnPath(listIndice triangle, listIndice path){
     if(getTailleIndice(triangle)!=3){
         printf("isTriangleOnPath : le triangle n'as pas 3 cote");
@@ -407,3 +499,4 @@ void getTriangleRightEdge(listIndice* newTriangle, listIndice triangle, listPoin
         setIndice(newTriangle, -ptmax,2);
     }
 }
+

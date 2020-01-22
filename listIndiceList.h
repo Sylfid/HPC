@@ -40,3 +40,4 @@ listIndiceList getAllTrianglePossible(listIndice inds, listPoint2D pts);
 listIndiceList getOneTriangulation(listIndice inds, listPoint2D pts, listIndice *leftPath, listIndice *rightPath);
 
 #endif
+

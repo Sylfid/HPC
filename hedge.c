@@ -181,7 +181,7 @@ void addPathEdge(hedge *edge, listIndice list, listPoint2D listPoint){
 
 hedge getPath(listPoint2D listPoint, int nbProcess){
 
-    displayListPoint2D(listPoint);
+    //displayListPoint2D(listPoint);
 
     listIndiceList newListIndiceList;
     listPoint2D copyList = constructListPoint2DFromListPoint(listPoint);
@@ -207,7 +207,7 @@ hedge getPath(listPoint2D listPoint, int nbProcess){
     for(int i=0; i<getTailleListIndice(path); i++){
         addPathEdge(&paths, getListIndice(path, i), copyList);
     }
-    displayHedge(paths);
+    //displayHedge(paths);
     return paths;
 
 }

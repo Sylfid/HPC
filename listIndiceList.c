@@ -265,6 +265,7 @@ listIndiceList getOneTriangulation(listIndice inds, listPoint2D pts, listIndice*
     listIndiceList listTrig = getAllTrianglePossible(inds,pts);
     listIndice tampon;
     int temoinPath=0;
+    int temoinPath2 = 0;
     for(int t=0 ; t<getTailleListIndice(listTrig) ; t++){
       // parcour des triangles
       flag = true;
@@ -295,21 +296,33 @@ listIndiceList getOneTriangulation(listIndice inds, listPoint2D pts, listIndice*
               if(!temoinPath){
                   addListIndiceList(&res,triangle);
               }
+              else if(isTriangleOnPathValidRight(triangle, *rightPath, pts)){
+                  addListIndiceList(&res,triangle);
+              }
           }
+
           else if(rightPath == NULL){
               temoinPath = isTriangleOnPath(triangle, *leftPath);
               if(!temoinPath){
                   addListIndiceList(&res,triangle);
               }
+              else if(isTriangleOnPathValidLeft(triangle, *leftPath, pts)){
+                  addListIndiceList(&res,triangle);
+              }
           }
           else{
               temoinPath = isTriangleOnPath(triangle, *rightPath);
-              if(!temoinPath){
+              temoinPath2 = isTriangleOnPath(triangle, *leftPath);
+              if(!temoinPath && !temoinPath2){
                   addListIndiceList(&res,triangle);
               }
-              temoinPath = isTriangleOnPath(triangle, *leftPath);
-              if(!temoinPath){
-                  addListIndiceList(&res,triangle);
+              else{
+                  if(temoinPath && isTriangleOnPathValidRight(triangle, *rightPath, pts)){
+                      addListIndiceList(&res,triangle);
+                  }
+                  else if(temoinPath2 && isTriangleOnPathValidLeft(triangle, *leftPath, pts)){
+                      addListIndiceList(&res,triangle);
+                  }
               }
           }
           /*if(leftPath==NULL && rightPath==NULL){
@@ -363,3 +376,4 @@ listIndiceList getOneTriangulation(listIndice inds, listPoint2D pts, listIndice*
     // displayListIndiceList(res);
     return res;
 }
+

@@ -77,7 +77,7 @@ int main(int argc, char** argv)
                 return 1;
             }*/
 
-            listPoint2D list = constructListPoint2DFromFile("test3");
+            listPoint2D list = constructListPoint2DFromFile("test2");
             float xmin = getXmin(list);
             float xmax = getXmax(list);
             float ymin = getYmin(list);
@@ -85,18 +85,17 @@ int main(int argc, char** argv)
             //displayListPointInterface(ren, Convex_Hull(list), xmin, ymin, xmax, ymax);
             displayListPointInterface(ren, list, xmin, ymin, xmax, ymax);
             listIndiceList Q = separatePointList(list, 4);
-            displayListIndiceListPath(Q);
-            hedge edgeTest = getPath(list, 4);
+            hedge edgeTest = getPath(list, 2);
             //displayHedgeInterface(ren, edgeTest, xmin, ymin, xmax, ymax);
 
             listIndice listIndiceTest = constructeurListIndiceTaille(getTailleList2D(list)); 
             for(int i=0; i<getTailleIndice(listIndiceTest); i++){
                 setIndice(&listIndiceTest, i, i);
             }
-            //listIndiceList finTest = constructeurListIndiceListTaille(1,list);
-            //setListIndice(&finTest, listIndiceTest, 0);
+            listIndiceList finTest = constructeurListIndiceListTaille(1,list);
+            setListIndice(&finTest, listIndiceTest, 0);
 
-            hedge newedge = calcHedgeDelaunay(Q,3);
+            hedge newedge = calcHedgeDelaunay(Q,4);
             //hedge newedge = calcHedgeDelaunay(finTest,1);
 
             //displayListIndiceList(Q);
