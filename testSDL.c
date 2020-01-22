@@ -95,7 +95,7 @@ int main(int argc, char** argv)
             listIndiceList finTest = constructeurListIndiceListTaille(1,list);
             setListIndice(&finTest, listIndiceTest, 0);
 
-            hedge newedge = calcHedgeDelaunay(Q,4);
+            hedge newedge = calcHedgeDelaunay(Q,1);
             //hedge newedge = calcHedgeDelaunay(finTest,1);
 
             //displayListIndiceList(Q);

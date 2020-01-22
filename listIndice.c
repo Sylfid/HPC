@@ -297,3 +297,83 @@ Point2D calcCentre(listIndice ids, listPoint2D pts){
   }
   // calc coordoné centre
 }*/
+
+bool isTriangleOnPath(listIndice triangle, listIndice path){
+    if(getTailleIndice(triangle)!=3){
+        printf("isTriangleOnPath : le triangle n'as pas 3 cote");
+        exit(1);
+    }
+    int compteur = 0;
+    for(int i=0; i<3; i++){
+        for(int j=0; j< getTailleIndice(path); j++){
+            if(getIndice(triangle, i) == getIndice(path, j)){
+                compteur++;
+            }
+        }
+    }
+    printf("%d\n", compteur);
+    return compteur > 2;
+}
+
+void getTriangleLeftEdge(listIndice* newTriangle, listIndice triangle, listPoint2D listPoint){
+    int ptmoy=getIndice(triangle,0);
+    int ptmin=ptmoy; int ptmax=ptmoy;
+    int indiceTriangle = 0;
+    for(int i=0; i<3; i++){
+        indiceTriangle = getIndice(triangle, i);
+        if(getYListPoint2D(listPoint,indiceTriangle) < getYListPoint2D(listPoint, ptmin)){
+            ptmin = indiceTriangle;
+        }
+        if(getYListPoint2D(listPoint,indiceTriangle) > getYListPoint2D(listPoint, ptmax)){
+            ptmax = indiceTriangle;
+        }
+    }
+    if(ptmin == ptmoy || ptmax == ptmoy){
+        ptmoy = getIndice(triangle, 1);
+    }
+    if(ptmin == ptmoy || ptmax == ptmoy){
+        ptmoy = getIndice(triangle, 2);
+    }
+    if(!orientation(getPoint2D(listPoint,ptmin),getPoint2D(listPoint, ptmoy), getPoint2D(listPoint, ptmax))){
+        for(int i=0; i<3; i++){
+            setIndice(newTriangle, getIndice(triangle,i),i);
+        }
+    }
+    else{
+        setIndice(newTriangle, -ptmin,0);
+        setIndice(newTriangle, ptmoy,1);
+        setIndice(newTriangle, -ptmax,2);
+    }
+}
+
+void getTriangleRightEdge(listIndice* newTriangle, listIndice triangle, listPoint2D listPoint){
+
+    int ptmoy=getIndice(triangle,0);
+    int ptmin=ptmoy; int ptmax=ptmoy;
+    int indiceTriangle = 0;
+    for(int i=0; i<3; i++){
+        indiceTriangle = getIndice(triangle, i);
+        if(getYListPoint2D(listPoint,indiceTriangle) < getYListPoint2D(listPoint, ptmin)){
+            ptmin = indiceTriangle;
+        }
+        if(getYListPoint2D(listPoint,indiceTriangle) > getYListPoint2D(listPoint, ptmax)){
+            ptmax = indiceTriangle;
+        }
+    }
+    if(ptmin == ptmoy || ptmax == ptmoy){
+        ptmoy = getIndice(triangle, 1);
+    }
+    if(ptmin == ptmoy || ptmax == ptmoy){
+        ptmoy = getIndice(triangle, 2);
+    }
+    if(orientation(getPoint2D(listPoint,ptmin),getPoint2D(listPoint, ptmoy), getPoint2D(listPoint, ptmax))){
+        for(int i=0; i<3; i++){
+            setIndice(newTriangle, getIndice(triangle,i),i);
+        }
+    }
+    else{
+        setIndice(newTriangle, -ptmin,0);
+        setIndice(newTriangle, ptmoy,1);
+        setIndice(newTriangle, -ptmax,2);
+    }
+}

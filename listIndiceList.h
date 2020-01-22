@@ -11,6 +11,7 @@ struct listIndiceList{
     int taille;
     listIndice* indiceList;
     listPoint2D listPoint;
+    listIndice* separatePath;
 };
 
 // ------ constructeur
@@ -34,6 +35,6 @@ void removeListIndice(listIndiceList *list, int i);
 listIndiceList separatePointList(listPoint2D listPoint, int nbProcess);
 //listIndice partition(listPoint2D pts, listIndice ptsPath, listIndiceList hulls, int num, int nbProces);
 listIndiceList getAllTrianglePossible(listIndice inds, listPoint2D pts);
-listIndiceList getOneTriangulation(listIndice inds, listPoint2D pts);
+listIndiceList getOneTriangulation(listIndice inds, listPoint2D pts, listIndice *leftPath, listIndice *rightPath);
 
 #endif

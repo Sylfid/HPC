@@ -15,8 +15,8 @@ int main()
     printf("Hello world!\n");
     listPoint2D list = constructListPoint2DFromFile("test3");
     listIndiceList essai = separatePointList(list, 4);
-    matriceTriangle solution = calcmatTriDelaunay(essai, 4);
-    displayMatriceTriangle(solution);
+    //matriceTriangle solution = calcmatTriDelaunay(essai, 4, essai);
+    //displayMatriceTriangle(solution);
     /*printf("\n");
     //displayListPoint2D(list);
     printf("\n");

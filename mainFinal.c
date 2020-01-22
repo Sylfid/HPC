@@ -32,10 +32,10 @@ int main()
     printf(" - - - - - ensemble des points partitioné - - - - - \n");
     // T = getTriangulation(Q, nthreads);
     // printf(" - - - - - triangulation calculée - - - - - \n");
-    H = calcHedgeDelaunay(Q, nthreads);
+    //H = calcHedgeDelaunay(Q, nthreads, Q);
     printf(" - - - - - maillage calculée - - - - - \n");
-    printf("%d arretes\n",getTailleHedge(H));
-    displayHedge(H);
+    //printf("%d arretes\n",getTailleHedge(H));
+    //displayHedge(H);
   //   // Definition des variable
   //   listPoint2D P; // Ensemble des points
   //   listIndice pPath; // Indices des nthreads m-1 de séparation
