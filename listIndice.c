@@ -365,6 +365,22 @@ int isTriangleOnPathValidRight(listIndice triangle, listIndice path, listPoint2D
         ptmoy = getIndice(triangle, 2);
     }
     if(!orientation(getPoint2D(listPoint,ptmin),getPoint2D(listPoint, ptmoy), getPoint2D(listPoint, ptmax))){
+        Point2D centre = calcCentre(triangle, listPoint);
+        float rayon = distance(centre, getPoint2D(listPoint,getIndice(triangle,0))), dist=0;
+        Point2D pt;
+            for(int p=0 ; p<getTailleList2D(listPoint) ; p++){
+            // parcour des points
+            pt = getPoint2D(listPoint,p);
+                if(p!=getIndice(triangle,0) || p!=getIndice(triangle,1) || p!=getIndice(triangle,2)){
+                  // point pas dans triangle
+                  dist = distance(centre,pt);
+                  //displayPoint2D(centre);
+                  //printf("%f %f\n", dist, distance(centre, pt));
+                  if(dist < rayon){
+                      return 0;
+                  }
+                }
+            }
         return 1;
     }
     else{
@@ -396,6 +412,22 @@ int isTriangleOnPathValidLeft(listIndice triangle, listIndice path,listPoint2D l
         ptmoy = getIndice(triangle, 2);
     }
     if(orientation(getPoint2D(listPoint,ptmin),getPoint2D(listPoint, ptmoy), getPoint2D(listPoint, ptmax))){
+        Point2D centre = calcCentre(triangle, listPoint);
+        float rayon = distance(centre, getPoint2D(listPoint,getIndice(triangle,0))), dist=0;
+        Point2D pt;
+            for(int p=0 ; p<getTailleList2D(listPoint) ; p++){
+            // parcour des points
+            pt = getPoint2D(listPoint,p);
+                if(p!=getIndice(triangle,0) || p!=getIndice(triangle,1) || p!=getIndice(triangle,2)){
+                  // point pas dans triangle
+                  dist = distance(centre,pt);
+                  //displayPoint2D(centre);
+                  //printf("%f %f\n", dist, distance(centre, pt));
+                  if(dist < rayon){
+                      return 0;
+                  }
+                }
+            }
         return 1;
     }
     else{
