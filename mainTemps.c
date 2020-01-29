@@ -16,8 +16,11 @@ int main()
   float tps;
   clock_t t1, t2;
   int nthreads;
-  int max = omp_get_max_threads()+1;
-  printf("%d \n", max);
+  int max = 30; // omp_get_max_threads()+1;
+
+  printf("\n\nm = %d \n", max);
+  printf("y = [");
+
 
   // Definition des variable
   listPoint2D P; // Ensemble des points
@@ -28,9 +31,10 @@ int main()
   hedge H; // list des aretes de maillage de Delaunay
                     // arete = list de 2 point
   // Chargement des points dans le fichier test
-  P = constructListPoint2DFromFile("test3");
+  P = constructListPoint2DFromFile("test");
 
-  printf("Threads | Temps \n");
+
+  // printf("Threads | Temps \n");
   for(int i=2 ; i<max ; i++){
     // Choix nombre de thread
     nthreads = i; // m = nombre de threads
@@ -46,14 +50,21 @@ int main()
     t2 = clock();
 
     tps = (float)(t2-t1)/CLOCKS_PER_SEC;
-    if(nthreads<10){
-      printf("   %d    |  %f  \n",nthreads, tps);
+    // if(nthreads<10){
+    //   printf("   %d    |  %f  \n",nthreads, tps);
+    // }
+    // else{
+    //   printf("  %d    |  %f  \n",nthreads, tps);
+    // }
+    if(i<max-1){
+      printf("%f, ",tps);
     }
     else{
-      printf("  %d    |  %f  \n",nthreads, tps);
+      printf("%f]\n\n",tps);
     }
+
   }
-  printf(" - - - FIN - - - \n");
+
   return 0;
 
 }
