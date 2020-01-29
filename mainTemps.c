@@ -16,7 +16,7 @@ int main()
   float tps;
   clock_t t1, t2;
   int nthreads;
-  int max = 30; // omp_get_max_threads()+1;
+  int max = 100; // omp_get_max_threads()+1;
 
   printf("\n\nm = %d \n", max);
   printf("y = [");
@@ -31,7 +31,7 @@ int main()
   hedge H; // list des aretes de maillage de Delaunay
                     // arete = list de 2 point
   // Chargement des points dans le fichier test
-  P = constructListPoint2DFromFile("test");
+  P = constructListPoint2DFromFile("test500");
 
 
   // printf("Threads | Temps \n");
