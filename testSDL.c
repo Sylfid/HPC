@@ -50,8 +50,10 @@ void displayHedgeInterface(SDL_Renderer* ren, hedge edge, float xmin, float ymin
 
 int main(int argc, char** argv)
 {
-  int nbP = 20;
-  omp_set_num_threads(nbP);
+  int nbP = 1;
+  if(nbP!=1){
+    omp_set_num_threads(nbP);
+  }
   hedge newedge;
   listIndiceList Q;
   listPoint2D list;
@@ -89,7 +91,7 @@ int main(int argc, char** argv)
                 return 1;
             }*/
 
-            list = constructListPoint2DFromFile("test500");
+            list = constructListPoint2DFromFile("test1000");
             float xmin = getXmin(list);
             float xmax = getXmax(list);
             float ymin = getYmin(list);

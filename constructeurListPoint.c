@@ -13,10 +13,10 @@ int main()
 
 {
 
-    int nbPoint = 500;
+    int nbPoint = 1000;
     FILE* file = NULL;
-    file = fopen("test500", "w+");
-    int MAX = 10000;
+    file = fopen("test1000", "w+");
+    int MAX = 50000;
     int MIN = 0;
     int nombre = 0;
     int nombre2 = 0;
