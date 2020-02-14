@@ -163,7 +163,7 @@ void addPathEdge(hedge *edge, listIndice list, listPoint2D listPoint){
     int* indice_tri = (int*)malloc(getTailleIndice(list)*sizeof(int));
     int tampon;
     for(int i=0; i<getTailleIndice(list); i++){
-        indice_tri[i] = getIndice(list,i); 
+        indice_tri[i] = getIndice(list,i);
     }
     for(int i=0; i<getTailleIndice(list)-1; i++){
         for(int j=0; j<getTailleIndice(list)-i-1; j++){
@@ -175,7 +175,7 @@ void addPathEdge(hedge *edge, listIndice list, listPoint2D listPoint){
         }
     }
     for(int i=0; i<getTailleIndice(list)-1; i++){
-        addHedge(edge,constructListPoint2DFrom2Points(getPoint2D(listPoint, indice_tri[i]),getPoint2D(listPoint, indice_tri[i+1])));  
+        addHedge(edge,constructListPoint2DFrom2Points(getPoint2D(listPoint, indice_tri[i]),getPoint2D(listPoint, indice_tri[i+1])));
     }
 }
 
