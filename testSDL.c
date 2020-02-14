@@ -11,7 +11,6 @@
 #include <math.h>
 
 
-
 SDL_Point* getSDLPoint(listPoint2D listPoint, float xmin, float ymin, float xmax, float ymax){
     int listTaille = getTailleList2D(listPoint);
     SDL_Point* list = (SDL_Point*) malloc(listTaille*sizeof(SDL_Point));
@@ -91,14 +90,13 @@ int main(int argc, char** argv)
                 return 1;
             }*/
 
-            list = constructListPoint2DFromFile("test1000");
+            list = constructListPoint2DFromFile("test2");
             float xmin = getXmin(list);
             float xmax = getXmax(list);
             float ymin = getYmin(list);
             float ymax = getYmax(list);
             //displayListPointInterface(ren, Convex_Hull(list), xmin, ymin, xmax, ymax);
             displayListPointInterface(ren, list, xmin, ymin, xmax, ymax);
-              printf("Q\n");
               Q = separatePointList(list, nbP);
 
               //displayListIndiceList(Q);
@@ -116,7 +114,6 @@ int main(int argc, char** argv)
               printf("newedge\n");
 
               newedge = calcHedgeDelaunay(Q,nbP);
-
 
               //displayHedge(newedge);
               printf("fin\n");
