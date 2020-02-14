@@ -32,7 +32,7 @@ x = range(2, m)
 tempsMin = min(y)
 limite = [tempsMin for i in range(len(x))]
 
-plt.title("test pour 500 points")
+plt.title("test pour 1000 points")
 plt.plot(x, y)
 plt.plot(x, limite, "r--")
 plt.xlabel('nombre de threads')

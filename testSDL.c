@@ -10,11 +10,6 @@
 #include "matriceTriangle.h"
 #include <math.h>
 
-int nbP = 2;
-//omp_set_num_threads(nbP);
-hedge newedge;
-listIndiceList Q;
-listPoint2D list;
 
 SDL_Point* getSDLPoint(listPoint2D listPoint, float xmin, float ymin, float xmax, float ymax){
     int listTaille = getTailleList2D(listPoint);
@@ -54,7 +49,11 @@ void displayHedgeInterface(SDL_Renderer* ren, hedge edge, float xmin, float ymin
 
 int main(int argc, char** argv)
 {
-  return 0;
+  int nbP = 20;
+  omp_set_num_threads(nbP);
+  hedge newedge;
+  listIndiceList Q;
+  listPoint2D list;
     /* Initialisation simple */
     if (SDL_Init(SDL_INIT_VIDEO) != 0 )
     {
