@@ -11,7 +11,7 @@
 #include <math.h>
 
 int nbP = 1;
-omp_set_num_threads(nbP);
+//omp_set_num_threads(nbP);
 hedge newedge;
 listIndiceList Q;
 listPoint2D list;
@@ -88,7 +88,7 @@ int main(int argc, char** argv)
                 return 1;
             }*/
 
-            list = constructListPoint2DFromFile("test1000");
+            list = constructListPoint2DFromFile("test3");
             float xmin = getXmin(list);
             float xmax = getXmax(list);
             float ymin = getYmin(list);
@@ -115,7 +115,7 @@ int main(int argc, char** argv)
               displayHedge(newedge);
               printf("fin\n");
               //hedge newedge = calcHedgeDelaunay(finTest,1);
-          
+
 
 
             displayHedgeInterface(ren, newedge, xmin, ymin, xmax, ymax);
