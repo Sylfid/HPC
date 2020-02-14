@@ -88,7 +88,7 @@ int main(int argc, char** argv)
                 return 1;
             }*/
 
-            list = constructListPoint2DFromFile("test1000");
+            list = constructListPoint2DFromFile("test2");
             float xmin = getXmin(list);
             float xmax = getXmax(list);
             float ymin = getYmin(list);
