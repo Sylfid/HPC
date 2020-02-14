@@ -140,6 +140,15 @@ listIndiceList separatePointList(listPoint2D listPoint, int nbProcess){
     // printf("\n");
     // displayListIndice(pointForPath);
     // printf("\n");
+    if(nbProcess == 1){
+        listIndice listIndiceTest = constructeurListIndiceTaille(getTailleList2D(listPoint));
+        for(int i=0; i<getTailleIndice(listIndiceTest); i++){
+           setIndice(&listIndiceTest, i, i);
+        }
+        listIndiceList finTest = constructeurListIndiceListTaille(1,listPoint);
+        setListIndice(&finTest, listIndiceTest, 0);
+        return finTest;
+    }
     listIndiceList path = constructeurListIndiceListTaille(nbProcess-1, copyList);
 
 #pragma omp parallel
