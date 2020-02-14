@@ -88,7 +88,7 @@ int main(int argc, char** argv)
                 return 1;
             }*/
 
-            list = constructListPoint2DFromFile("test3");
+            list = constructListPoint2DFromFile("test1000");
             float xmin = getXmin(list);
             float xmax = getXmax(list);
             float ymin = getYmin(list);
@@ -98,7 +98,7 @@ int main(int argc, char** argv)
               printf("Q\n");
               Q = separatePointList(list, nbP);
 
-              displayListIndiceList(Q);
+              //displayListIndiceList(Q);
               //printf("edgeTest\n");
               //hedge edgeTest = getPath(list, nbP);
               //displayHedgeInterface(ren, edgeTest, xmin, ymin, xmax, ymax);
@@ -111,8 +111,11 @@ int main(int argc, char** argv)
               // setListIndice(&finTest, listIndiceTest, 0);
 
               printf("newedge\n");
+
               newedge = calcHedgeDelaunay(Q,nbP);
-              displayHedge(newedge);
+              exit(1);
+
+              //displayHedge(newedge);
               printf("fin\n");
               //hedge newedge = calcHedgeDelaunay(finTest,1);
 
