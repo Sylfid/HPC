@@ -10,7 +10,7 @@
 #include "matriceTriangle.h"
 #include <math.h>
 
-int nbP = 1;
+int nbP = 2;
 //omp_set_num_threads(nbP);
 hedge newedge;
 listIndiceList Q;
@@ -54,6 +54,7 @@ void displayHedgeInterface(SDL_Renderer* ren, hedge edge, float xmin, float ymin
 
 int main(int argc, char** argv)
 {
+  return 0;
     /* Initialisation simple */
     if (SDL_Init(SDL_INIT_VIDEO) != 0 )
     {
@@ -88,14 +89,18 @@ int main(int argc, char** argv)
                 return 1;
             }*/
 
-            list = constructListPoint2DFromFile("test1000");
+              printf("Q\n");
+              //freeListPoint2D(&list);
+              SDL_DestroyWindow(pWindow);
+              SDL_Quit();
+              return 0;
+            list = constructListPoint2DFromFile("test2");
             float xmin = getXmin(list);
             float xmax = getXmax(list);
             float ymin = getYmin(list);
             float ymax = getYmax(list);
             //displayListPointInterface(ren, Convex_Hull(list), xmin, ymin, xmax, ymax);
             displayListPointInterface(ren, list, xmin, ymin, xmax, ymax);
-              printf("Q\n");
               Q = separatePointList(list, nbP);
 
               //displayListIndiceList(Q);
@@ -113,7 +118,6 @@ int main(int argc, char** argv)
               printf("newedge\n");
 
               newedge = calcHedgeDelaunay(Q,nbP);
-              exit(1);
 
               //displayHedge(newedge);
               printf("fin\n");
