@@ -53,9 +53,9 @@ Choix du fichier qui contient l'ensemble de points dans les fichiers main[].c ou
 make
 ./main[]
 ```
-* mainFinal : calcul la triangulation et affiche les arêtes obtenues
+* mainFinal : calcul la triangulation et affiche les coordonnées des points des arêtes obtenues.
 
-* mainInterface : calcul la triangulation et affiche le maillage
+* mainInterface : calcul la triangulation et affiche le maillage dans une fenêtre graphique.
 
 * mainTemps : calcul le temps d'exécution du programme pour différents nombres de points et affiche les résultats dans les terminals. Pour tracer les courbes : copier les résultats dans le terminal et les coller dans le fichier trace.py puis exécuter avec la commande :
 ```
