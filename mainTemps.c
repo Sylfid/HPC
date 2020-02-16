@@ -16,7 +16,7 @@ int main()
   float tps;
   clock_t t1, t2;
   int nthreads;
-  int max = 100; // omp_get_max_threads()+1;
+  int max = 150; // omp_get_max_threads()+1;
 
   printf("\n\nm = %d \n", max);
   printf("y = [");

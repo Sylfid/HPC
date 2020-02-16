@@ -1,7 +1,13 @@
 #include <SDL2/SDL.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include "point.h"
 #include "listPoint.h"
 #include "hedge.h"
+#include "listIndice.h"
+#include "listIndiceList.h"
+#include "maillage.h"
+#include "matriceTriangle.h"
 #include <math.h>
 
 
@@ -43,6 +49,13 @@ void displayHedgeInterface(SDL_Renderer* ren, hedge edge, float xmin, float ymin
 
 int main(int argc, char** argv)
 {
+  int nbP = 1;
+  if(nbP!=1){
+    omp_set_num_threads(nbP);
+  }
+  hedge newedge;
+  listIndiceList Q;
+  listPoint2D list;
     /* Initialisation simple */
     if (SDL_Init(SDL_INIT_VIDEO) != 0 )
     {
@@ -77,38 +90,47 @@ int main(int argc, char** argv)
                 return 1;
             }*/
 
-            listPoint2D list = constructListPoint2DFromFile("test3");
+            list = constructListPoint2DFromFile("test2");
             float xmin = getXmin(list);
             float xmax = getXmax(list);
             float ymin = getYmin(list);
             float ymax = getYmax(list);
             //displayListPointInterface(ren, Convex_Hull(list), xmin, ymin, xmax, ymax);
             displayListPointInterface(ren, list, xmin, ymin, xmax, ymax);
-            listIndiceList Q = separatePointList(list, 4);
-            hedge edgeTest = getPath(list, 2);
-            //displayHedgeInterface(ren, edgeTest, xmin, ymin, xmax, ymax);
+              Q = separatePointList(list, nbP);
 
-            listIndice listIndiceTest = constructeurListIndiceTaille(getTailleList2D(list)); 
-            for(int i=0; i<getTailleIndice(listIndiceTest); i++){
-                setIndice(&listIndiceTest, i, i);
-            }
-            listIndiceList finTest = constructeurListIndiceListTaille(1,list);
-            setListIndice(&finTest, listIndiceTest, 0);
+              //displayListIndiceList(Q);
+              //printf("edgeTest\n");
+              //hedge edgeTest = getPath(list, nbP);
+              //displayHedgeInterface(ren, edgeTest, xmin, ymin, xmax, ymax);
 
-            hedge newedge = calcHedgeDelaunay(Q,4);
-            //hedge newedge = calcHedgeDelaunay(finTest,1);
+              // listIndice listIndiceTest = constructeurListIndiceTaille(getTailleList2D(list));
+              // for(int i=0; i<getTailleIndice(listIndiceTest); i++){
+              //     setIndice(&listIndiceTest, i, i);
+              // }
+              // listIndiceList finTest = constructeurListIndiceListTaille(1,list);
+              // setListIndice(&finTest, listIndiceTest, 0);
 
-            //displayListIndiceList(Q);
+              printf("newedge\n");
+
+              newedge = calcHedgeDelaunay(Q,nbP);
+
+              //displayHedge(newedge);
+              printf("fin\n");
+              //hedge newedge = calcHedgeDelaunay(finTest,1);
+
+
+
             displayHedgeInterface(ren, newedge, xmin, ymin, xmax, ymax);
             SDL_SetRenderDrawColor(ren, 255, 0, 0, 255);
-   
+
             char cont = 1; /* Détermine si on continue la boucle principale */
             SDL_Event event;
             while ( cont != 0 )
             {
                 while ( SDL_PollEvent(&event) )
                 {
-                    switch (event.type) 
+                    switch (event.type)
                     {
                         case SDL_QUIT:
                             cont=0;

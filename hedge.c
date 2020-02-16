@@ -79,16 +79,17 @@ void addHedgeByPoints(hedge *H, Point2D p1, Point2D p2){
 // ------ fonction triangulation ------ //
 
 hedge calcHedgeDelaunay(listIndiceList list, int nbProcess){
+
 // calcul de le arrets du maillage en combinant les triangles et les convexHull
 // retourner une liste de listes de 2 points
   hedge newHedge = constructeurHedge(0);
   matriceTriangle matAdj = calcmatTriDelaunay(list, nbProcess);
   //displayMatriceTriangle(matAdj);
   listPoint2D pts = getPoints(list);
-
-  listIndice ligne;
+  //printf("%d\n",getTailleMatrice(matAdj));
   for(int i=0 ; i<getTailleMatrice(matAdj) ; i++){ //chaque ligne
-    ligne = getLigne(matAdj,i);
+    listIndice ligne = getLigne(matAdj,i);
+    //displayListIndice(ligne);
     for(int j=0 ; j<i+1 ; j++){ // chaque colonne
       if(getIndice(ligne,j)==1){
         addHedgeByPoints(&newHedge, getPoint2D(pts,i),  getPoint2D(pts,j));
@@ -163,7 +164,7 @@ void addPathEdge(hedge *edge, listIndice list, listPoint2D listPoint){
     int* indice_tri = (int*)malloc(getTailleIndice(list)*sizeof(int));
     int tampon;
     for(int i=0; i<getTailleIndice(list); i++){
-        indice_tri[i] = getIndice(list,i); 
+        indice_tri[i] = getIndice(list,i);
     }
     for(int i=0; i<getTailleIndice(list)-1; i++){
         for(int j=0; j<getTailleIndice(list)-i-1; j++){
@@ -175,7 +176,7 @@ void addPathEdge(hedge *edge, listIndice list, listPoint2D listPoint){
         }
     }
     for(int i=0; i<getTailleIndice(list)-1; i++){
-        addHedge(edge,constructListPoint2DFrom2Points(getPoint2D(listPoint, indice_tri[i]),getPoint2D(listPoint, indice_tri[i+1])));  
+        addHedge(edge,constructListPoint2DFrom2Points(getPoint2D(listPoint, indice_tri[i]),getPoint2D(listPoint, indice_tri[i+1])));
     }
 }
 
