@@ -11,6 +11,7 @@
 #include <math.h>
 
 
+
 SDL_Point* getSDLPoint(listPoint2D listPoint, float xmin, float ymin, float xmax, float ymax){
     int listTaille = getTailleList2D(listPoint);
     SDL_Point* list = (SDL_Point*) malloc(listTaille*sizeof(SDL_Point));
@@ -49,7 +50,7 @@ void displayHedgeInterface(SDL_Renderer* ren, hedge edge, float xmin, float ymin
 
 int main(int argc, char** argv)
 {
-  int nbP = 1;
+  int nbP = 4;
   if(nbP!=1){
     omp_set_num_threads(nbP);
   }
@@ -81,16 +82,8 @@ int main(int argc, char** argv)
                 SDL_Quit();
                 return 1;
             }
-            /*SDL_SetRenderDrawColor(ren, 255, 0, 0, 255);
-            SDL_Point point = {320, 240};
-            if (SDL_RenderDrawPoints(ren, &point, 1) != 0){
-                SDL_DestroyWindow(pWindow);
-                fprintf(stderr,"SDL_RenderDrawPoints Error: %s",SDL_GetError());
-                SDL_Quit();
-                return 1;
-            }*/
 
-            list = constructListPoint2DFromFile("test2");
+            list = constructListPoint2DFromFile("test3");
             float xmin = getXmin(list);
             float xmax = getXmax(list);
             float ymin = getYmin(list);
@@ -99,25 +92,12 @@ int main(int argc, char** argv)
             displayListPointInterface(ren, list, xmin, ymin, xmax, ymax);
               Q = separatePointList(list, nbP);
 
-              //displayListIndiceList(Q);
-              //printf("edgeTest\n");
-              //hedge edgeTest = getPath(list, nbP);
-              //displayHedgeInterface(ren, edgeTest, xmin, ymin, xmax, ymax);
-
-              // listIndice listIndiceTest = constructeurListIndiceTaille(getTailleList2D(list));
-              // for(int i=0; i<getTailleIndice(listIndiceTest); i++){
-              //     setIndice(&listIndiceTest, i, i);
-              // }
-              // listIndiceList finTest = constructeurListIndiceListTaille(1,list);
-              // setListIndice(&finTest, listIndiceTest, 0);
-
               printf("newedge\n");
 
               newedge = calcHedgeDelaunay(Q,nbP);
 
               //displayHedge(newedge);
               printf("fin\n");
-              //hedge newedge = calcHedgeDelaunay(finTest,1);
 
 
 

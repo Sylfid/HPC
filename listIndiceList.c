@@ -189,59 +189,6 @@ listIndiceList separatePointList(listPoint2D listPoint, int nbProcess){
     return newListIndiceList;
 }
 
-// listIndice partition(listPoint2D pts, listIndice ptsPath, listIndiceList hulls, int num, int nbProces){
-//   listIndice part;
-//   if (num >= nbProces || num < 0){
-//     printf("le numéro n'est pas valide (num in [0 nbProces[])\n");
-//     exit(1);
-//   }
-//   else if (num == 0){ // partition la plus à gauche
-//     int pi = getIndice(ptsPath, num);
-//     listIndice hull = getListIndice(hulls, num);
-//      // on met les indice des point d'avant p_0
-//     part = constructeurListIndiceBtw(0,pi);
-//     for(int i = 0 ; i < getTailleIndice(hull) ; i++){
-//       int hi = getIndice(hull,i);
-//       if (hi>=pi){ // on ajoute les points le l'envelope qui n'y sont pas
-//         addIndice(&part,hi);
-//       }
-//     }
-//   }
-//   else if (num == nbProces-1){ // partition la plus à droite
-//     int pi = getIndice(ptsPath, num-1);
-//     listIndice hull = getListIndice(hulls, num-1);
-//      // on met les indice des point d'apres p_m
-//     part = constructeurListIndiceBtw(pi,getTailleList2D(pts));
-//     for(int i = 0 ; i < getTailleIndice(hull) ; i++){
-//       int hi = getIndice(hull,i);
-//       if (hi<pi){ // on ajoute les points le l'envelope qui n'y sont pas
-//         addIndice(&part,hi);
-//       }
-//     }
-//   }
-//   else {
-//     int pdeb = getIndice(ptsPath, num-1);
-//     int pfin = getIndice(ptsPath, num);
-//     listIndice hullG = getListIndice(hulls, num-1);
-//     listIndice hullD = getListIndice(hulls, num);
-//      // on met les indice des point entre p_i-1 et p_i
-//     part = constructeurListIndiceBtw(pdeb,pfin);
-//     for(int i = 0 ; i < getTailleIndice(hullG) ; i++){
-//       int hi = getIndice(hullG,i);
-//       if (hi<pdeb){ // on ajoute les points le l'envelope qui n'y sont pas
-//         addIndice(&part,hi);
-//       }
-//     }
-//     for(int j = 0 ; j < getTailleIndice(hullD) ; j++){
-//       int hi = getIndice(hullG,j);
-//       if (hi>=pfin){ // on ajoute les points le l'envelope qui n'y sont pas
-//         addIndice(&part,hi);
-//       }
-//     }
-//   }
-//   return part;
-// }
-
 listIndiceList getAllTrianglePossible(listIndice inds, listPoint2D pts){
   // crée tout les triplet possible avec les indices de la liste inds
     listIndice newTriangle;
@@ -285,12 +232,10 @@ listIndiceList getOneTriangulation(listIndice inds, listPoint2D pts, listIndice*
         // parcour des points
         pt_indice = getIndice(inds,p);
         pt = getPoint2D(pts,pt_indice);
-        if(pt_indice!=getIndice(triangle,0) || pt_indice!=getIndice(triangle,1) || pt_indice!=getIndice(triangle,2)){
+        if(pt_indice!=getIndice(triangle,0) && pt_indice!=getIndice(triangle,1) && pt_indice!=getIndice(triangle,2)){
           // point pas dans triangle
           dist = distance(centre,pt);
-          //displayPoint2D(centre);
-          //printf("%f %f\n", dist, distance(centre, pt));
-          if(dist < rayon-0.0001){ // !!!! Probleme d'approximation : changer le "0.001"
+          if(dist < rayon){
             flag = false;
             break;
           }
@@ -334,55 +279,8 @@ listIndiceList getOneTriangulation(listIndice inds, listPoint2D pts, listIndice*
                   }
               }
           }
-          /*if(leftPath==NULL && rightPath==NULL){
-            addListIndiceList(&res,triangle);
-          }
-          else if(leftPath == NULL){
-              temoinPath = isTriangleOnPath(triangle, *rightPath);
-              if(temoinPath == 2){
-                  tampon = constructeurListIndiceTaille(3);
-                  getTriangleRightEdge(&tampon, triangle, pts);
-                  addListIndiceList(&res, tampon);
-              }
-              if(temoinPath == 0){
-                addListIndiceList(&res,triangle);
-              }
-          }
-          else if(rightPath == NULL){
-              temoinPath = isTriangleOnPath(triangle, *leftPath);
-              if(temoinPath == 2){
-                  tampon = constructeurListIndiceTaille(3);
-                  getTriangleLeftEdge(&tampon, triangle, pts);
-                  addListIndiceList(&res, tampon);
-              }
-              if(temoinPath == 0){
-                addListIndiceList(&res,triangle);
-              }
-          }
-          else{
-              temoinPath = isTriangleOnPath(triangle, *rightPath);
-              if(temoinPath == 2){
-                  tampon = constructeurListIndiceTaille(3);
-                  getTriangleRightEdge(&tampon, triangle, pts);
-                  addListIndiceList(&res, tampon);
-              }
-              if(temoinPath == 0){
-                addListIndiceList(&res,triangle);
-              }
-              temoinPath = isTriangleOnPath(triangle, *leftPath);
-              if(temoinPath == 2){
-                  tampon = constructeurListIndiceTaille(3);
-                  getTriangleLeftEdge(&tampon, triangle, pts);
-                  addListIndiceList(&res, tampon);
-              }
-              if(temoinPath == 0){
-                addListIndiceList(&res,triangle);
-              }
-          }*/
-
-      }
+                }
     }
-    // displayListIndiceList(res);
     return res;
 }
 
